@@ -3,9 +3,22 @@
     <span class="navbar-brand">My Chat App</span>
     <div class="page-links">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a routerLink="/admin" routerLinkActive="active" class="nav-link" >Admin</a>
-        </li>
+        <div class="btn-group" dropdown>
+          <button dropdownToggle type="button" class="btn-primary dropdown-toggle" >
+            Admin <span class="caret"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu">
+            <li role="menuitem">
+              <a routerLink="/admin" class="dropdown-item nav-link">Group</a>
+            </li>
+            <li role="menuitem">
+              <a routerLink="/admin" class="dropdown-item nav-link">User</a>
+            </li>
+            <li role="menuitem">
+              <a routerLink="/admin"  class="dropdown-item nav-link">Channel</a>
+            </li>
+          </ul>
+        </div>
         <li class="nav-item">
           <a routerLink="/chat" routerLinkActive="active" class="nav-link" >Chat Rooms</a>
         </li>

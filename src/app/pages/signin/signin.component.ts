@@ -44,23 +44,25 @@ export class SigninComponent implements OnInit {
     }
 
     this.user = this.signinForm.value;
-    // this.http.post<{status: string}>('http://localhost:3000/api/message/', this.user)
-    //   .subscribe((data) => {
-    //     console.log(data.status);
+    this.http.post<{message: string}>('http://localhost:3000/api/signin/', this.user)
+      .subscribe((data: any) => {
+        if (data.ok) {
           this.router.navigateByUrl('/chat');
           this.userService.writeUser(this.user);
           this.signinForm.reset();
-      //   } else {
-      //     console.log(data.status);
-      //   }
-      // });
-
-
-    const post: Message = {id: null, title: 'tttt', content: 'tllsls'};
-    this.http.post<{message: string}>('http://localhost:3000/api/messages', post)
-      .subscribe((responseData) => {
-        console.log(responseData.message);
+          console.log('true', data);
+        } else {
+          console.log('false', data);
+        }
       });
+
+
+
+    // const post: Message = {id: null, title: 'tttt', content: 'tllsls'};
+    // this.http.post<{message: string}>('http://localhost:3000/api/messages', post)
+    //   .subscribe((responseData) => {
+    //     console.log(responseData.message);
+    //   });
     // console.log(this.messageService.getMessages());
   }
 

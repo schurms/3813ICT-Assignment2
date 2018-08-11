@@ -15,3 +15,18 @@ a {
 a.active {
   border-bottom: 3px solid gold;
 }
+
+@media(max-width:768px){.clearfix-xs:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+  }
+}
+
+.dropdown-item {
+  text-align: left !important;
+  color: #000000 !important;
+}
