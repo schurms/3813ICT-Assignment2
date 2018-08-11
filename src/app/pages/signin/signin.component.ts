@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../../models/user.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+
+const BACKEND_URL = environment.apiURL;
 
 @Component({
   selector: 'app-signin',
@@ -12,7 +14,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SigninComponent implements OnInit {
 
-  user: User;
   submitted = false;
   signinForm: FormGroup;
 
@@ -42,12 +43,12 @@ export class SigninComponent implements OnInit {
       return;
     }
 
-    this.user = this.signinForm.value;
-    this.http.post<{message: string}>('http://localhost:3000/api/signin/', this.user)
+    const userData  = this.signinForm.value;
+    this.http.post<{message: string}>(BACKEND_URL + '/api/signin/', userData)
       .subscribe((data: any) => {
         if (data.ok) {
           this.router.navigateByUrl('/chat');
-          this.userService.writeUser(this.user);
+          this.userService.writeUser(userData);
           this.signinForm.reset();
         } else {
           const errorBox = document.createElement('div');
