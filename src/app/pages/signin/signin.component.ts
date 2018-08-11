@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
+import {MessageService} from '../../services/message/message.service';
 
 @Component({
   selector: 'app-signin',
@@ -17,7 +18,8 @@ export class SigninComponent implements OnInit {
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private userService: UserService) { }
+              private userService: UserService,
+              private messageService: MessageService) { }
 
   ngOnInit() {
     this.signinForm = this.formBuilder.group({
@@ -42,6 +44,8 @@ export class SigninComponent implements OnInit {
     this.router.navigateByUrl('/chat');
     this.userService.writeUser(this.user);
     this.signinForm.reset();
+
+    console.log(this.messageService.getMessages());
   }
 
 }

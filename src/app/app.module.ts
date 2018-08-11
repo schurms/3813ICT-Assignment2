@@ -6,9 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { UserService } from './services/user/user.service';
-import { SocketService } from './services/socket/socket.service';
-
 import { SigninComponent } from './pages/signin/signin.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
@@ -56,10 +53,7 @@ import { ChannelEditComponent } from './pages/admin/components/channel-edit/chan
     CommonModule,
     HttpClientModule
   ],
-  providers: [
-    UserService,
-    SocketService,
-  ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
