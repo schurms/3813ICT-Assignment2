@@ -9,7 +9,7 @@ import {User} from '../../../../models/user.model';
   templateUrl: './chatroom-window.component.html',
   styleUrls: ['./chatroom-window.component.css']
 })
-export class ChatroomWindowComponent implements OnInit, OnDestroy{
+export class ChatroomWindowComponent implements OnInit, OnDestroy {
 
   user: User;
   username: string;
@@ -26,7 +26,7 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy{
   // When entering this component
   ngOnInit() {
     if (!sessionStorage.getItem('username')) {
-      //No valid session is available
+      // No valid session is available
       console.log('Not validated');
       this.userService.deleteUser();
       alert('Please Sign In');
@@ -42,20 +42,20 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy{
       // Subscribe to the Chat Service
       this.connection = this.socketService.getMessages().subscribe(message => {
 
-        //Add chat message to the message array each time you are pushed a message from the server
+        // Add chat message to the message array each time you are pushed a message from the server
         this.messages.push(message);
-        this.message = ""
+        this.message = '';
       });
     }
   }
 
-  //Send a chat message back to the server
+  // Send a chat message back to the server
   sendMessage() {
     this.socketService.sendMessage(this.message + ' (' + this.username + ')');
     this.message = '';
   }
 
-  //When leaving this component close down the subscription
+  // When leaving this component close down the subscription
   ngOnDestroy() {
     if (this.connection) {
       this.connection.unsubscribe();
@@ -64,3 +64,11 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy{
 
 }
 
+
+
+// const post: Message = {id: null, title: 'tttt', content: 'tllsls'};
+// this.http.post<{message: string}>('http://localhost:3000/api/messages', post)
+//   .subscribe((responseData) => {
+//     console.log(responseData.message);
+//   });
+// console.log(this.messageService.getMessages());

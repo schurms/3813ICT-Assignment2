@@ -16,15 +16,14 @@ module.exports = function(app,path){
 
 //Route to manage user signin
   app.post("/api/signin",(req,res, next) => {
-    console.log(req);
-    if(req.body.username === "jordan" || req.body.username === "bill") {
+    if(req.body.username === "jordan" || req.body.username === "bill" || req.body.username == "super") {
       res.send({
         "ok": true
       });
     } else {
       res.send({
         "ok" : false,
-        errors: {"credentials": "incorrect email or password"}
+        errors: {"credentials": "invalid usename"}
       })
     }
   });

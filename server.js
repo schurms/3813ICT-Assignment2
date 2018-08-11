@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname , '../dist/chat/')));
 
 // Include Modules
-require('./routes/signin.js')(app, path);
-require('./routes/messages.js')(app, path);
-require('./socket.js')(app, io);
-require('./listen.js')(http);
+require('./server/routes/signin.js')(app, path);
+require('./server/routes/messages.js')(app, path);
+require('./server/socket.js')(app, io);
+require('./server/listen.js')(http);
