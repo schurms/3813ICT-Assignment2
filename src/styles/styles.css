@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+
+
+body {
+  color: #0B3C5D;
+}
+
+.container-wrapper {
+  height: calc(100vh - 80px) !important;
+}
+
+.navbar {
+  height: 80px;
+}
+
+button {
+  width: 100%;
+}
+button.btn {
+  border-radius: 0;
+}
+
+button.btn:focus {
+  box-shadow: none;
+}

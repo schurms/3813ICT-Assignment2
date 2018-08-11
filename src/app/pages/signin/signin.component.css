@@ -1,0 +1,29 @@
+
+h2 {
+  color: #0B3C5D;
+  margin-bottom: 1em;
+}
+
+.form-wrapper {
+  min-width: 40%;
+  margin-bottom: 10%;
+  border: 1px solid #efefef;
+  padding: 1em 2em;
+  box-shadow: 0 15px 20px #efefef;
+}
+
+.form-group {
+  text-align: left;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+}
+
+.error-msg {
+  display: block;
+  position: absolute;
+  font-size: 75%;
+  bottom: -2em;
+}

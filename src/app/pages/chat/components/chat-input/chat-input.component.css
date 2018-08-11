@@ -1,0 +1,14 @@
+.new-message-wrapper .input-group {
+  align-self: flex-end;
+}
+
+.new-message-wrapper .input-group .form-control {
+  border-radius: 0;
+  border: 0;
+  background-color: #efefef;
+}
+
+.new-message-wrapper .input-group .form-control:focus {
+  outline: 0;
+  box-shadow: none;
+}

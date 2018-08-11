@@ -1,0 +1,21 @@
+<div class="h-100 d-flex flex-column chat-window">
+  <app-chatroom-title-bar [title]="'Chat Room #5'"></app-chatroom-title-bar>
+  <div class="message-wrapper h-100">
+    <h2>Welcome {{ username }}</h2>
+    <ng-container *ngFor="let message of messages">
+      <div class="chat-message d-flex">
+        <div class="message">
+          {{message.text}}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="new-message-wrapper d-flex">
+    <div class="input-group">
+      <input [(ngModel)]="message" type="text" class="form-control" placeholder="Enter a new message" (keyup.enter)="submit(newMessage.value)" #newMessage>
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button" (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>

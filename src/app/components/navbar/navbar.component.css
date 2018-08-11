@@ -1,0 +1,17 @@
+
+span {
+  color: #ffffff;
+}
+
+.nav-item {
+  color: #efefef;
+}
+
+a {
+  color: #efefef;
+  margin-left: 3em;
+}
+
+a.active {
+  border-bottom: 3px solid gold;
+}

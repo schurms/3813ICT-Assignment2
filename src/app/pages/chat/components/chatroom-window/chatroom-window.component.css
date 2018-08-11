@@ -1,0 +1,31 @@
+.message-wrapper {
+  overflow-y: scroll;
+}
+
+.select-room .select-room-message {
+  width: 40%;
+  height: 7%;
+  margin-bottom: 10%;
+  border: 1px solid #efefef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  box-shadow: 0 5px 10px #efefef;
+}
+
+.new-message-wrapper .input-group {
+  align-self: flex-end;
+}
+
+.new-message-wrapper .input-group .form-control {
+  border-radius: 0;
+  border: 0;
+  background-color: #efefef;
+}
+
+.new-message-wrapper .input-group .form-control:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
