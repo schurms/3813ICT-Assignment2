@@ -21,7 +21,6 @@ export class UserService {
     this.user = user;
     if (typeof(Storage) !== 'undefined' ) {
       sessionStorage.setItem('username', JSON.stringify(this.user));
-      console.log(this.user);
     } else {
       alert('Local storage not available');
     }

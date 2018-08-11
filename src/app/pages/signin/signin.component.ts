@@ -4,6 +4,8 @@ import { User } from '../../models/user.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import {MessageService} from '../../services/message/message.service';
+import {HttpClient} from '@angular/common/http';
+import {Message} from '../../models/message.model';
 
 @Component({
   selector: 'app-signin',
@@ -19,7 +21,8 @@ export class SigninComponent implements OnInit {
   constructor(private router: Router,
               private formBuilder: FormBuilder,
               private userService: UserService,
-              private messageService: MessageService) { }
+              private messageService: MessageService,
+              private http: HttpClient) { }
 
   ngOnInit() {
     this.signinForm = this.formBuilder.group({
@@ -41,11 +44,24 @@ export class SigninComponent implements OnInit {
     }
 
     this.user = this.signinForm.value;
-    this.router.navigateByUrl('/chat');
-    this.userService.writeUser(this.user);
-    this.signinForm.reset();
+    // this.http.post<{status: string}>('http://localhost:3000/api/message/', this.user)
+    //   .subscribe((data) => {
+    //     console.log(data.status);
+          this.router.navigateByUrl('/chat');
+          this.userService.writeUser(this.user);
+          this.signinForm.reset();
+      //   } else {
+      //     console.log(data.status);
+      //   }
+      // });
 
-    console.log(this.messageService.getMessages());
+
+    const post: Message = {id: null, title: 'tttt', content: 'tllsls'};
+    this.http.post<{message: string}>('http://localhost:3000/api/messages', post)
+      .subscribe((responseData) => {
+        console.log(responseData.message);
+      });
+    // console.log(this.messageService.getMessages());
   }
 
 }
