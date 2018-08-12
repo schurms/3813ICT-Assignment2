@@ -9,10 +9,13 @@ const bodyParser = require('body-parser');
 // Bind application-level middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
-app.use(express.static(path.join(__dirname , '../dist/chat/')));
+
+// Point static path to dist
+app.use(express.static(path.join(__dirname , '../dist/myChat/')));
+
 
 // Include Modules
-require('./server/routes/signin.js')(app, path);
-require('./server/routes/messages.js')(app, path);
-require('./server/socket.js')(app, io);
-require('./server/listen.js')(http);
+require('./routes/signin.js')(app, path);
+require('./routes/messages.js')(app, path);
+require('./socket.js')(app, io);
+require('./listen.js')(http);
