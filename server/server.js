@@ -13,9 +13,8 @@ app.use(bodyParser.urlencoded({extended:false}));
 // Point static path to dist
 app.use(express.static(path.join(__dirname , '../dist/myChat/')));
 
-
 // Include Modules
-require('./routes/signin.js')(app, path);
+require('./routes/login.js')(app, path);
 require('./routes/messages.js')(app, path);
 require('./socket.js')(app, io);
 require('./listen.js')(http);

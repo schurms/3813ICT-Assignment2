@@ -9,13 +9,13 @@ const BACKEND_URL = environment.apiURL;
 
 @Component({
   selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class SigninComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   submitted = false;
-  signinForm: FormGroup;
+  loginForm: FormGroup;
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
@@ -24,38 +24,34 @@ export class SigninComponent implements OnInit {
 
   // Prior to page display
   ngOnInit() {
-    this.signinForm = this.formBuilder.group({
-      username: ['', [Validators.required]]
+    this.loginForm = this.formBuilder.group({
+      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
-  // Convenience getter for easy access to form fields
-  get f() {
-    return this.signinForm.controls;
-  }
-
-  // Process user Signin
-  public onSignin(): void {
+  // Process user Login
+  public onlogin(): void {
     this.submitted = true;
     event.preventDefault();
 
-    if (this.signinForm.invalid) {
+    if (this.loginForm.invalid) {
       return;
     }
 
-    const userData  = this.signinForm.value;
-    this.http.post<{message: string}>(BACKEND_URL + '/api/signin/', userData)
+    const userData  = this.loginForm.value;
+    this.http.post<{message: string}>(BACKEND_URL + '/api/login/', userData)
       .subscribe((data: any) => {
         if (data.ok) {
           this.router.navigateByUrl('/chat');
           this.userService.writeUser(userData);
-          this.signinForm.reset();
+          this.loginForm.reset();
         } else {
           const errorBox = document.createElement('div');
           const errorText = document.createTextNode(data.errors.credentials);
           errorBox.className += 'alert alert-danger';
           errorBox.appendChild(errorText);
-          document.getElementById('signinForm').appendChild(errorBox);
+          document.getElementById('loginForm').appendChild(errorBox);
         }
       });
   }

@@ -14,8 +14,8 @@ module.exports = function(app,path){
     next();
   });
 
-//Route to manage user signin
-  app.post("/api/signin",(req,res, next) => {
+//Route to manage user login
+  app.post("/api/login",(req,res, next) => {
     if(req.body.username === "jordan" || req.body.username === "bill" || req.body.username == "super") {
       res.send({
         "ok": true

@@ -1,18 +1,19 @@
-.chatroom-list {
-  border-right: 2px #efefef;
-  overflow-y: scroll;
+
+#btnDelete, #btnEdit {
+  display: inline-block;
+  vertical-align: top;
 }
 
-.chatroom-list .chatroom-list-item {
-  border-bottom: 1px #efefef;
-  padding: 1em;
+#btnEdit {
+  margin-left: 20px;
 }
 
+table td {
+  vertical-align: middle;
+  padding: 5px;
+  position: relative;
+}
 
-.form-wrapper {
-  min-width: 40%;
-  margin-bottom: 10%;
-  border: 1px solid #efefef;
-  padding: 1em 2em;
-  box-shadow: 0 15px 20px #efefef;
+th {
+  white-space: nowrap;
 }

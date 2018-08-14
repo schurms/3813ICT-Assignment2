@@ -1,44 +1,30 @@
-<!--<div class="container-wrapper d-flex justify-content-center align-items-center">-->
-
-  <!--<div class="form-wrapper text-center">-->
-  <!--<h3>Group List</h3>-->
-  <!--<ng-container *ngFor="let group of groups let i = index">-->
-    <!--<div class="h-100 d-flex flex-column chatroom-list">-->
-      <!--<button routerLink="/groupdetail/{{group.id}}">-->
-        <!--{{group.id}} {{group.name}}-->
-
-      <!--</button>-->
-      <!--<div class="chatroom-list-item">-->
-        <!--Group Id: {{group.id}}  Group Name: {{group.name}}-->
-      <!--</div>-->
-
-    <!--</div>-->
-  <!--</ng-container>-->
-  <!--</div>-->
-<!--</div>-->
 
 <div class="h-100 d-flex flex-column chatroom-list">
-  <h3>Group List</h3>
-  <!--<ng-container *ngFor="let group of groups let i = index">-->
-    <!--<div class="chatroom-list-item">-->
-        <!--<button type="button" class="btn btn-light" >{{group.name}}</button>-->
-    <!--</div>-->
-
-    <table>
-      <ng-container *ngFor="let group of groups let i = index">
-      <tr>
-        <th>
-          {{group.name}}&nbsp;&nbsp;&nbsp;
-        </th>
-        <th><a routerLink = "/groupdetail/{{group.id}}" class="btn btn-success btn-sm" role="button">Edit</a>&nbsp;&nbsp;</th>
-        <th>
-          <form>
-            <input type="submit" value="Delete" class="btn btn-danger btn-sm" role="button">
-          </form>
-        </th>
-      </tr>
-      </ng-container>
+  <h2>Group Details</h2>
+  <div class="col-md-6">
+    <button class="btn btn-primary btn-sm" (click)="addGroup()">Add Group</button>
+    <br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="hidden">Id</th>
+          <th>Group Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let group of groups">
+          <td class="hidden">{{group.id}}</td>
+          <td>{{group.name}}</td>
+          <td>
+            <div class="btn-group">
+              <button id="btnDelete" class="btn btn-danger btn-sm" (click)="deleteGroup(group.id)"> Delete</button>
+              <a routerLink = "/groupdetail/{{group.id}}" id="btnEdit" class="btn btn-success btn-sm" role="button">Edit</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
     </table>
-  <!--</ng-container>-->
+  </div>
 </div>
 

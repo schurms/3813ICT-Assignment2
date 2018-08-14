@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { SigninComponent } from './pages/signin/signin.component';
+import { LoginComponent } from './pages/login/login.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { ChatInputComponent } from './pages/chat/components/chat-input/chat-input.component';
@@ -28,7 +28,7 @@ import {BsDropdownModule} from 'ngx-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
-    SigninComponent,
+    LoginComponent,
     ChatComponent,
     NotfoundComponent,
     ChatInputComponent,
