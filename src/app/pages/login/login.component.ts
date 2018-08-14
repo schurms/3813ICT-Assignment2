@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../services/user/user.service';
+import { LoginService } from '../../services/login/login.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private userService: UserService,
+              private loginService: LoginService,
               private http: HttpClient) { }
 
   // Prior to page display
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       .subscribe((data: any) => {
         if (data.ok) {
           this.router.navigateByUrl('/chat');
-          this.userService.writeUser(userData);
+          this.loginService.writeUser(userData);
           this.loginForm.reset();
         } else {
           const errorBox = document.createElement('div');
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
           errorBox.appendChild(errorText);
           document.getElementById('loginForm').appendChild(errorBox);
         }
-      });
+    });
   }
 
 }

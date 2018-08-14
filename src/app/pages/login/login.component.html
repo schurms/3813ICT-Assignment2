@@ -13,8 +13,8 @@
           formControlName="username"
           required
           [ngClass]="{ 'is-invalid': submitted && loginForm.controls.username.errors }"/>
-        <div *ngIf="submitted && loginForm.controls.username.errors" class="invalid-feedback">
-          <div *ngIf="loginForm.controls.username.errors.required">
+        <div *ngIf="submitted && !!loginForm.controls.username.errors" class="invalid-feedback">
+          <div *ngIf="!!loginForm.controls.username.errors.required">
             User Name is required
           </div>
         </div>
@@ -30,11 +30,11 @@
           formControlName="email"
           required
           [ngClass]="{ 'is-invalid': submitted && loginForm.controls.email.errors }"/>
-        <div *ngIf="submitted && loginForm.controls.email.errors" class="invalid-feedback">
-          <div *ngIf="loginForm.controls.email.errors.required">
+        <div *ngIf="submitted && !!loginForm.controls.email.errors" class="invalid-feedback">
+          <div *ngIf="!!loginForm.controls.email.errors.required">
             Email is required
           </div>
-          <div *ngIf="loginForm.controls.email.errors.email">
+          <div *ngIf="!!loginForm.controls.email.errors.email">
             Not email format
           </div>
         </div>

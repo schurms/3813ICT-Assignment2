@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from '../../services/socket/socket.service';
 import { Router} from '@angular/router';
-import { UserService } from '../../services/user/user.service';
+import { LoginService } from '../../services/login/login.service';
 import { User } from '../../models/user.model';
 
 @Component({
@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private socketService: SocketService,
-    private userService: UserService,
+    private userService: LoginService,
     private router: Router) { }
 
   // Before page is displayed

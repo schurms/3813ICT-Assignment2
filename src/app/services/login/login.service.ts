@@ -6,7 +6,7 @@ import { environment} from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class LoginService {
 
   user: User;
 
@@ -20,7 +20,6 @@ export class UserService {
 
   public writeUser(user) {
     this.user = user;
-    console.log(this.user);
     if (typeof(Storage) !== 'undefined' ) {
       sessionStorage.setItem('username', JSON.stringify(this.user));
     } else {

@@ -16,5 +16,6 @@ app.use(express.static(path.join(__dirname , '../dist/myChat/')));
 // Include Modules
 require('./routes/login.js')(app, path);
 require('./routes/messages.js')(app, path);
+require('./routes/groups')(app,path);
 require('./socket.js')(app, io);
 require('./listen.js')(http);

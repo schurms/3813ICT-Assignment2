@@ -13,12 +13,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let group of groups">
+        <tr *ngFor="let group of groups; let i = index; ">
           <td class="hidden">{{group.id}}</td>
           <td>{{group.name}}</td>
           <td>
             <div class="btn-group">
-              <button id="btnDelete" class="btn btn-danger btn-sm" (click)="deleteGroup(group.id)"> Delete</button>
+              <button id="btnDelete" class="btn btn-danger btn-sm" (click)="onDelete(i)"> Delete</button>
               <a routerLink = "/groupdetail/{{group.id}}" id="btnEdit" class="btn btn-success btn-sm" role="button">Edit</a>
             </div>
           </td>

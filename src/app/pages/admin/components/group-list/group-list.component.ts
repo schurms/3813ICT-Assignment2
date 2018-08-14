@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Group} from '../../../../models/group.model';
+import {GroupService} from '../../../../services/group/group.service';
 
 @Component({
   selector: 'app-group-list',
@@ -8,18 +9,20 @@ import {Group} from '../../../../models/group.model';
 })
 export class GroupListComponent implements OnInit {
 
-  groups: Group [] = [];
+  groups: Group[];
   group: Group;
   index: number;
 
-  constructor() { }
+  constructor(private groupService: GroupService) {
+  }
 
 
   ngOnInit() {
-    this.groups = [
-      {id: '1', name: 'slslsl'},
-      {id: '2', name: 'ssssssss'},
-    ];
+    this.groups = this.groupService.readGroups();
   }
 
+
+  onDelete(index: number) {
+    this.groupService.deleteGroup(index);
+  }
 }

@@ -1,5 +1,4 @@
 module.exports = function(app,path){
-  console.log("Routes Started");
 
   app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
