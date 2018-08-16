@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Group} from '../../../../models/group.model';
+import {GroupService} from '../../../../services/group/group.service';
 
 @Component({
   selector: 'app-chat-message',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatgroupListComponent implements OnInit {
 
-  constructor() { }
+  groups: Group[] = [];
+
+  constructor(private groupService: GroupService) {
+  }
 
   ngOnInit() {
+    this.getGroups();
+  }
+
+  getGroups() {
+    this.groups = this.groupService.getGroups();
+
+    // this.groupService.getGroups()
+    //   .subscribe((groupData) => {
+    //     this.groups = groupData.groups;
+    //   });
   }
 
 }

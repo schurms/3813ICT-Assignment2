@@ -23,7 +23,8 @@ import { GroupListComponent } from './pages/admin/components/group-list/group-li
 import { GroupEditComponent } from './pages/admin/components/group-edit/group-edit.component';
 import { ChannelListComponent } from './pages/admin/components/channel-list/channel-list.component';
 import { ChannelEditComponent } from './pages/admin/components/channel-edit/channel-edit.component';
-import {BsDropdownModule} from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap';
+
 
 @NgModule({
   declarations: [

@@ -1,30 +1,78 @@
 
 <div class="h-100 d-flex flex-column chatroom-list">
-  <h2>Group Details</h2>
-  <div class="col-md-6">
-    <button class="btn btn-primary btn-sm" (click)="addGroup()">Add Group</button>
-    <br>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th class="hidden">Id</th>
-          <th>Group Name</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let group of groups; let i = index; ">
-          <td class="hidden">{{group.id}}</td>
-          <td>{{group.name}}</td>
-          <td>
-            <div class="btn-group">
-              <button id="btnDelete" class="btn btn-danger btn-sm" (click)="onDelete(i)"> Delete</button>
-              <a routerLink = "/groupdetail/{{group.id}}" id="btnEdit" class="btn btn-success btn-sm" role="button">Edit</a>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <h2>Administration</h2>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary btn-sm" (click)="addGroup()">Add Group</button>
+        <br>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Group Name</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let group of groups; let i = index; ">
+            <td>{{group.name}}</td>
+            <td>
+              <div class="btn-group">
+                <button id="btnDelete" class="btn btn-danger btn-sm" (click)="deleteGroup(i)"> Delete</button>
+                <a routerLink = "/groupdetail/{{group.id}}" id="btnEdit" class="btn btn-success btn-sm" role="button">Edit</a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col">
+        <button class="btn btn-primary btn-sm" (click)="addGroup()">Add Channel</button>
+        <br>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Channel Name</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let group of groups; let i = index; ">
+            <td>{{group.name}}</td>
+            <td>
+              <div class="btn-group">
+                <button id="btnDelete" class="btn btn-danger btn-sm" (click)="deleteGroup(i)"> Delete</button>
+                <a routerLink = "/groupdetail/{{group.id}}" id="btnEdit" class="btn btn-success btn-sm" role="button">Edit</a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col">
+        <button class="btn btn-primary btn-sm" (click)="addGroup()">Manage User</button>
+        <br>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>User Name</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let group of groups; let i = index; ">
+            <td>{{group.name}}</td>
+            <td>
+              <div class="btn-group">
+                <button id="btnDelete" class="btn btn-danger btn-sm" (click)="deleteGroup(i)"> Delete</button>
+                <a routerLink = "/groupdetail/{{group.id}}" id="btnEdit" class="btn btn-success btn-sm" role="button">Edit</a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -13,16 +13,22 @@ export class GroupListComponent implements OnInit {
   group: Group;
   index: number;
 
-  constructor(private groupService: GroupService) {
-  }
-
+  constructor(private groupService: GroupService) { }
 
   ngOnInit() {
-    this.groups = this.groupService.readGroups();
+    this.getGroups();
   }
 
+  getGroups() {
+    this.groups = this.groupService.getGroups();
 
-  onDelete(index: number) {
+    // this.groupService.getGroups()
+    //   .subscribe((groupData) => {
+    //     this.groups = groupData.groups;
+    // });
+  }
+
+  deleteGroup(index: number) {
     this.groupService.deleteGroup(index);
   }
 }

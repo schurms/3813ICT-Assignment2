@@ -16,12 +16,10 @@ module.exports = function(app,path){
   app.get("/api/groups", (req, res, next) => {
     const groups = [
       {
-        id: '1',
-        name: 'Group One'
+        id: '1', name: 'Group One'
       },
       {
-        id: '2',
-        title: 'Group Two'
+        id: '2', name: 'Group Two'
       }
     ];
     res.status(200).json({
