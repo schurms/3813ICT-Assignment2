@@ -15,11 +15,12 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
   username: string;
   messages = [];
   message;
+  newMessageText: string = '';
   connection;
 
   constructor(
     private socketService: SocketService,
-    private userService: LoginService,
+    private loginService: LoginService,
     private router: Router) {
   }
 
@@ -28,14 +29,14 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
     if (!sessionStorage.getItem('username')) {
       // No valid session is available
       console.log('Not validated');
-      this.userService.deleteUser();
-      alert('Please Sign In');
-      this.router.navigateByUrl('signin');
+      this.loginService.deleteUser();
+      // alert('Please Sign In');
+      this.router.navigateByUrl('login');
 
     } else {
 
-      this.user = this.userService.readUser();
-      this.username = this.user.username;
+      this.user = this.loginService.readUser();
+      this.username = this.user.name;
       // Valid user found
       console.log('Session started for: ' + this.username);
 
@@ -53,6 +54,12 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
   sendMessage() {
     this.socketService.sendMessage(this.message + ' (' + this.username + ')');
     this.message = '';
+  }
+
+  //Send a chat message back to the server
+  submit(message: string): void {
+    this.socketService.sendMessage(this.newMessageText + ' (' + this.username + ')');
+    this.newMessageText = '';
   }
 
   // When leaving this component close down the subscription

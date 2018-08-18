@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GroupEditComponent } from './group-edit.component';
+import { ChatroomChannelComponent } from './chatroom-channel.component';
 
-describe('GroupEditComponent', () => {
-  let component: GroupEditComponent;
-  let fixture: ComponentFixture<GroupEditComponent>;
+describe('ChatroomChannelComponent', () => {
+  let component: ChatroomChannelComponent;
+  let fixture: ComponentFixture<ChatroomChannelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroupEditComponent ]
+      declarations: [ ChatroomChannelComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GroupEditComponent);
+    fixture = TestBed.createComponent(ChatroomChannelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

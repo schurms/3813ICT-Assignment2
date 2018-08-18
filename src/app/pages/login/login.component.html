@@ -3,18 +3,18 @@
   <div class="form-wrapper text-center">
     <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="onlogin()">
       <div class="form-group">
-        <label for="username" class="username">User Name</label>
+        <label for="name" class="name">User Name</label>
         <input
-          type="username"
+          type="text"
           class="form-control"
-          id="username"
-          name="username"
+          id="name"
+          name="name"
           placeholder="Enter User Name"
-          formControlName="username"
+          formControlName="name"
           required
-          [ngClass]="{ 'is-invalid': submitted && loginForm.controls.username.errors }"/>
-        <div *ngIf="submitted && !!loginForm.controls.username.errors" class="invalid-feedback">
-          <div *ngIf="!!loginForm.controls.username.errors.required">
+          [ngClass]="{ 'is-invalid': submitted && loginForm.controls.name.errors }"/>
+        <div *ngIf="submitted && !!loginForm.controls.name.errors" class="invalid-feedback">
+          <div *ngIf="!!loginForm.controls.name.errors.required">
             User Name is required
           </div>
         </div>

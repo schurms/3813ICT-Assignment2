@@ -10,20 +10,17 @@ import { LoginComponent } from './pages/login/login.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { ChatInputComponent } from './pages/chat/components/chat-input/chat-input.component';
-import { ChatroomListComponent } from './pages/chat/components/chatroom-list/chatroom-list.component';
+import { ChatroomChannelComponent } from './pages/chat/components/chatroom-channel/chatroom-channel.component';
 import { ChatroomTitleBarComponent } from './pages/chat/components/chatroom-title-bar/chatroom-title-bar.component';
 import { ChatroomWindowComponent } from './pages/chat/components/chatroom-window/chatroom-window.component';
-import { ChatgroupListComponent } from './pages/chat/components/chatgroup-list/chatgroup-list.component';
+import { ChatroomGroupComponent } from './pages/chat/components/chatroom-group/chatroom-group.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminComponent } from './pages/admin/admin.component';
-import { GroupsComponent } from './pages/groups/groups.component';
-import { UserListComponent } from './pages/admin/components/user-list/user-list.component';
-import { UserEditComponent } from './pages/admin/components/user-edit/user-edit.component';
-import { GroupListComponent } from './pages/admin/components/group-list/group-list.component';
-import { GroupEditComponent } from './pages/admin/components/group-edit/group-edit.component';
+import { GroupsComponent } from './pages/admin/components/groups/groups.component';
 import { ChannelListComponent } from './pages/admin/components/channel-list/channel-list.component';
 import { ChannelEditComponent } from './pages/admin/components/channel-edit/channel-edit.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { UserComponent } from './pages/admin/components/user/user.component';
 
 
 @NgModule({
@@ -33,19 +30,16 @@ import { BsDropdownModule } from 'ngx-bootstrap';
     ChatComponent,
     NotfoundComponent,
     ChatInputComponent,
-    ChatroomListComponent,
+    ChatroomChannelComponent,
     ChatroomTitleBarComponent,
     ChatroomWindowComponent,
-    ChatgroupListComponent,
+    ChatroomGroupComponent,
     NavbarComponent,
     AdminComponent,
     GroupsComponent,
-    UserListComponent,
-    UserEditComponent,
-    GroupListComponent,
-    GroupEditComponent,
     ChannelListComponent,
-    ChannelEditComponent
+    ChannelEditComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

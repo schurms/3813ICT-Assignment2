@@ -13,15 +13,13 @@ module.exports = function(app,path){
     next();
   });
 
+  let groups = [
+    {id: '1', name: 'Group One'},
+    {id: '2', name: 'Group Two'},
+    {id: '3', name: 'Group Three'}
+  ];
+
   app.get("/api/groups", (req, res, next) => {
-    const groups = [
-      {
-        id: '1', name: 'Group One'
-      },
-      {
-        id: '2', name: 'Group Two'
-      }
-    ];
     res.status(200).json({
       group: 'Groups fetched successfully!',
       groups: groups

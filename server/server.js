@@ -6,15 +6,29 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const bodyParser = require('body-parser');
 
+// CORS
+const cors = require('cors')
+
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
+
 // Bind application-level middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname , '../dist/myChat/')));
+// app.get('/users', function(req,res){
+//   res.sendFile(path.join(__dirname,'../dist/myChat'))
+// });
 
 // Include Modules
 require('./routes/login.js')(app, path);
+require('./routes/user.js')(app, path);
 require('./routes/messages.js')(app, path);
 require('./routes/groups')(app,path);
 require('./socket.js')(app, io);

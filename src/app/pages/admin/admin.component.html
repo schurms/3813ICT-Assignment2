@@ -1,4 +1,11 @@
 <app-navbar></app-navbar>
 <div class="container d-flex">
-  <app-group-list></app-group-list>
+  <table align="center">
+    <tr>
+      <th><button class="btn btn-primary" (click)="manageGroups()">Manage Groups</button></th>
+      <th><button class="btn btn-info" (click)="manageChannels()">Manage Channels</button></th>
+      <th><button class="btn btn-warning" (click)="manageUsers()">Manage Users</button></th>
+    </tr>
+  </table>
 </div>
+

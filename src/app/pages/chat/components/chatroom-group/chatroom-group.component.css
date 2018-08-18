@@ -1,9 +1,9 @@
-.chatroom-list {
+.chatroom-group {
   border-right: 2px #efefef;
   overflow-y: scroll;
 }
 
-.chatroom-list .chatroom-list-item {
+.chatroom-group .chatroom-group-item {
   border-bottom: 1px #efefef;
   padding: 1em;
 }

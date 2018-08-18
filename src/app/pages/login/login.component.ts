@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 const BACKEND_URL = environment.apiURL;
 
 @Component({
-  selector: 'app-signin',
+  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   // Prior to page display
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]]
     });
   }

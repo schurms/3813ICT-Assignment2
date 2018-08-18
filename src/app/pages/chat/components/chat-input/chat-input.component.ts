@@ -25,7 +25,7 @@ export class ChatInputComponent implements OnInit {
   // When entering this component
   ngOnInit() {
     this.user = this.userService.readUser();
-    this.username = this.user.username;
+    this.username = this.user.name;
     // Valid user found
     console.log('Session started for: ' + this.username);
 

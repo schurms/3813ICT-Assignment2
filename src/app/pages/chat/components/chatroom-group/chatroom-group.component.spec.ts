@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChatgroupListComponent } from './chatgroup-list.component';
+import { ChatroomGroupComponent } from './chatroom-group.component';
 
-describe('ChatgroupListComponent', () => {
-  let component: ChatgroupListComponent;
-  let fixture: ComponentFixture<ChatgroupListComponent>;
+describe('ChatroomGroupComponent', () => {
+  let component: ChatroomGroupComponent;
+  let fixture: ComponentFixture<ChatroomGroupComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChatgroupListComponent ]
+      declarations: [ ChatroomGroupComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChatgroupListComponent);
+    fixture = TestBed.createComponent(ChatroomGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
