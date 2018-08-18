@@ -1,4 +1,4 @@
-# MyChat - 3813ICT Assignment 1
+# MyChat - 3813ICT Assignment 1 (Jordan Schurmann)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
 
