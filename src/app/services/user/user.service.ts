@@ -15,20 +15,24 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
+  // Function to manage user reads
   getUsers() {
     return this.httpClient.get(BACKEND_URL + '/api/users/');
   }
 
+  // Function to manage user creation
   createUser(user) {
     let body = JSON.stringify(user);
     return this.httpClient.post(BACKEND_URL + '/api/user/', body, httpOptions);
   }
 
+  // Function to manage user updates
   updateUser(user){
     let body = JSON.stringify(user);
     return this.httpClient.put(BACKEND_URL + '/api/user/' + user.id, body, httpOptions);
   }
 
+  // Function to manage user deletion
   deleteUser(user){
     return this.httpClient.delete(BACKEND_URL + '/api/user/' + user.id);
   }

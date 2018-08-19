@@ -17,17 +17,15 @@ import { ChatroomWindowComponent } from './pages/chat/components/chatroom-window
 import { ChatroomGroupComponent } from './pages/chat/components/chatroom-group/chatroom-group.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminComponent } from './pages/admin/admin.component';
-import { GroupsComponent } from './pages/admin/components/groups/groups.component';
-import { ChannelListComponent } from './pages/admin/components/channel-list/channel-list.component';
-import { ChannelEditComponent } from './pages/admin/components/channel-edit/channel-edit.component';
+import { ChannelComponent } from './pages/admin/components/channel/channel.component';
+import { GroupComponent } from './pages/admin/components/group/group.component';
 import { UserComponent } from './pages/admin/components/user/user.component';
 
 // Services
-import { UserService } from './services/user/user.service';
 import { LoginService } from './services/login/login.service';
-import { MessageService } from './services/message/message.service';
-import { GroupService } from './services/group/group.service';
 import { SocketService } from './services/socket/socket.service';
+import { UserService } from './services/user/user.service';
+import { GroupService } from './services/group/group.service';
 import { ChannelService } from './services/channel/channel.service';
 
 
@@ -44,11 +42,9 @@ import { ChannelService } from './services/channel/channel.service';
     ChatroomGroupComponent,
     NavbarComponent,
     AdminComponent,
-    GroupsComponent,
-    ChannelListComponent,
-    ChannelEditComponent,
+    ChannelComponent,
+    GroupComponent,
     UserComponent
-
   ],
   imports: [
     BrowserModule,
@@ -61,7 +57,6 @@ import { ChannelService } from './services/channel/channel.service';
   providers: [
     UserService,
     LoginService,
-    MessageService,
     GroupService,
     SocketService,
     ChannelService

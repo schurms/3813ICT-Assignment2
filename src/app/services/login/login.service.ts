@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
-import { environment} from '../../../environments/environment';
-
 
 @Injectable({
   providedIn: 'root'
@@ -12,22 +10,25 @@ export class LoginService {
 
   constructor() { }
 
-  public readUser() {
+  // Function to read user on login
+  readUser() {
     if (typeof(Storage) !== 'undefined' ) {
-      return JSON.parse(sessionStorage.getItem('username'));
+      return JSON.parse(sessionStorage.getItem('user'));
     }
   }
 
-  public writeUser(user) {
+  // Function to write user on login
+  writeUser(user) {
     this.user = user;
     if (typeof(Storage) !== 'undefined' ) {
-      sessionStorage.setItem('username', JSON.stringify(this.user));
+      sessionStorage.setItem('user', JSON.stringify(this.user));
     } else {
       alert('Local storage not available');
     }
   }
 
-  public deleteUser() {
+  // Function to delete user on login
+  deleteUser() {
     if (typeof(Storage) !== 'undefined' ) {
       sessionStorage.clear();
     }

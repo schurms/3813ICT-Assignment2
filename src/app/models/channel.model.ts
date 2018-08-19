@@ -1,4 +1,11 @@
+// Channel Class Model
+
 export class Channel {
   id: number;
   name: string;
+
+  constructor( id: number, name: string) {
+    this.id = id;
+    this.name = name;
+  }
 }

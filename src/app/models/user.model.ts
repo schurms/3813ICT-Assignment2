@@ -1,3 +1,5 @@
+// User Class Model
+
 export class User {
   id: number;
   name: string;

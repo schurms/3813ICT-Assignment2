@@ -25,7 +25,7 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
 
   // When entering this component
   ngOnInit() {
-    if (!sessionStorage.getItem('username')) {
+    if (!sessionStorage.getItem('user')) {
       // No valid session is available
       this.loginService.deleteUser();
       alert('Please Login In');

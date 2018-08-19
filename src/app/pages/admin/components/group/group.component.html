@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+<div style="text-align:center">
+  <h2>Group Management</h2>
+  <br>
+  <div class="container">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-lg-4">
+          <label for="name" class="col-lg-12 text-right">Group Name:</label>
+        </div>
+        <div class="col-lg-8">
+          <input type="text" name="name" [(ngModel)]="name" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-12">
+        <button (click)="createGroup(name)" class="btn btn-primary btn-sm">Create Group</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Group ID</th>
+        <th scope="col">Group Name</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let group of groups">
+        <td>
+          {{group.id}}
+        </td>
+        <td>
+          <input type="text" name="user-name" [(ngModel)]="group.name" class="form-control-plaintext">
+        </td>
+          <div class="btn-group">
+            <button id="btnEdit" (click)="updateGroup(group)" class="btn btn-success btn-sm">Update</button>
+            <button id="btnDelete" (click)="deleteGroup(group)" class="btn btn-danger btn-sm">Delete</button>
+          </div>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user/user.service';
-import { User } from '../../../../models/user.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Message} from '../../../../models/message.model';
 
 @Component({
   selector: 'app-user',

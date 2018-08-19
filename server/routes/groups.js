@@ -47,14 +47,37 @@ module.exports = function(app,path){
     res.send({groups: groups});
   });
 
+  // POST endpoint API for creating a new group
+  app.post('/api/groups', function (req, res) {
+    console.log('Create Group');
+    // calculate the next ID
+    let id = 1;
+    if (groups.length > 0) {
+      let maximum = Math.max.apply(Math, groups.map(function (f) { return f.id; }));
+      id = maximum + 1;
+    }
+    let newGroup = {"id": id, "name": req.body.name, "channel": req.body.channel};
+    groups.push(newGroup);
+    res.send(newGroup);
+  });
 
-//Route to manage group posts
-  app.post("/api/groups",(req,res, next) => {
-    const group = req.body;
-    console.log(group);
-    res.status(201).json({
-      group: 'Group added Successfully'
-    });
+  // PUT endpoint API for editing a group
+  app.put('/api/groups/:id', function (req, res) {
+    console.log('Update Group', req.body.name);
+    let id = req.params.id;
+    let editGroup = groups.find(x => x.id == id);
+    editGroup.name = req.body.name;
+    editGroup.channel = req.body.channel;
+    res.send(editGroup);
+  });
+
+  // DELETE endpoint API for deleting a group
+  app.delete('/api/groups/:id', function (req, res) {
+    console.log('Delete Group');
+    let id = req.params.id;
+    let g = groups.find(x => x.id == id);
+    groups = groups.filter(x => x.id != id);
+    res.send(g);
   });
 
 };

@@ -1,12 +1,5 @@
 <div class="h-100 d-flex flex-column chat-window">
-  <ng-container *ngIf="!chatroom else chatmessages">
-    <!--<div class="select-channel h-100 w-100 d-flex justify-content-center align-items-center">-->
-      <!--<div class="select-channel-message">-->
-        <!--Select a Channel-->
-      <!--</div>-->
-    <!--</div>-->
-
-
+  <ng-container>
     <app-chatroom-title-bar [title]="'Chat Room #5'"></app-chatroom-title-bar>
     <div class="message-wrapper h-100">
       <h2>Welcome {{ username }}</h2>
@@ -20,20 +13,4 @@
     </div>
     <app-chat-input></app-chat-input>
   </ng-container>
-
-  <!--<ng-template #chatmessages>-->
-    <!--<app-chatroom-title-bar [title]="'Chat Room #5'"></app-chatroom-title-bar>-->
-    <!--<div class="message-wrapper h-100">-->
-      <!--<h2>Welcome {{ username }}</h2>-->
-      <!--<ng-container *ngFor="let message of messages">-->
-        <!--<div class="chat-message d-flex">-->
-          <!--<div class="message">-->
-            <!--{{message.text}}-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</ng-container>-->
-    <!--</div>-->
-    <!--<app-chat-input></app-chat-input>-->
-  <!--</ng-template>-->
-
 </div>

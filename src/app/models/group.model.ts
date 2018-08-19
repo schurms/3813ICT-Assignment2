@@ -1,3 +1,5 @@
+// Group Class Model
+
 import { Channel } from './channel.model';
 
 export class Group {
@@ -10,5 +12,4 @@ export class Group {
     this.name = name;
     this.channel = channel;
   }
-
 }
