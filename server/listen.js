@@ -1,8 +1,9 @@
-module.exports = function(http){
-http.listen(3000,()=>{
-  var d = new Date();
-  var n = d.getHours();
-  var m = d.getMinutes();
-  console.log('Server has been started at : ' + n + ':' +m);
-});
-}
+module.exports = function(http) {
+
+  http.listen(3000,() => {
+    let d = new Date();
+    let n = d.getHours();
+    let m = d.getMinutes();
+    console.log('Server has been started at : ' + n + ':' +m);
+  });
+};

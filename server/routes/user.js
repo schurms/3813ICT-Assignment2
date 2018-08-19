@@ -1,25 +1,26 @@
-module.exports = function(app,path){
+module.exports = function(app) {
 
-  // app.use((req, res, next) => {
-  //   res.setHeader("Access-Control-Allow-Origin", "*");
-  //   res.setHeader(
-  //     "Access-Control-Allow-Headers",
-  //     "Origin, X-Requested-With, Content-Type, Accept"
-  //   );
-  //   res.setHeader(
-  //     "Access-Control-Allow-Methods",
-  //     "GET, POST, PATCH, DELETE, OPTIONS"
-  //   );
-  //   next();
-  // });
-
-// some data for the API
+  // Sample User Data
   let users = [
     {id: 1, name: 'super', email: '', role: ''},
     {id: 2, name: 'jordan', email: 'jordan@gmail.com', role: ''},
     {id: 3, name: 'bill', email: 'bill@gmail.com', role: 'group'},
     {id: 4, name: 'sam', email: 'sam@gmail.com', role: ''}
   ];
+
+  // POST endpoint API for validating user login
+  app.post('/api/login', function (req,res) {
+    if (users.some(user => user.name === req.body.name)) {
+      res.send({
+        "ok": true
+      });
+    } else {
+      res.send({
+        "ok" : false,
+        errors: {"credentials": "Username does not exist"}
+      })
+    }
+  });
 
   // GET endpoint API for getting all users
   app.get('/api/users', function (req, res) {

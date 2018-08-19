@@ -1,5 +1,6 @@
-module.exports = function(app,path){
+module.exports = function(app) {
 
+  // Sample Channel Data
   let channels = [
     {id: 1, name: 'Desktops'},
     {id: 2, name: 'Monitors/video'},
@@ -8,7 +9,8 @@ module.exports = function(app,path){
     {id: 5, name: 'Windows'},
     {id: 6, name: 'Apple'}];
 
-  app.get("/api/channels", (req, res, next) => {
+  // GET endpoint API for getting all channels
+  app.get("/api/channels", function (req, res) {
     res.send({channels: channels});
   });
 

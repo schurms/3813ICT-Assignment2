@@ -1,18 +1,6 @@
-module.exports = function(app,path){
+module.exports = function(app) {
 
-  // app.use((req, res, next) => {
-  //   res.setHeader("Access-Control-Allow-Origin", "*");
-  //   res.setHeader(
-  //     "Access-Control-Allow-Headers",
-  //     "Origin, X-Requested-With, Content-Type, Accept"
-  //   );
-  //   res.setHeader(
-  //     "Access-Control-Allow-Methods",
-  //     "GET, POST, PATCH, DELETE, OPTIONS"
-  //   );
-  //   next();
-  // });
-
+  // Sample Group Data
   let groups = [
     {
       id: 1,
@@ -43,7 +31,8 @@ module.exports = function(app,path){
         { id: 8, name: 'Channel 8'}
       ]}];
 
-  app.get("/api/groups", (req, res, next) => {
+  // GET endpoint API for getting groups
+  app.get("/api/groups", function (req, res) {
     res.send({groups: groups});
   });
 

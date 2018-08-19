@@ -1,4 +1,4 @@
-module.exports = function(app,path){
+module.exports = function(app) {
 
   app.get("/api/messages", (req, res, next) => {
     const messages = [
