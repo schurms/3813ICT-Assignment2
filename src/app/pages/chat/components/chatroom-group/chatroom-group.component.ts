@@ -9,7 +9,7 @@ import {GroupService} from '../../../../services/group/group.service';
 })
 export class ChatroomGroupComponent implements OnInit {
 
-  groups: Group[] = [];
+  groups: Group[] = null;
 
   constructor(private groupService: GroupService) {
   }
@@ -22,7 +22,8 @@ export class ChatroomGroupComponent implements OnInit {
     this.groupService.getGroups()
       .subscribe(
         data => {
-          this.groups = data.groups
+          this.groups = data.groups;
+          console.log(this.groups);
         },
         err => console.log(err)
       );

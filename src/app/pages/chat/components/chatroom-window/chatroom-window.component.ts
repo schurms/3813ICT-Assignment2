@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { SocketService } from '../../../../services/socket/socket.service';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import {LoginService} from '../../../../services/login/login.service';
 import {User} from '../../../../models/user.model';
 
@@ -15,7 +15,6 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
   username: string;
   messages = [];
   message;
-  newMessageText: string = '';
   connection;
 
   constructor(
@@ -28,9 +27,8 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (!sessionStorage.getItem('username')) {
       // No valid session is available
-      console.log('Not validated');
       this.loginService.deleteUser();
-      // alert('Please Sign In');
+      alert('Please Login In');
       this.router.navigateByUrl('login');
 
     } else {
@@ -50,18 +48,6 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Send a chat message back to the server
-  sendMessage() {
-    this.socketService.sendMessage(this.message + ' (' + this.username + ')');
-    this.message = '';
-  }
-
-  //Send a chat message back to the server
-  submit(message: string): void {
-    this.socketService.sendMessage(this.newMessageText + ' (' + this.username + ')');
-    this.newMessageText = '';
-  }
-
   // When leaving this component close down the subscription
   ngOnDestroy() {
     if (this.connection) {
@@ -70,8 +56,6 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
   }
 
 }
-
-
 
 // const post: Message = {id: null, title: 'tttt', content: 'tllsls'};
 // this.http.post<{message: string}>('http://localhost:3000/api/messages', post)

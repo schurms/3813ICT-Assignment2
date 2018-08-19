@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
+// Components
+import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
@@ -19,8 +20,15 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { GroupsComponent } from './pages/admin/components/groups/groups.component';
 import { ChannelListComponent } from './pages/admin/components/channel-list/channel-list.component';
 import { ChannelEditComponent } from './pages/admin/components/channel-edit/channel-edit.component';
-import { BsDropdownModule } from 'ngx-bootstrap';
 import { UserComponent } from './pages/admin/components/user/user.component';
+
+// Services
+import { UserService } from './services/user/user.service';
+import { LoginService } from './services/login/login.service';
+import { MessageService } from './services/message/message.service';
+import { GroupService } from './services/group/group.service';
+import { SocketService } from './services/socket/socket.service';
+import { ChannelService } from './services/channel/channel.service';
 
 
 @NgModule({
@@ -40,17 +48,24 @@ import { UserComponent } from './pages/admin/components/user/user.component';
     ChannelListComponent,
     ChannelEditComponent,
     UserComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BsDropdownModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
     HttpClientModule
   ],
-  providers: [ ],
+  providers: [
+    UserService,
+    LoginService,
+    MessageService,
+    GroupService,
+    SocketService,
+    ChannelService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

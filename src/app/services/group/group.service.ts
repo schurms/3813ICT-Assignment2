@@ -17,21 +17,11 @@ export class GroupService {
   constructor(private httpClient: HttpClient) {
   }
 
-
   getGroups() {
-  //   return this.groups = MOCKGROUPS;
-  // }
-  //   this.http.get<{ message: string, groups: Group[] }>(  BACKEND_URL + '/api/groups/')
-  //     .subscribe((groupData) => {
-  //       this.groups = groupData.groups;
-  //       return this.groups;
-  //     });
-
-
     // return this.httpClient.get(BACKEND_URL + '/api/groups/');
 
     // this version works.
-    return this.httpClient.get<{ message: string, groups: Group[] }>(  BACKEND_URL + '/api/groups/')
+    return this.httpClient.get<{groups: Group[]}>(BACKEND_URL + '/api/groups/')
       .pipe(map(groups => {
         if (groups) {
         }

@@ -13,7 +13,12 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'users', component: UserComponent },
   { path: 'groups', component: GroupsComponent },
-  { path: 'chat', component: ChatComponent },
+  { path: 'chat',
+    children: [
+      { path: '',  component: ChatComponent},
+      { path: ':channelId', component: ChatComponent}
+    ]
+  },
   { path: '404', component: NotfoundComponent },
   { path: '**', redirectTo: '404' }
 ];

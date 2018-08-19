@@ -10,37 +10,27 @@ import { User } from '../../../../models/user.model';
   styleUrls: ['./chat-input.component.css']
 })
 export class ChatInputComponent implements OnInit {
+
   user: User;
   username: string;
-  messages = [];
-  newMessageText: string = ''
+  message;
   connection;
 
   constructor(
     private socketService: SocketService,
-    private userService: LoginService,
-    private router: Router) {
+    private loginService: LoginService) {
   }
 
-  // When entering this component
+  // When entering this component get the user name
   ngOnInit() {
-    this.user = this.userService.readUser();
+    this.user = this.loginService.readUser();
     this.username = this.user.name;
-    // Valid user found
-    console.log('Session started for: ' + this.username);
-
-    // Subscribe to the Chat Service
-    this.connection = this.socketService.getMessages().subscribe(newMessageText => {
-
-      //Add chat message to the message array each time you are pushed a message from the server
-      this.messages.push(newMessageText);
-      this.newMessageText = ""
-    });
   }
 
-  //Send a chat message back to the server
-  submit(message: string): void {
-    this.socketService.sendMessage(this.newMessageText + ' (' + this.username + ')');
-    this.newMessageText = '';
+  // Send a chat message back to the server
+  sendMessage() {
+    this.socketService.sendMessage(this.message + ' (' + this.username + ')');
+    this.message = '';
   }
+
 }

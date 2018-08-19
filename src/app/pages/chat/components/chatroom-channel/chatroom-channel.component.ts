@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ChannelService} from '../../../../services/channel/channel.service';
+import {Channel} from '../../../../models/channel.model';
 
 @Component({
   selector: 'app-chatroom-channel',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatroomChannelComponent implements OnInit {
 
-  constructor() { }
+  channels: Channel[] = null;
 
-  ngOnInit() {
+  constructor(private channelService: ChannelService) {
   }
 
+  ngOnInit() {
+    this.getChannels();
+  }
+
+  getChannels() {
+    this.channelService.getChannels()
+      .subscribe(
+        data => {
+          this.channels = data.channels;
+        },
+        err => console.log(err)
+      );
+  }
 }
