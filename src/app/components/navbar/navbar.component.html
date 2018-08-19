@@ -1,16 +1,48 @@
+<!--<nav class="navbar navbar-expand-sm navbar-primary bg-primary">-->
+  <!--<div class="container">-->
+    <!--<span class="navbar-brand">My Chat App</span>-->
+    <!--<div class="page-links">-->
+      <!--<ul class="navbar-nav">-->
+        <!--<li role="nav-item">-->
+          <!--<a routerLink="/admin"  routerLinkActive="active" class=" nav-link">Admin</a>-->
+        <!--</li>-->
+        <!--<li class="nav-item">-->
+          <!--<a routerLink="/chat" routerLinkActive="active" class="nav-link" >Chat</a>-->
+        <!--</li>-->
+        <!--<li class="nav-item">-->
+          <!--<a routerLink="/login" routerLinkActive="active" class="nav-link" (click)="logOut()" >Log Out</a>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</nav>-->
+
 <nav class="navbar navbar-expand-sm navbar-primary bg-primary">
   <div class="container">
     <span class="navbar-brand">My Chat App</span>
     <div class="page-links">
       <ul class="navbar-nav">
-        <li role="nav-item">
-          <a routerLink="/admin"  routerLinkActive="active" class=" nav-link">Admin</a>
+        <div class="btn-group" dropdown>
+          <button dropdownToggle type="button" class="btn-primary dropdown-toggle" >
+            Admin <span class="caret"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu">
+            <li role="menuitem">
+              <a routerLink="/groups" class="dropdown-item nav-link">Group</a>
+            </li>
+            <li role="menuitem">
+              <a routerLink="/users" class="dropdown-item nav-link">User</a>
+            </li>
+            <li role="menuitem">
+              <a routerLink="/channels"  class="dropdown-item nav-link">Channel</a>
+            </li>
+          </ul>
+        </div>
+        <li class="nav-item">
+          <a routerLink="/chat" routerLinkActive="active" class="nav-link" >Chat Rooms</a>
         </li>
         <li class="nav-item">
-          <a routerLink="/chat" routerLinkActive="active" class="nav-link" >Chat</a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/login" routerLinkActive="active" class="nav-link" (click)="logOut()" >Log Out</a>
+          <a routerLink="/signin" routerLinkActive="active" class="nav-link" (click)="logOut()" >Log Out</a>
         </li>
       </ul>
     </div>

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Channel } from '../../../../models/channel.model';
-import { ChannelService } from '../../../../services/channel/channel.service';
+import { Channel } from '../../../models/channel.model';
+import { ChannelService } from '../../../services/channel/channel.service';
+import {User} from '../../../models/user.model';
+import {LoginService} from '../../../services/login/login.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-channel',
@@ -10,12 +13,29 @@ import { ChannelService } from '../../../../services/channel/channel.service';
 export class ChannelComponent implements OnInit {
 
   channels: Channel[] = null;
+  user: User;
+  username: string;
 
-  constructor(private channelService: ChannelService) { }
+  constructor(
+    private channelService: ChannelService,
+    private loginService: LoginService,
+    private router: Router) { }
 
   // On Page Opening
   ngOnInit() {
-    this.getChannels()
+    if (!sessionStorage.getItem('user')) {
+      // No valid session is available
+      this.loginService.deleteUser();
+      alert('Please login In');
+      this.router.navigateByUrl('login');
+
+    } else {
+
+      // Valid session
+      this.user = this.loginService.readUser();
+      this.username = this.user.name;
+      this.getChannels();
+    }
   }
 
   // Get Channels

@@ -48,6 +48,12 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Send a chat message back to the server
+  sendMessage() {
+    this.socketService.sendMessage(this.message + ' (' + this.username + ')');
+    this.message = '';
+  }
+
   // When leaving this component close down the subscription
   ngOnDestroy() {
     if (this.connection) {

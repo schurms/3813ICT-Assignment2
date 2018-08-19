@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user/user.service';
+import { UserService } from '../../../services/user/user.service';
+import {User} from '../../../models/user.model';
+import {LoginService} from '../../../services/login/login.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -9,11 +12,28 @@ import { UserService } from '../../../../services/user/user.service';
 export class UserComponent implements OnInit {
 
   users: any;
+  user: User;
+  username: string;
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private loginService: LoginService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.getUsers()
+    if (!sessionStorage.getItem('user')) {
+      // No valid session is available
+      this.loginService.deleteUser();
+      alert('Please login In');
+      this.router.navigateByUrl('login');
+
+    } else {
+
+      // Valid session
+      this.user = this.loginService.readUser();
+      this.username = this.user.name;
+      this.getUsers();
+    }
   }
 
   getUsers() {

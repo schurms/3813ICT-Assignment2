@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Group} from '../../../../models/group.model';
-import {GroupService} from '../../../../services/group/group.service';
+import {Group} from '../../../models/group.model';
+import {GroupService} from '../../../services/group/group.service';
+import {User} from '../../../models/user.model';
+import {LoginService} from '../../../services/login/login.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-group',
@@ -10,13 +13,31 @@ import {GroupService} from '../../../../services/group/group.service';
 export class GroupComponent implements OnInit {
 
   groups: Group[] = null;
+  user: User;
+  username: string;
 
-  constructor(private groupService: GroupService) {
+  constructor(
+    private groupService: GroupService,
+    private loginService: LoginService,
+    private router: Router) {
   }
 
   // On Page Opening
   ngOnInit() {
-    this.getGroups();
+    if (!sessionStorage.getItem('user')) {
+      // No valid session is available
+      this.loginService.deleteUser();
+      alert('Please login In');
+      this.router.navigateByUrl('login');
+
+    } else {
+
+      // Valid session
+      this.user = this.loginService.readUser();
+      this.username = this.user.name;
+      this.getGroups();
+    }
+
   }
 
   // Get Groups
