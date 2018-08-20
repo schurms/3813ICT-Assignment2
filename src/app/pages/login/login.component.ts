@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,
               private formBuilder: FormBuilder,
               private loginService: LoginService,
-              private http: HttpClient) { }
+              private httpClient: HttpClient) { }
 
   // Prior to page display
   ngOnInit() {
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     }
 
     const userData  = this.loginForm.value;
-    this.http.post<{message: string}>(BACKEND_URL + '/api/login/', userData)
+    this.httpClient.post<{message: string}>(BACKEND_URL + '/api/login/', userData)
       .subscribe((data: any) => {
         if (data.ok) {
           this.router.navigateByUrl('/chat');
