@@ -5,6 +5,7 @@ const path = require('path');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const bodyParser = require('body-parser');
+const fs = require('fs');
 
 // Cross origin resource sharing to cater for port 4200 to port 3000
 const cors = require('cors');
@@ -25,8 +26,10 @@ app.use(express.static(path.join(__dirname , '../dist/myChat/')));
 
 // Include Modules
 require('./routes/user.js')(app);
+require('./routes/auth.js')(app, fs);
 require('./routes/messages.js')(app);
 require('./routes/groups.js')(app);
 require('./routes/channels.js')(app);
 require('./socket.js')(app, io);
 require('./listen.js')(http);
+

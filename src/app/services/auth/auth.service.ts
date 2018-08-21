@@ -21,7 +21,7 @@ export class AuthService {
   // Function to manage user creation
   getAuthUser(user) {
     let body = JSON.stringify(user);
-    return this.httpClient.post(BACKEND_URL + '/api/authuser/', body, httpOptions);
+    return this.httpClient.post(BACKEND_URL + '/api/login/', body, httpOptions);
   }
 
   // Function to read user on login
