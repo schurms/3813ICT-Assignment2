@@ -1,12 +1,11 @@
+// Modules
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+// Models
+import { User } from '../../../models/user.model';
+// Services
 import { UserService } from '../../../services/user/user.service';
-import {User} from '../../../models/user.model';
-import {LoginService} from '../../../services/login/login.service';
-import {Router} from '@angular/router';
-import {environment} from '../../../../environments/environment';
-import {HttpClient} from '@angular/common/http';
-
-const BACKEND_URL = environment.apiURL;
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-user',
@@ -20,24 +19,40 @@ export class UserComponent implements OnInit {
   username: string;
 
   constructor(
+    private authService: AuthService,
     private userService: UserService,
-    private loginService: LoginService,
     private router: Router) { }
 
+  // On Page Opening validate user
   ngOnInit() {
     if (!sessionStorage.getItem('user')) {
       // No valid session is available
-      this.loginService.deleteUser();
+      this.authService.deleteUser();
       alert('Please login In');
       this.router.navigateByUrl('login');
 
     } else {
 
       // Valid session
-      this.user = this.loginService.readUser();
+      this.user = this.authService.readUser();
       this.username = this.user.name;
       this.getAuthUser(this.username);
     }
+  }
+
+  // Validate user authority
+  getAuthUser(name){
+    const user = { name: name };
+    this.authService.getAuthUser(user)
+      .subscribe((data: any) => {
+        if ((data.name === 'super') || (data.role === 'group')) {
+          this.getUsers();
+          return true;
+        } else {
+          this.router.navigateByUrl('/chat');
+          alert('You are not authorised to enter this page');
+        }
+      });
   }
 
   // Get User Data
@@ -49,20 +64,6 @@ export class UserComponent implements OnInit {
         },
         err => console.log(err)
       );
-  }
-
-  // Validate user authority
-  getAuthUser(name){
-    const user = { name: name };
-    this.userService.getAuthUser(user)
-      .subscribe((data: any) => {
-        if ((data.name === 'super') || (data.role === 'group')) {
-          this.getUsers();
-        } else {
-          this.router.navigateByUrl('/chat');
-          alert('You are not authorised to enter this page');
-        }
-      });
   }
 
   // Create a new user
@@ -79,7 +80,6 @@ export class UserComponent implements OnInit {
           this.getUsers();
           return true;
         } else {
-
           // Else userid already exists
           alert('Userid already exists');
         }

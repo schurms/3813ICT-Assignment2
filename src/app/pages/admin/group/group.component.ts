@@ -1,9 +1,12 @@
+// Modules
 import { Component, OnInit } from '@angular/core';
-import {Group} from '../../../models/group.model';
-import {GroupService} from '../../../services/group/group.service';
-import {User} from '../../../models/user.model';
-import {LoginService} from '../../../services/login/login.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+// Models
+import { Group } from '../../../models/group.model';
+import { User } from '../../../models/user.model';
+// Services
+import { GroupService } from '../../../services/group/group.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-group',
@@ -12,32 +15,47 @@ import {Router} from '@angular/router';
 })
 export class GroupComponent implements OnInit {
 
-  groups: Group[] = null;
+  groups: Group[];
   user: User;
   username: string;
 
   constructor(
     private groupService: GroupService,
-    private loginService: LoginService,
+    private authService: AuthService,
     private router: Router) {
   }
 
-  // On Page Opening
+  // On Page Opening validate user
   ngOnInit() {
     if (!sessionStorage.getItem('user')) {
       // No valid session is available
-      this.loginService.deleteUser();
+      this.authService.deleteUser();
       alert('Please login In');
       this.router.navigateByUrl('login');
 
     } else {
 
       // Valid session
-      this.user = this.loginService.readUser();
+      this.user = this.authService.readUser();
       this.username = this.user.name;
-      this.getGroups();
+      this.getAuthUser(this.username);
     }
 
+  }
+
+  // Validate user authority
+  getAuthUser(name){
+    const user = { name: name };
+    this.authService.getAuthUser(user)
+      .subscribe((data: any) => {
+        if ((data.name === 'super') || (data.role === 'group')) {
+          this.getGroups();
+          return true;
+        } else {
+          this.router.navigateByUrl('/chat');
+          alert('You are not authorised to enter this page');
+        }
+      });
   }
 
   // Get Groups

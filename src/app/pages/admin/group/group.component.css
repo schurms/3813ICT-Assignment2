@@ -1,5 +1,5 @@
 
-#btnDelete, #btnEdit {
+#btnDelete, #btnEdit, #btnSelect {
   padding: 5px;
   display: inline-block;
   vertical-align: top;
@@ -11,7 +11,6 @@
 
 table td {
   vertical-align: middle;
-  padding: 5px;
   position: relative;
 }
 

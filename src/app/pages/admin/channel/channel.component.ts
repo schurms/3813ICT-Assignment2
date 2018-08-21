@@ -1,9 +1,12 @@
+// Modules
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+// Models
 import { Channel } from '../../../models/channel.model';
+import { User } from '../../../models/user.model';
+// Services
 import { ChannelService } from '../../../services/channel/channel.service';
-import {User} from '../../../models/user.model';
-import {LoginService} from '../../../services/login/login.service';
-import {Router} from '@angular/router';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-channel',
@@ -18,24 +21,39 @@ export class ChannelComponent implements OnInit {
 
   constructor(
     private channelService: ChannelService,
-    private loginService: LoginService,
+    private authService: AuthService,
     private router: Router) { }
 
-  // On Page Opening
+  // On Page Opening validate user
   ngOnInit() {
     if (!sessionStorage.getItem('user')) {
       // No valid session is available
-      this.loginService.deleteUser();
+      this.authService.deleteUser();
       alert('Please login In');
       this.router.navigateByUrl('login');
 
     } else {
 
       // Valid session
-      this.user = this.loginService.readUser();
+      this.user = this.authService.readUser();
       this.username = this.user.name;
-      this.getChannels();
+      this.getAuthUser(this.username);
     }
+  }
+
+  // Validate user authority
+  getAuthUser(name){
+    const user = { name: name };
+    this.authService.getAuthUser(user)
+      .subscribe((data: any) => {
+        if ((data.name === 'super') || (data.role === 'group')) {
+          this.getChannels();
+          return true;
+        } else {
+          this.router.navigateByUrl('/chat');
+          alert('You are not authorised to enter this page');
+        }
+      });
   }
 
   // Get Channels
