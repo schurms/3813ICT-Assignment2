@@ -21,11 +21,11 @@ import { GroupComponent } from './pages/admin/group/group.component';
 import { UserComponent } from './pages/admin/user/user.component';
 
 // Services
-import { LoginService } from './services/login/login.service';
 import { SocketService } from './services/socket/socket.service';
 import { UserService } from './services/user/user.service';
 import { GroupService } from './services/group/group.service';
 import { ChannelService } from './services/channel/channel.service';
+import { AuthService } from './services/auth/auth.service';
 
 
 @NgModule({
@@ -54,7 +54,7 @@ import { ChannelService } from './services/channel/channel.service';
   ],
   providers: [
     UserService,
-    LoginService,
+    AuthService,
     GroupService,
     SocketService,
     ChannelService

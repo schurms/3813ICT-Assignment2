@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { SocketService } from '../../../../services/socket/socket.service';
 import { Router } from '@angular/router';
-import {LoginService} from '../../../../services/login/login.service';
 import {User} from '../../../../models/user.model';
+import {AuthService} from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-chatroom-window',
@@ -19,7 +19,7 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
 
   constructor(
     private socketService: SocketService,
-    private loginService: LoginService,
+    private authService: AuthService,
     private router: Router) {
   }
 
@@ -27,13 +27,13 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (!sessionStorage.getItem('user')) {
       // No valid session is available
-      this.loginService.deleteUser();
+      this.authService.deleteUser();
       alert('Please Login In');
       this.router.navigateByUrl('login');
 
     } else {
 
-      this.user = this.loginService.readUser();
+      this.user = this.authService.readUser();
       this.username = this.user.name;
       // Valid user found
       console.log('Session started for: ' + this.username);

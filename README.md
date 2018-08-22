@@ -1,8 +1,8 @@
-# MyChat - 3813ICT Assignment 1 (Jordan Schurmann).
+# MyChat - 3813ICT Assignment 1
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+Student Name: Jordan Schurmann
 
-Individual Assignment
+Student Number: s5073958
 
 Due: 5pm Mon 3 September 2018
 
@@ -15,10 +15,11 @@ users will have admin permission to add users to channels and groups, whilst a s
 has access to the entire site. The solution must be implemented using Node.js, Angular, and
 sockets. No persistent data storage or user authentication is required for assignment 1.
 
-## Architecture
+## Node.js Server REST APIs
 
-The system will have users which can have the following additional roles:
-* Group Admin
+Within the Node.js server the following routes are provided:
+* Auth.js
+
 * Super Admin
 
 A Group Admin has the ability to create groups. A Group Admin also has the ability to create

@@ -25,8 +25,8 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname , '../dist/myChat/')));
 
 // Include Modules
-require('./routes/user.js')(app);
-require('./routes/auth.js')(app, fs);
+require('./routes/user.js')(app,fs);
+require('./routes/auth.js')(app,fs);
 require('./routes/messages.js')(app);
 require('./routes/groups.js')(app);
 require('./routes/channels.js')(app);

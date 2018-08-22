@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from '../../services/login/login.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import {AuthService} from '../../services/auth/auth.service';
 
 const BACKEND_URL = environment.apiURL;
 
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private loginService: LoginService,
+              private authService: AuthService,
               private httpClient: HttpClient) { }
 
   // Prior to page display
@@ -40,11 +40,11 @@ export class LoginComponent implements OnInit {
     }
 
     const userData  = this.loginForm.value;
-    this.httpClient.post<{message: string}>(BACKEND_URL + '/api/login/', userData)
+    this.httpClient.post(BACKEND_URL + '/api/login/', userData)
       .subscribe((data: any) => {
         if (data.ok) {
           this.router.navigateByUrl('/chat');
-          this.loginService.writeUser(userData);
+          this.authService.writeUser(userData);
           this.loginForm.reset();
         } else {
           const errorBox = document.createElement('div');
