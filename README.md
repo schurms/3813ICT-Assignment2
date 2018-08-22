@@ -103,13 +103,13 @@ app.post('/api/user', function(req,res)
 	- Input Parameter: User details - Name, Email, Role etc
 	- Returns: New user details
 ```javascript
-app.put('/api/user/:id, function(req,res)
+app.put('/api/user/:id', function(req,res)
 ```
 - PUT endpoint API for editing user details. Updates data into user.json.
 	- Input Parameter: User details - id, Name, Email, Role etc
 	- Returns: edit user details
 ```javascript
-app.delete('/api/user/:id, function(req,res)
+app.delete('/api/user/:id', function(req,res)
 ```
 - DELETE endpoint API for deleting a user.  Updates data into user.json.
 	- Input Parameter: User id
@@ -128,13 +128,13 @@ app.post('/api/group', function(req,res)
   - Input Parameter: Group details - Name
   - Returns: New group details
 ```javascript
-app.put('/api/group/:id, function(req,res)
+app.put('/api/group/:id', function(req,res)
 ```
 - PUT endpoint API for editing group details. Updates data into group.json.
 	- Input Parameter: Group details - id, Name, Channel = ""
 	- Returns: edit group details
 ```javascript
-app.delete('/api/group/:id, function(req,res)
+app.delete('/api/group/:id', function(req,res)
 ```
 - DELETE endpoint API for deleting a group.  Updates data into group.json.
   - Input Parameter: Group id
@@ -154,13 +154,13 @@ app.post('/api/channel', function(req,res)
 	- Input Parameter: new channel details - Name
 	- Returns: New channel details
 ```javascript
-app.put('/api/channel/:id, function(req,res)
+app.put('/api/channel/:id', function(req,res)
 ```
 - PUT endpoint API for editing channel details. Updates data into channel.json.
   - Input Parameter: Channel details - id, Name
   - Returns: edit channel details
 ```javascript
-app.delete('/api/channel/:id, function(req,res)
+app.delete('/api/channel/:id', function(req,res)
 ```
 - DELETE endpoint API for deleting a channel.  Updates data into channel.json.
   - Input Parameter: Channel id
