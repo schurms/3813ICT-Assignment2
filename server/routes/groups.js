@@ -2,16 +2,18 @@ module.exports = function(app,fs) {
 
   // GET endpoint API for getting groups
   app.get('/api/groups', function (req, res) {
-    let userObj;
+    console.log('Get Groups');
+    let groupArray;
+    //Read data from JSON File
     fs.readFile('server/data/group.json', 'utf8', function (err, data) {
       if (err) {
         console.log(err);
         //Some error happened opened the file. No success.
         res.send({"ok": false});
       } else {
-        groupObj = JSON.parse(data);
-        console.log('Get Group');
-        res.send({groups: groupObj});
+        groupArray = JSON.parse(data);
+        //Return group data
+        res.send({groups: groupArray});
       }
     });
   });
@@ -19,31 +21,32 @@ module.exports = function(app,fs) {
   // POST endpoint API for creating a new group
   app.post('/api/groups', function (req, res) {
     console.log('Create Group');
-    let groupObj;
+    let groupArray;
+    //Read data from JSON file
     fs.readFile('server/data/group.json', 'utf8', function (err,data) {
       if (err) {
         console.log(err);
       } else {
-        groupObj = JSON.parse(data);
-        if (groupObj.find(group => group.name === req.body.name)) {
+        groupArray = JSON.parse(data);
+        if (groupArray.find(group => group.name === req.body.name)) {
           // Group exists
           res.send({"ok": false});
         } else {
-          console.log('Create Group');
-          // calculate the next ID
+          // Find next available id
           let id = 1;
-          if (groupObj.length > 0) {
-            let maximum = Math.max.apply(Math, groupObj.map(function (f) {
-              return f.id;
+          if (groupArray.length > 0) {
+            let maximum = Math.max.apply(Math, groupArray.map(function (found) {
+              return found.id;
             }));
             id = maximum + 1;
           }
           let newGroup = {"id": id, "name": req.body.name, "channel": req.body.channel};
-          groupObj.push(newGroup);
-          let groupJson = JSON.stringify(groupObj);
+          groupArray.push(newGroup);
+          let groupJson = JSON.stringify(groupArray);
+          //Write data to JSON file
           fs.writeFile('server/data/group.json', groupJson, 'utf-8', function (err) {
             if (err) throw err;
-            //Send response that registration was successful.
+            //Return Created Group
             res.send(newGroup);
           });
         }
@@ -53,21 +56,24 @@ module.exports = function(app,fs) {
 
   // PUT endpoint API for editing a group
   app.put('/api/groups/:id', function (req, res) {
-    console.log('Update Group');
-    let groupObj;
+    console.log('Edit Group');
+    let groupArray;
     let id = req.params.id;
+    //Read data from JSON file
     fs.readFile('server/data/group.json', 'utf8', function (err,data) {
       if (err) {
         console.log(err);
       } else {
-        groupObj = JSON.parse(data);
-        let editGroup = groupObj.find(x => x.id == id);
+        groupArray = JSON.parse(data);
+        //Find group to be edited
+        let editGroup = groupArray.find(group => group.id == id);
         editGroup.name = req.body.name;
         editGroup.channel = req.body.channel;
-        let groupJson = JSON.stringify(groupObj);
+        let groupJson = JSON.stringify(groupArray);
+        //Write data to JSON file
         fs.writeFile('server/data/group.json', groupJson, 'utf-8', function (err) {
           if (err) throw err;
-          //Send response that registration was successful.
+          //Return edited Group
           res.send(editGroup);
         });
       }
@@ -77,20 +83,24 @@ module.exports = function(app,fs) {
   // DELETE endpoint API for deleting a group
   app.delete('/api/groups/:id', function (req, res) {
     console.log('Delete Group');
-    let groupObj;
+    let groupArray;
     let id = req.params.id;
+    //Read data from JSON file
     fs.readFile('server/data/group.json', 'utf8', function (err,data) {
       if (err) {
         console.log(err);
       } else {
-        groupObj = JSON.parse(data);
-        let g = groupObj.find(x => x.id == id);
-        groupObj = groupObj.filter(x => x.id != id);
-        let groupJson = JSON.stringify(groupObj);
+        groupArray = JSON.parse(data);
+        //Find group to be deleted
+        let deleteGroup = groupArray.find(group => group.id == id);
+        //Set new group array less item to be deleted
+        groupArray = groupArray.filter(group => group.id != id);
+        let groupJson = JSON.stringify(groupArray);
+        //Write data to JSON file
         fs.writeFile('server/data/group.json', groupJson, 'utf-8', function (err) {
           if (err) throw err;
-          //Send response that registration was successful.
-          res.send(g);
+          //Return deleted Group.
+          res.send(deleteGroup);
         });
       }
     });

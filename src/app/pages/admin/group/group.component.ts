@@ -110,13 +110,4 @@ export class GroupComponent implements OnInit {
       );
   }
 
-  // Select Group
-  selectGroup(groupId : any) {
-    // console.log(groupId);
-    // this.id =
-    // let url: string = "/group/" + groupId;
-    // this.router.navigateByUrl(url);
-  }
-
-
 }

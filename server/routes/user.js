@@ -2,16 +2,18 @@ module.exports = function(app,fs) {
 
   // GET endpoint API for getting all users
   app.get('/api/users', function (req, res) {
-    let userObj;
+            console.log('Get Users');
+    let userArray;
+    //Read data from JSON
     fs.readFile('server/data/user.json', 'utf8', function (err, data) {
       if (err) {
         console.log(err);
         //Some error happened opened the file. No success.
         res.send({"ok": false});
       } else {
-        userObj = JSON.parse(data);
-        console.log('Get Users');
-        res.send({users: userObj});
+        userArray = JSON.parse(data);
+        //Return users
+        res.send({users: userArray});
       }
     });
   });
@@ -19,31 +21,32 @@ module.exports = function(app,fs) {
   // POST endpoint API for creating a new user
   app.post('/api/user', function (req, res) {
     console.log('Create User');
-    let userObj;
+    let userArray;
+    //Read data from JSON
     fs.readFile('server/data/user.json', 'utf8', function (err,data) {
       if (err) {
         console.log(err);
       } else {
-        userObj = JSON.parse(data);
-        if (userObj.find(user => user.name === req.body.name)) {
-          // User exists
+        userArray = JSON.parse(data);
+        if (userArray.find(user => user.name === req.body.name)) {
+          //User exists
           res.send({"ok": false});
         } else {
-          console.log('Create User');
-          // calculate the next ID
+          //Determine the next available id
           let id = 1;
-          if (userObj.length > 0) {
-            let maximum = Math.max.apply(Math, userObj.map(function (f) {
-              return f.id;
+          if (userArray.length > 0) {
+            let maximum = Math.max.apply(Math, userArray.map(function (found) {
+              return found.id;
             }));
             id = maximum + 1;
           }
           let newUser = {"id": id, "name": req.body.name, "email": req.body.email, "role": req.body.role};
-          userObj.push(newUser);
-          let userJson = JSON.stringify(userObj);
+          userArray.push(newUser);
+          let userJson = JSON.stringify(userArray);
+          //Write data to JSON
           fs.writeFile('server/data/user.json', userJson, 'utf-8', function (err) {
             if (err) throw err;
-            //Send response that registration was successful.
+            //Return created user
             res.send(newUser);
           });
         }
@@ -53,22 +56,25 @@ module.exports = function(app,fs) {
 
   // PUT endpoint API for editing a user
   app.put('/api/user/:id', function (req, res) {
-    console.log('Update User');
+    console.log('Edit User');
     let userObj;
     let id = req.params.id;
+    //Read data from JSON file
     fs.readFile('server/data/user.json', 'utf8', function (err,data) {
       if (err) {
         console.log(err);
       } else {
         userObj = JSON.parse(data);
+        //Find user
         let editUser = userObj.find(x => x.id == id);
         editUser.name = req.body.name;
         editUser.email = req.body.email;
         editUser.role = req.body.role;
         let userJson = JSON.stringify(userObj);
+        //Write Data to JSON File
         fs.writeFile('server/data/user.json', userJson, 'utf-8', function (err) {
           if (err) throw err;
-          //Send response that registration was successful.
+          //Return edited user
           res.send(editUser);
         });
       }
@@ -80,18 +86,22 @@ module.exports = function(app,fs) {
     console.log('Delete User');
     let userObj;
     let id = req.params.id;
+    //Read data from JSON file
     fs.readFile('server/data/user.json', 'utf8', function (err,data) {
       if (err) {
         console.log(err);
       } else {
         userObj = JSON.parse(data);
-        let u = userObj.find(x => x.id == id);
-        userObj = userObj.filter(x => x.id != id);
+        //Find user to delete
+        let deleteUser = userObj.find(user => user.id == id);
+        //Create new user array less user to be deleted
+        userObj = userObj.filter(user => user.id != id);
         let userJson = JSON.stringify(userObj);
+        //Write data to JSON File
         fs.writeFile('server/data/user.json', userJson, 'utf-8', function (err) {
         if (err) throw err;
-          //Send response that registration was successful.
-          res.send(u);
+          //Return deleted user
+          res.send(deleteUser);
         });
       }
     });

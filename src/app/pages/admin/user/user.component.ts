@@ -1,6 +1,7 @@
 // Modules
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {Form, FormBuilder, FormGroup, Validators} from '@angular/forms';
 // Models
 import { User } from '../../../models/user.model';
 // Services
@@ -14,6 +15,8 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class UserComponent implements OnInit {
 
+  submitted = false;
+  userForm: FormGroup;
   users: User[] = null;
   user: User;
   username: string;
@@ -21,10 +24,17 @@ export class UserComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private router: Router) { }
+    private router: Router,
+    private formBuilder: FormBuilder) { }
 
   // On Page Opening validate user
   ngOnInit() {
+    this.userForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      role:[''],
+    });
+
     if (!sessionStorage.getItem('user')) {
       // No valid session is available
       this.authService.deleteUser();
@@ -67,13 +77,16 @@ export class UserComponent implements OnInit {
   }
 
   // Create a new user
-  createUser(name, email, role){
-    const user = {
-      name: name,
-      email: email,
-      role: role
-    };
-    this.userService.createUser(user)
+  createUser(){
+    this.submitted = true;
+    event.preventDefault();
+
+    if (this.userForm.invalid) {
+      return;
+    }
+
+    const userData = this.userForm.value;
+    this.userService.createUser(userData)
       .subscribe((data: any) => {
         // Test if data id is returned
         if (data.id) {
