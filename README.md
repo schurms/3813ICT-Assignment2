@@ -21,6 +21,8 @@ ng server
 
 The approach to utilising GIT and version control was to commit after each complete build.  Whilst development was undertaken on a local machine, the version control solution was stored in a local GIT repository and then pushed to GITHUB.
 
+Branches were taken where appropriate and data merged in.  However, this was generally performed locally and only the final merged versions were pushed to GITHUB.  This approach reduced complexity and allowed work to continue in GIT when offline.
+
 ### Data Structures
 
 Core data structures are:
@@ -71,7 +73,6 @@ export class User {
   }
 }
 ```
-
 
 ### REST API
 This section defines the REST APIs implemented within Node.js.
