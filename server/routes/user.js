@@ -18,7 +18,7 @@ module.exports = function(app,fs) {
 
   // POST endpoint API for creating a new user
   app.post('/api/user', function (req, res) {
-    console.log('Update User');
+    console.log('Create User');
     let userObj;
     fs.readFile('server/data/user.json', 'utf8', function (err,data) {
       if (err) {
