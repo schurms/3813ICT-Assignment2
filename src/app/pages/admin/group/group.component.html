@@ -3,25 +3,33 @@
   <h2>Group Management</h2>
   <br>
   <div class="row">
-    <div class="col-4">
-      <div class="form-group">
-        <div>
+    <div class="col-3">
+      <form id="groupForm" [formGroup]="groupForm" class="row" (ngSubmit)="createGroup()" >
+        <div class="form-group">
           <div class="text-left">
             <label for="name">Group Name:</label>
           </div>
-          <div>
-            <input type="text" name="name" [(ngModel)]="name" class="form-control">
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Enter group name"
+            formControlName="name"
+            required
+            [ngClass]="{ 'is-invalid': submitted && groupForm.controls.name.errors }"/>
+          <div *ngIf="submitted && !!groupForm.controls.name.errors" class="invalid-feedback">
+            <div *ngIf="!!groupForm.controls.name.errors.required">
+              Group Name is required
+            </div>
           </div>
+          <br>
+          <button class="btn btn-primary btn-sm">Create New Group</button>
         </div>
-      </div>
-      <div class="form-group">
-        <div>
-          <button (click)="createGroup(name)" class="btn btn-primary btn-sm">Create New Group</button>
-        </div>
-      </div>
+      </form>
     </div>
 
-    <div class="col-8">
+    <div class="col-9">
       <table class="table table-hover">
         <thead>
           <tr>

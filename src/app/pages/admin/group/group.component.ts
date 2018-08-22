@@ -1,6 +1,7 @@
 // Modules
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 // Models
 import { Group } from '../../../models/group.model';
 import { User } from '../../../models/user.model';
@@ -18,15 +19,22 @@ export class GroupComponent implements OnInit {
   groups: Group[];
   user: User;
   username: string;
+  submitted = false;
+  groupForm: FormGroup;
 
   constructor(
     private groupService: GroupService,
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    private formBuilder: FormBuilder) {
   }
 
   // On Page Opening validate user
   ngOnInit() {
+    this.groupForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+    });
+
     if (!sessionStorage.getItem('user')) {
       // No valid session is available
       this.authService.deleteUser();
@@ -70,13 +78,16 @@ export class GroupComponent implements OnInit {
   }
 
   // Create Group
-  createGroup(name) {
-    const group = {
-      name: name,
-      channel: ''
-    };
+  createGroup() {
+    this.submitted = true;
+    event.preventDefault();
 
-    this.groupService.createGroup(group)
+    if (this.groupForm.invalid) {
+      return;
+    }
+
+    const groupData = this.groupForm.value;
+    this.groupService.createGroup(groupData)
       .subscribe(
         data => {
           this.getGroups();

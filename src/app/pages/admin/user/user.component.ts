@@ -1,7 +1,7 @@
 // Modules
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {Form, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 // Models
 import { User } from '../../../models/user.model';
 // Services
@@ -15,7 +15,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class UserComponent implements OnInit {
 
-  roles = ['super', 'group'];
+  roles = ['','super', 'group'];
 
   submitted = false;
   userForm: FormGroup;
