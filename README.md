@@ -74,9 +74,9 @@ export class User {
 }
 ```
 
-### REST API
+### REST API's
 This section defines the REST APIs implemented within Node.js.
-##### route/Auth.js** - REST APIs within the route are:
+#### route/Auth.js** - REST APIs within the route are:
 ```javascript
 app.post('api/login', function (req,res)
 ```
@@ -89,7 +89,7 @@ app.post('api/login', function (req,res)
 - POST endpoint API for retrieving a Users credentials to validate authority to access page - Retrieves data from user.json.
 	- Input Parameter: User Name:
 	- Returns: User record containing role.  Role of "Group" or Name = "super" allows access to admin function
-##### route/user.js - REST APIs within the route are:
+#### route/user.js - REST APIs within the route are:
 ```javascript
 app.get('/api/users', function(req,res)
 ```
@@ -114,7 +114,7 @@ app.delete('/api/user/:id', function(req,res)
 - DELETE endpoint API for deleting a user.  Updates data into user.json.
 	- Input Parameter: User id
 	- Returns: Deleted user details
-##### route/group.js - REST APIs within the route are:
+#### route/group.js - REST APIs within the route are:
 ```javascript
 app.get('/api/groups', function(req,res)
 ```
@@ -139,7 +139,7 @@ app.delete('/api/group/:id', function(req,res)
 - DELETE endpoint API for deleting a group.  Updates data into group.json.
   - Input Parameter: Group id
   - Returns: Deleted group details
-##### route/channel.js - REST APIs within the route are:  
+#### route/channel.js - REST APIs within the route are:  
   > Not sure if this is required.
 ```javascript
 app.get('/api/channels', function(req,res)
