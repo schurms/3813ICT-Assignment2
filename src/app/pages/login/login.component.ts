@@ -47,11 +47,7 @@ export class LoginComponent implements OnInit {
           this.authService.writeUser(userData);
           this.loginForm.reset();
         } else {
-          const errorBox = document.createElement('div');
-          const errorText = document.createTextNode("Username does not exist");
-          errorBox.className += 'alert alert-danger';
-          errorBox.appendChild(errorText);
-          document.getElementById('loginForm').appendChild(errorBox);
+          alert('Username does not exist');
         }
     });
   }

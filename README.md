@@ -76,7 +76,7 @@ export class User {
 
 ### REST API's
 This section defines the REST APIs implemented within Node.js.
-#### route/Auth.js** - REST APIs within the route are:
+#### route/Auth.js - REST APIs within the route are:
 ```javascript
 app.post('api/login', function (req,res)
 ```
