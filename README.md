@@ -75,53 +75,95 @@ export class User {
 
 ### REST API
 This section defines the REST APIs implemented within Node.js.
-- **route/Auth.js** - REST APIs within the route are:
-  - *app.post('api/login', function (req,res)* - POST endpoint API for validating if a User is in the system to allow / deny access - Retrieves data from user.json.
-    - Input Parameter: User Name:
-	- Returns: True (Found) or False (not found)
-  - *app.post('api/login', function (req,res)* - POST endpoint API for retrieving a Users credentials to validate authority to access page - Retrieves data from user.json.
+##### route/Auth.js** - REST APIs within the route are:
+```javascript
+app.post('api/login', function (req,res)
+```
+- POST endpoint API for validating if a User is in the system to allow / deny access - Retrieves data from user.json.
+  - Input Parameter: User Name:
+  - Returns: True (Found) or False (not found)
+```javascript
+app.post('api/login', function (req,res)
+```
+- POST endpoint API for retrieving a Users credentials to validate authority to access page - Retrieves data from user.json.
 	- Input Parameter: User Name:
 	- Returns: User record containing role.  Role of "Group" or Name = "super" allows access to admin function
-- **route/user.js** - REST APIs within the route are:
-  - *app.get('/api/users', function(req,res)* - GET endpoint API for retrieving all users in the system. Retrieves data from user.json.
+##### route/user.js - REST APIs within the route are:
+```javascript
+app.get('/api/users', function(req,res)
+```
+- GET endpoint API for retrieving all users in the system. Retrieves data from user.json.
 	- Input Parameter: None
 	- Returns: Array of Users
-  - *app.post('/api/user', function(req,res)* - POST endpoint API for creating a new user. Updates data into user.json.
+```javascript
+app.post('/api/user', function(req,res)
+```
+- POST endpoint API for creating a new user. Updates data into user.json.
 	- Input Parameter: User details - Name, Email, Role etc
 	- Returns: New user details
-  - *app.put('/api/user/:id, function(req,res)* - PUT endpoint API for editing user details. Updates data into user.json.
+```javascript
+app.put('/api/user/:id, function(req,res)
+```
+- PUT endpoint API for editing user details. Updates data into user.json.
 	- Input Parameter: User details - id, Name, Email, Role etc
 	- Returns: edit user details
-  - *app.delete('/api/user/:id, function(req,res)* - DELETE endpoint API for deleting a user.  Updates data into user.json.
+```javascript
+app.delete('/api/user/:id, function(req,res)
+```
+- DELETE endpoint API for deleting a user.  Updates data into user.json.
 	- Input Parameter: User id
 	- Returns: Deleted user details
-- **route/group.js** - REST APIs within the route are:
-  - *app.get('/api/groups', function(req,res)* - GET endpoint API for retrieving all groups in the system. Retrieves data from group.json.
+##### route/group.js - REST APIs within the route are:
+```javascript
+app.get('/api/groups', function(req,res)
+```
+- GET endpoint API for retrieving all groups in the system. Retrieves data from group.json.
 	- Input Parameter: None
 	- Returns: Array of Groups
-  - *app.post('/api/group', function(req,res)* - POST endpoint API for creating a new group. Updates data into group.json.
-  	- Input Parameter: Group details - Name
-	- Returns: New group details
-  - *app.put('/api/group/:id, function(req,res)* - PUT endpoint API for editing group details. Updates data into group.json.
+```javascript
+app.post('/api/group', function(req,res)
+```
+- POST endpoint API for creating a new group. Updates data into group.json.
+  - Input Parameter: Group details - Name
+  - Returns: New group details
+```javascript
+app.put('/api/group/:id, function(req,res)
+```
+- PUT endpoint API for editing group details. Updates data into group.json.
 	- Input Parameter: Group details - id, Name, Channel = ""
 	- Returns: edit group details
-  - *app.delete('/api/group/:id, function(req,res)* - DELETE endpoint API for deleting a group.  Updates data into group.json.
-    - Input Parameter: Group id
-	- Returns: Deleted group details
-- **route/channel.js** - REST APIs within the route are:  
+```javascript
+app.delete('/api/group/:id, function(req,res)
+```
+- DELETE endpoint API for deleting a group.  Updates data into group.json.
+  - Input Parameter: Group id
+  - Returns: Deleted group details
+##### route/channel.js - REST APIs within the route are:  
   > Not sure if this is required.
-  - *app.get('/api/channelss', function(req,res)* - GET endpoint API for retrieving all channels in the system. Retrieves data from channel.json.
-  	- Input Parameter: None
-	- Returns: Array of Channels
-  - *app.post('/api/channel', function(req,res)* - POST endpoint API for creating a new channel. Updates data into channel.json.
+```javascript
+app.get('/api/channels', function(req,res)
+```
+- GET endpoint API for retrieving all channels in the system. Retrieves data from channel.json.
+  - Input Parameter: None
+  - Returns: Array of Channels
+```javascript
+app.post('/api/channel', function(req,res)
+```
+- POST endpoint API for creating a new channel. Updates data into channel.json.
 	- Input Parameter: new channel details - Name
 	- Returns: New channel details
-  - *app.put('/api/channel/:id, function(req,res)* - PUT endpoint API for editing channel details. Updates data into channel.json.
-  	- Input Parameter: Channel details - id, Name
-	- Returns: edit channel details
-  - *app.delete('/api/channel/:id, function(req,res)* - DELETE endpoint API for deleting a channel.  Updates data into channel.json.
-    - Input Parameter: Channel id
-	- Returns: Deleted channel details
+```javascript
+app.put('/api/channel/:id, function(req,res)
+```
+- PUT endpoint API for editing channel details. Updates data into channel.json.
+  - Input Parameter: Channel details - id, Name
+  - Returns: edit channel details
+```javascript
+app.delete('/api/channel/:id, function(req,res)
+```
+- DELETE endpoint API for deleting a channel.  Updates data into channel.json.
+  - Input Parameter: Channel id
+  - Returns: Deleted channel details
 ### Angular Architecture
 This section defines the Angular Architecture used.  It discusses the components, services and models used.
 - **Components** - Components can be found within the PAGES folder. The following Angular components are implemented:
