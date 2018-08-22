@@ -46,7 +46,7 @@ export class ChannelComponent implements OnInit {
     const user = { name: name };
     this.authService.getAuthUser(user)
       .subscribe((data: any) => {
-        if ((data.name === 'super') || (data.role === 'group')) {
+        if ((data.role === 'super') || (data.role === 'group')) {
           this.getChannels();
           return true;
         } else {

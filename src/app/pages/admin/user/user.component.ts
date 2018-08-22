@@ -15,6 +15,8 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class UserComponent implements OnInit {
 
+  roles = ['super', 'group'];
+
   submitted = false;
   userForm: FormGroup;
   users: User[] = null;
@@ -55,7 +57,7 @@ export class UserComponent implements OnInit {
     const user = { name: name };
     this.authService.getAuthUser(user)
       .subscribe((data: any) => {
-        if ((data.name === 'super') || (data.role === 'group')) {
+        if ((data.role === 'super') || (data.role === 'group')) {
           this.getUsers();
           return true;
         } else {
