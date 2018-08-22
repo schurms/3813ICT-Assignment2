@@ -70,7 +70,7 @@ export class GroupComponent implements OnInit {
   }
 
   // Create Group
-  createGroup(name){
+  createGroup(name) {
     const group = {
       name: name,
       channel: ''
@@ -87,7 +87,7 @@ export class GroupComponent implements OnInit {
   }
 
   // Update Group
-  updateGroup(group){
+  updateGroup(group) {
     this.groupService.updateGroup(group)
       .subscribe(
         data => {
@@ -99,7 +99,7 @@ export class GroupComponent implements OnInit {
   }
 
   // Delete Group
-  deleteGroup(group){
+  deleteGroup(group) {
     this.groupService.deleteGroup(group)
       .subscribe(
         data => {
@@ -109,5 +109,14 @@ export class GroupComponent implements OnInit {
         err => console.log(err)
       );
   }
+
+  // Select Group
+  selectGroup(groupId : any) {
+    // console.log(groupId);
+    // this.id =
+    // let url: string = "/group/" + groupId;
+    // this.router.navigateByUrl(url);
+  }
+
 
 }

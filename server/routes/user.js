@@ -75,7 +75,6 @@ module.exports = function(app,fs) {
     });
   });
 
-
   // DELETE endpoint API for deleting a user
   app.delete('/api/user/:id', function (req, res) {
     console.log('Delete User');

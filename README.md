@@ -6,89 +6,158 @@ Student Number: s5073958
 
 Due: 5pm Mon 3 September 2018
 
-## Introduction
-You are required to build the server and front end for a chat system. For assignment 1, chat
-functionality is not required, you will be building the dashboard for the chat system, and in
-assignment 2 you will add the chat functionality along with other features. The chat system will
-allow users to communicate with each other in realtime in different groups and channels. Some
-users will have admin permission to add users to channels and groups, whilst a super admin
-has access to the entire site. The solution must be implemented using Node.js, Angular, and
-sockets. No persistent data storage or user authentication is required for assignment 1.
+### COMMANDS
 
-## Node.js Server REST APIs
+- Start server - Terminal Window 1 (This starts the server with nodemon)
+```javascript
+npm run start:server
+```
+- Start client - Terminal Window 2
+```javascript
+ng server
+```
 
-Within the Node.js server the following routes are provided:
-* Auth.js
+### GIT Structure
 
-* Super Admin
+The approach to utilising GIT and version control was to commit after each complete build.  Whilst development was undertaken on a local machine, the version control solution was stored in a local GIT repository and then pushed to GITHUB.
 
-A Group Admin has the ability to create groups. A Group Admin also has the ability to create
-channels within groups. A Group Admin has the ability to create/invite users to a channel (if the
-user has already been created they will simply be added to the channel). A Group Admin can
-remove groups, channels, and users from channels. A Group Admin can also allow a user to
-become a Group Admin of the group.
+### Data Structures
 
-A Super Admin can create users with Group Admin role. A Super Admin can also remove users.
-A Super Admin can also provide another user with Super Admin role. A Super Admin also has
-Group Admin role.
+Core data structures are:
 
-A user is identified by their username. Initially there is one user called 'super' who is also a
-Super Admin. A user also has an email address (no emails are sent to the email address).
-The first page of the website requires a user to enter their username, which is remembered in
-local storage. A user may 'logout' which also clears the username out of local storage. Once a
-user enters their username the page should display the groups they have been added to and
-the channels for each group.
+Group: - This mnodel includes the channel Class.
+```typescript
+import { Channel } from './channel.model';
 
-Selecting a channel should display the channel history (which will be empty in assignment 1).A text box should allow for new messages to be sent to the channel. New messages are
-broadcast to all users currently viewing the channel and added to the history (not required in
-assignment 1).
-Data is stored by serialising JavaScript objects into JSON strings and stored in the file system.
+export class Group {
+  id: number;
+  name: string;
+  channel: Channel;
 
-## Git
-Git must be used during the development of the chat system. We recommend that you use
-Github and share the repository with your marker. You will be marked on frequent updates to
-the repository and the usage of git features.
+  constructor( id: number, name: string, channel: Channel) {
+    this.id = id;
+    this.name = name;
+    this.channel = channel;
+  }
+}
+```
 
-## Documentation
-Documentation of your implementation is required. You will need to provide the following:
-* Describe the organisation of your Git repository and how you used it during the
-development of your solution
-* Description of data structures used in the client and server to represent the various
-entities, e.g.: users, groups, channels, etc.
-* A description of how you divided the responsibilities between client and server (you are
-encouraged to have the server provide a REST API which returns JSON in addition to a
-static directory)
-* A list of routes, parameters, return values, and purpose
-* Angular architecture: components, services, models, routes
+Channel: 
+```typescript
+export class Channel {
+  id: number;
+  name: string;
+
+  constructor( id: number, name: string) {
+    this.id = id;
+    this.name = name;
+  }
+}
+```
+
+User:
+```typescript
+export class User {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+
+  constructor( id: number, name: string, email: string, role: string ) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.role = role;
+  }
+}
+```
 
 
-
-
-## Development server
-
-Run `ng serve` for a dev Angular server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-Run `npm run start:server` to start the node server.  The app server has nodemon installed and will automatically reload.
-
-With the
-
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### REST API
+This section defines the REST APIs implemented within Node.js.
+- **route/Auth.js** - REST APIs within the route are:
+  - *app.post('api/login', function (req,res)* - POST endpoint API for validating if a User is in the system to allow / deny access - Retrieves data from user.json.
+    - Input Parameter: User Name:
+	- Returns: True (Found) or False (not found)
+  - *app.post('api/login', function (req,res)* - POST endpoint API for retrieving a Users credentials to validate authority to access page - Retrieves data from user.json.
+	- Input Parameter: User Name:
+	- Returns: User record containing role.  Role of "Group" or Name = "super" allows access to admin function
+- **route/user.js** - REST APIs within the route are:
+  - *app.get('/api/users', function(req,res)* - GET endpoint API for retrieving all users in the system. Retrieves data from user.json.
+	- Input Parameter: None
+	- Returns: Array of Users
+  - *app.post('/api/user', function(req,res)* - POST endpoint API for creating a new user. Updates data into user.json.
+	- Input Parameter: User details - Name, Email, Role etc
+	- Returns: New user details
+  - *app.put('/api/user/:id, function(req,res)* - PUT endpoint API for editing user details. Updates data into user.json.
+	- Input Parameter: User details - id, Name, Email, Role etc
+	- Returns: edit user details
+  - *app.delete('/api/user/:id, function(req,res)* - DELETE endpoint API for deleting a user.  Updates data into user.json.
+	- Input Parameter: User id
+	- Returns: Deleted user details
+- **route/group.js** - REST APIs within the route are:
+  - *app.get('/api/groups', function(req,res)* - GET endpoint API for retrieving all groups in the system. Retrieves data from group.json.
+	- Input Parameter: None
+	- Returns: Array of Groups
+  - *app.post('/api/group', function(req,res)* - POST endpoint API for creating a new group. Updates data into group.json.
+  	- Input Parameter: Group details - Name
+	- Returns: New group details
+  - *app.put('/api/group/:id, function(req,res)* - PUT endpoint API for editing group details. Updates data into group.json.
+	- Input Parameter: Group details - id, Name, Channel = ""
+	- Returns: edit group details
+  - *app.delete('/api/group/:id, function(req,res)* - DELETE endpoint API for deleting a group.  Updates data into group.json.
+    - Input Parameter: Group id
+	- Returns: Deleted group details
+- **route/channel.js** - REST APIs within the route are:  
+  > Not sure if this is required.
+  - *app.get('/api/channelss', function(req,res)* - GET endpoint API for retrieving all channels in the system. Retrieves data from channel.json.
+  	- Input Parameter: None
+	- Returns: Array of Channels
+  - *app.post('/api/channel', function(req,res)* - POST endpoint API for creating a new channel. Updates data into channel.json.
+	- Input Parameter: new channel details - Name
+	- Returns: New channel details
+  - *app.put('/api/channel/:id, function(req,res)* - PUT endpoint API for editing channel details. Updates data into channel.json.
+  	- Input Parameter: Channel details - id, Name
+	- Returns: edit channel details
+  - *app.delete('/api/channel/:id, function(req,res)* - DELETE endpoint API for deleting a channel.  Updates data into channel.json.
+    - Input Parameter: Channel id
+	- Returns: Deleted channel details
+### Angular Architecture
+This section defines the Angular Architecture used.  It discusses the components, services and models used.
+- **Components** - Components can be found within the PAGES folder. The following Angular components are implemented:
+  - *Login* - This component is displayed on user page opening.  Its purpose is to manage login.  It performs validation to ensure only registered users can login.  It validates (i) that the user name exists in the database, (ii) that a user name is input, (iii) that an email is input, and (iv) that the email is in correct email format.
+  - *Admin* - This is a high level collection of functions to manage Groups/Channels/Users
+    - Group - This component is displayed on user being successfully authorised to access the page. It provides the mechanism to add/update/delete groups.  It also provides a link to add users to groups.
+    - Channel - This component is displayed on user being successfully authorised to access the page.  It provides the mechanism to add/update/delete channels.  It also provides a link to add users to channels.
+    - User - This component is displayed on user being successfully authorised to access the page.  It provides the mechanism to add/update/delete users.
+  - *Chat* - This component is displayed on successful user login.  It is the default landing page.  The page can not be opened unless a user is logged in. Whilst basic chat functionality works, this is not a requirement at this stage.
+  - *Navbar* - This component displays the navbar at the top of pages.  This component is inserted via the <app-navbar> selector. Options on the Navbar are:
+    - Admin - Clicking on this menu item opens a dropdown to allow the user to navigate to the appropriate administration page.  Dropdown options are (i) Groups (to manage Groups), (2) Users (to manage Users), and (3) Channels (to manage Channels). These features are discussed in the "Admin" component discussion.
+	- My Chat - Clicking on this menu item returns the user to the Chat page.  This feature is discussed in the "Chat" component discussion.
+	- Logout - Clicking on this item logs the user out of the system and removes there session storage data.
+  - *NotFound* - This component is displayed when a defined page can not be found. As a default the user is returned to the login page.
+- **Services** - Services can be found within the SERVICES folder.  The following Angular servicers are implemented:
+  - *AuthService* - The purpose of this service is to manage actions for user validation. Functions within the service are:
+    - getAuthUser - Function to obtain User credentials to determine if have access to system.
+    - readUser - Function to read user name from session storage
+	- writeUser - Function to write user name to session storage upon validation
+	- deleteUser - Function to delete user from session storage.
+  - *GroupService* - The purpose of this service is to manage actions for group management. Functions within the service are:
+    - getGroups - Function to get all groups
+    - createGroup - Function to create a new group
+	- updateGroup - Function to update group details
+	- deleteGroup - Function to delete a group
+  - *ChannelService* - The purpose of this service is to manage actions for channel management.  Functions within the service are:
+    - getChannels - Function to get all channels
+    - createChannel - Function to create channel details
+	- updateChannel - Function to update channel details
+	- deleteChannel - Function to delete channel details
+  - *UserService* - The purpose of this service is to manage actions for user management.  Functions within the service are:
+    - getUsers - Function to get all users
+	- createUser - Function to create a new user
+	- updateUser - Function to update user details
+	- deleteUser - Function to delete a user
+- **Models** - Models can be found within the MODELS folder.  The following Angular models are implemented:
+  - *Group* - Model defining the structure of a Group Class.  A group has channels and user imports.
+  - *Channel* - Model defining the structure of a Channel Class. A channel has user imports.
+  - *User* - Model defining the structure of a User Class.  A User has Group and Channel

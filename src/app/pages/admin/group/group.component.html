@@ -48,7 +48,7 @@
               <div class="btn-group">
                 <button id="btnEdit" (click)="updateGroup(group)" class="btn btn-success btn-sm">Update</button>
                 <button id="btnDelete" (click)="deleteGroup(group)" class="btn btn-danger btn-sm">Delete</button>
-                <button id="btnSelect" (click)="selectGroup(group)" class="btn btn-warning btn-sm">Select</button>
+                <a routerLink="/groupdetail/{{group.id}}"><button id="btnSelect" class="btn btn-warning">Manage</button></a>
               </div>
             </td>
           </tr>

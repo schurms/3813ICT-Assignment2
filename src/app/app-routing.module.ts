@@ -6,12 +6,15 @@ import { ChatComponent } from './pages/chat/chat.component';
 import { UserComponent } from './pages/admin/user/user.component';
 import { GroupComponent } from './pages/admin/group/group.component';
 import { ChannelComponent } from './pages/admin/channel/channel.component';
+import {GroupdetailComponent} from './pages/admin/group/groupdetail/groupdetail.component';
+
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   { path: 'login', component: LoginComponent },
   { path: 'users', component: UserComponent },
-  { path: 'groups', component: GroupComponent },
+  { path: 'groups', component: GroupComponent},
+  { path: 'groupdetail/:id', component: GroupdetailComponent},
   { path: 'channels', component: ChannelComponent},
   { path: 'chat',
     children: [

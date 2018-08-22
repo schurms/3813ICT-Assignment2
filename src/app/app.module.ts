@@ -19,6 +19,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ChannelComponent } from './pages/admin/channel/channel.component';
 import { GroupComponent } from './pages/admin/group/group.component';
 import { UserComponent } from './pages/admin/user/user.component';
+import { GroupdetailComponent } from './pages/admin/group/groupdetail/groupdetail.component';
 
 // Services
 import { SocketService } from './services/socket/socket.service';
@@ -41,7 +42,8 @@ import { AuthService } from './services/auth/auth.service';
     NavbarComponent,
     ChannelComponent,
     GroupComponent,
-    UserComponent
+    UserComponent,
+    GroupdetailComponent
   ],
   imports: [
     BrowserModule,
