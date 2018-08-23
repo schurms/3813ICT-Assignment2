@@ -1,9 +1,12 @@
+// Modules
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+// Services
+import { AuthService } from '../../services/auth/auth.service';
+// Environment Variable
 import { environment } from '../../../environments/environment';
-import {AuthService} from '../../services/auth/auth.service';
 
 const BACKEND_URL = environment.apiURL;
 
@@ -22,7 +25,7 @@ export class LoginComponent implements OnInit {
               private authService: AuthService,
               private httpClient: HttpClient) { }
 
-  // Prior to page display
+  // On Page Opening
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       name: ['', [Validators.required]],

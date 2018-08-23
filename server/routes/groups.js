@@ -1,7 +1,7 @@
 module.exports = function(app,fs) {
 
   // GET endpoint API for getting groups
-  app.get('/api/groups', function (req, res) {
+  app.get('/api/group', function (req, res) {
     console.log('Get Groups');
     let groupArray;
     //Read data from JSON File
@@ -18,8 +18,28 @@ module.exports = function(app,fs) {
     });
   });
 
+  // GET endpoint API for getting a specific group
+  app.get('/api/group/:id', function (req,res) {
+    console.log('Get Group');
+    let id = req.params.id;
+    let groupArray;
+    //Read data from JSON File
+    fs.readFile('server/data/group.json', 'utf8', function (err, data) {
+      if (err) {
+        console.log(err);
+        //Some error happened opened the file. No success.
+        res.send({"ok": false});
+      } else {
+        groupArray = JSON.parse(data);
+        //Retrieve Group - must exist
+        let foundGroup = groupArray.find(group => group.id == id);
+        res.send({group: foundGroup});
+      }
+    });
+  });
+
   // POST endpoint API for creating a new group
-  app.post('/api/groups', function (req, res) {
+  app.post('/api/group', function (req, res) {
     console.log('Create Group');
     let groupArray;
     //Read data from JSON file
@@ -55,7 +75,7 @@ module.exports = function(app,fs) {
   });
 
   // PUT endpoint API for editing a group
-  app.put('/api/groups/:id', function (req, res) {
+  app.put('/api/group/:id', function (req, res) {
     console.log('Edit Group');
     let groupArray;
     let id = req.params.id;
@@ -81,7 +101,7 @@ module.exports = function(app,fs) {
   });
 
   // DELETE endpoint API for deleting a group
-  app.delete('/api/groups/:id', function (req, res) {
+  app.delete('/api/group/:id', function (req, res) {
     console.log('Delete Group');
     let groupArray;
     let id = req.params.id;

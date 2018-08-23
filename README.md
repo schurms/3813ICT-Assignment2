@@ -10,11 +10,11 @@ Due: 5pm Mon 3 September 2018
 
 - Start server - Terminal Window 1 (This starts the server with nodemon)
 ```javascript
-npm run start:server
+npm run server
 ```
 - Start client - Terminal Window 2
 ```javascript
-ng server
+ng serve
 ```
 
 ### GIT Structure
@@ -27,7 +27,7 @@ Branches were taken where appropriate and data merged in.  However, this was gen
 
 Core data structures are:
 
-Group: - This mnodel includes the channel Class.
+Group: - This model includes the channel Class.
 ```typescript
 import { Channel } from './channel.model';
 
@@ -84,7 +84,7 @@ app.post('api/login', function (req,res)
   - Input Parameter: User Name:
   - Returns: True (Found) or False (not found)
 ```javascript
-app.post('api/login', function (req,res)
+app.post('api/authuser', function (req,res)
 ```
 - POST endpoint API for retrieving a Users credentials to validate authority to access page - Retrieves data from user.json.
 	- Input Parameter: User Name:
@@ -116,11 +116,17 @@ app.delete('/api/user/:id', function(req,res)
 	- Returns: Deleted user details
 #### route/group.js - REST APIs within the route are:
 ```javascript
-app.get('/api/groups', function(req,res)
+app.get('/api/group', function(req,res)
 ```
 - GET endpoint API for retrieving all groups in the system. Retrieves data from group.json.
 	- Input Parameter: None
 	- Returns: Array of Groups
+```javascript
+app.get('/api/group/:id', function(req,res)
+```
+- GET endpoint API for retrieving a specific group in the system. Retrieves data from group.json.
+	- Input Parameter: None
+	- Returns: Single Group
 ```javascript
 app.post('/api/group', function(req,res)
 ```
@@ -140,7 +146,6 @@ app.delete('/api/group/:id', function(req,res)
   - Input Parameter: Group id
   - Returns: Deleted group details
 #### route/channel.js - REST APIs within the route are:  
-  > Not sure if this is required.
 ```javascript
 app.get('/api/channels', function(req,res)
 ```

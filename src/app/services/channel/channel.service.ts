@@ -1,8 +1,11 @@
+// Modules
 import { Injectable } from '@angular/core';
-import {Channel} from '../../models/channel.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
+// Models
+import { Channel } from '../../models/channel.model';
+// Variables
+import { environment } from '../../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -17,7 +20,8 @@ export class ChannelService {
 
   channels: Channel[];
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient) { }
 
   // Function to manage channel reads
   getChannels() {

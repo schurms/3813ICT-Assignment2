@@ -1,7 +1,10 @@
+// Modules
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+// Models
 import { User } from '../../models/user.model';
+// Variables
+import { environment } from '../../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -16,7 +19,8 @@ export class AuthService {
 
   user: User;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient) { }
 
   // Function to manage user creation
   getAuthUser(user) {

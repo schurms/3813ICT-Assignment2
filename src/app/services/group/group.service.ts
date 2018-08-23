@@ -1,8 +1,11 @@
+// Modules
 import { Injectable } from '@angular/core';
-import { Group } from '../../models/group.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
+// Models
+import { Group } from '../../models/group.model';
+// Variables
+import { environment } from '../../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -16,13 +19,14 @@ const BACKEND_URL = environment.apiURL;
 export class GroupService {
 
   groups: Group[];
+  group: Group;
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(
+    private httpClient: HttpClient) { }
 
   // Function to manage group reads
   getGroups() {
-    return this.httpClient.get<{groups: Group[]}>(BACKEND_URL + '/api/groups/')
+    return this.httpClient.get<{groups: Group[]}>(BACKEND_URL + '/api/group/')
       .pipe(map(groups => {
         if (groups) {
         }
@@ -30,21 +34,31 @@ export class GroupService {
       }));
     }
 
+  // Function to get a group
+  getGroup(id) {
+    return this.httpClient.get<{group: Group}>(BACKEND_URL + '/api/group/' + id)
+      .pipe(map(group => {
+        if (group) {
+        }
+        return group
+      }));
+  }
+
   // Function to manage group creation
   createGroup(group) {
     let body = JSON.stringify(group);
-    return this.httpClient.post(BACKEND_URL + '/api/groups/', body, httpOptions);
+    return this.httpClient.post(BACKEND_URL + '/api/group/', body, httpOptions);
   }
 
   // Function to manage group updates
   updateGroup(group){
     let body = JSON.stringify(group);
-    return this.httpClient.put(BACKEND_URL + '/api/groups/' + group.id, body, httpOptions);
+    return this.httpClient.put(BACKEND_URL + '/api/group/' + group.id, body, httpOptions);
   }
 
-  // Function to manage group deletiohs
+  // Function to manage group deletions
   deleteGroup(group){
-    return this.httpClient.delete(BACKEND_URL + '/api/groups/' + group.id);
+    return this.httpClient.delete(BACKEND_URL + '/api/group/' + group.id);
   }
 
 }
