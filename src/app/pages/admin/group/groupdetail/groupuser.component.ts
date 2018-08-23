@@ -20,7 +20,7 @@ export class GroupuserComponent implements OnInit {
   group: Group;
   users: User[] = null;
   submitted = false;
-  userForm: FormGroup;c
+  userForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
               private groupService: GroupService,
