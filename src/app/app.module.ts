@@ -19,7 +19,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ChannelComponent } from './pages/admin/channel/channel.component';
 import { GroupComponent } from './pages/admin/group/group.component';
 import { UserComponent } from './pages/admin/user/user.component';
-import { GroupdetailComponent } from './pages/admin/group/groupdetail/groupdetail.component';
+import { GroupuserlComponent } from './pages/admin/group/groupdetail/groupuserl.component';
 
 // Services
 import { SocketService } from './services/socket/socket.service';
@@ -43,7 +43,7 @@ import { AuthService } from './services/auth/auth.service';
     ChannelComponent,
     GroupComponent,
     UserComponent,
-    GroupdetailComponent
+    GroupuserlComponent
   ],
   imports: [
     BrowserModule,

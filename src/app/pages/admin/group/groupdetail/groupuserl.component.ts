@@ -1,7 +1,8 @@
 // Modules
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Location } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // Models
 import { Group } from '../../../../models/group.model';
 import { User } from '../../../../models/user.model';
@@ -10,22 +11,30 @@ import { GroupService } from '../../../../services/group/group.service';
 import { UserService } from '../../../../services/user/user.service';
 
 @Component({
-  selector: 'app-groupdetail',
-  templateUrl: './groupdetail.component.html',
-  styleUrls: ['./groupdetail.component.css']
+  selector: 'app-groupduser',
+  templateUrl: './groupuser.component.html',
+  styleUrls: ['./groupuser.component.css']
 })
-export class GroupdetailComponent implements OnInit {
+export class GroupuserlComponent implements OnInit {
 
   group: Group;
   users: User[] = null;
+  submitted = false;
+  userForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
               private groupService: GroupService,
               private userService: UserService,
-              private location: Location) { }
+              private location: Location,
+              private formBuilder: FormBuilder) { }
 
   // On Page Opening
-  ngOnInit(): void {
+  ngOnInit() {
+
+    this.userForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+    });
+
     this.getGroup();
     this.getUsers();
   }
@@ -52,6 +61,14 @@ export class GroupdetailComponent implements OnInit {
         },
         err => console.log(err)
       );
+  }
+
+  addUser() {
+
+  }
+
+  deleteUser() {
+
   }
 
   // Return to previous page

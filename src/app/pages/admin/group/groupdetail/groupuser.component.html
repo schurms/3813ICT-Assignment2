@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+<div style="text-align:center" class="container">
+  <h2>Group / User Management</h2>
+  <p>Group Id: {{group.id}} Group Name: {{group.name}}</p>
+  <br>
+  <div class="row">
+    <div class="col-3">
+      <form id="userForm" [formGroup]="userForm" class="row" (ngSubmit)="addUser()" >
+        <div class="form-group">
+          <div class="text-left">
+            <label for="name">UserName:</label>
+          </div>
+          <select
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Select Name"
+            formControlName="name"
+            required
+            [ngClass]="{ 'is-invalid': submitted && userForm.controls.name.errors }">
+            <option *ngFor="let user of users" [value]="user">{{user.name}}</option>
+          </select>
+          <div *ngIf="submitted && !!userForm.controls.name.errors" class="invalid-feedback">
+            <div *ngIf="!!userForm.controls.name.errors.required">
+              Channel Name is required
+            </div>
+          </div>
+          <br>
+          <button class="btn btn-primary btn-sm">Add User To Group</button>
+          <br>
+          <br>
+          <button class="btn btn-primary btn-sm" (click)="goBack()">Go Back</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-9">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>User ID</th>
+          <th>User Name</th>
+          <th>User Role</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users">
+          <td>
+            {{user.id}}
+          </td>
+          <td>
+            <input type="text" name="user-name" [(ngModel)]="user.name" class="form-control-plaintext">
+          </td>
+          <td>
+            {{user.role}}<br>
+          </td>
+          <td>
+            <div class="btn-group">
+              <button id="btnDelete" (click)="deleteUser(user)" class="btn btn-danger btn-sm">Delete</button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

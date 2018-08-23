@@ -8,7 +8,7 @@ import { ChatComponent } from './pages/chat/chat.component';
 import { UserComponent } from './pages/admin/user/user.component';
 import { GroupComponent } from './pages/admin/group/group.component';
 import { ChannelComponent } from './pages/admin/channel/channel.component';
-import { GroupdetailComponent } from './pages/admin/group/groupdetail/groupdetail.component';
+import { GroupuserlComponent } from './pages/admin/group/groupdetail/groupuserl.component';
 
 // Routes
 const routes: Routes = [
@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'users', component: UserComponent },
   { path: 'groups', component: GroupComponent},
-  { path: 'groupdetail/:id', component: GroupdetailComponent},
+  { path: 'groupdetail/:id', component: GroupuserlComponent},
   { path: 'channels', component: ChannelComponent},
   { path: 'chat', component: ChatComponent},
   { path: '404', component: NotfoundComponent },
