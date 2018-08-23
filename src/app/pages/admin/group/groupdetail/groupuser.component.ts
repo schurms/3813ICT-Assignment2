@@ -15,12 +15,12 @@ import { UserService } from '../../../../services/user/user.service';
   templateUrl: './groupuser.component.html',
   styleUrls: ['./groupuser.component.css']
 })
-export class GroupuserlComponent implements OnInit {
+export class GroupuserComponent implements OnInit {
 
   group: Group;
   users: User[] = null;
   submitted = false;
-  userForm: FormGroup;
+  userForm: FormGroup;c
 
   constructor(private route: ActivatedRoute,
               private groupService: GroupService,
