@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Location } from '@angular/common';
 // Models
 import { User } from '../../../models/user.model';
 // Services
@@ -27,6 +28,7 @@ export class UserComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
+    private location: Location,
     private formBuilder: FormBuilder) { }
 
   // On Page Opening validate user
@@ -58,10 +60,12 @@ export class UserComponent implements OnInit {
     this.authService.getAuthUser(user)
       .subscribe((data: any) => {
         if ((data.role === 'super') || (data.role === 'group')) {
+          // If Authorised
           this.getUsers();
           return true;
         } else {
-          this.router.navigateByUrl('/chat');
+          // If not authorised
+          this.location.back();
           alert('You are not authorised to enter this page');
         }
       });
@@ -69,6 +73,7 @@ export class UserComponent implements OnInit {
 
   // Get User Data
   getUsers() {
+
     this.userService.getUsers()
       .subscribe(
         data => {
@@ -95,7 +100,7 @@ export class UserComponent implements OnInit {
           this.getUsers();
           return true;
         } else {
-          // Else userid already exists
+          // Userid already exists
           alert('Userid already exists');
         }
       });
@@ -113,8 +118,23 @@ export class UserComponent implements OnInit {
       );
   }
 
-  // delete a user
-  deleteUser(user){
+  //Determine if authorised to delete a user;
+  deleteUser(nameDelete){
+    const authUser = { name: this.user.name };
+    this.authService.getAuthUser(authUser)
+      .subscribe((data: any) => {
+        if (data.role === 'super') {
+          // If have the 'super' role then authorised to delete a user
+          this.deleteAuthUser(nameDelete);
+          return true;
+        } else {
+          alert('You are not authorised to delete a user');
+        }
+      });
+  }
+
+  // Delete a user
+  deleteAuthUser(user){
     this.userService.deleteUser(user)
       .subscribe(
         data => {

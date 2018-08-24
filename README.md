@@ -125,7 +125,7 @@ app.get('/api/group', function(req,res)
 app.get('/api/group/:id', function(req,res)
 ```
 - GET endpoint API for retrieving a specific group in the system. Retrieves data from group.json.
-	- Input Parameter: None
+	- Input Parameter: Group id
 	- Returns: Single Group
 ```javascript
 app.post('/api/group', function(req,res)
@@ -175,7 +175,7 @@ This section defines the Angular Architecture used.  It discusses the components
 - **Components** - Components can be found within the PAGES folder. The following Angular components are implemented:
   - *Login* - This component is displayed on user page opening.  Its purpose is to manage login.  It performs validation to ensure only registered users can login.  It validates (i) that the user name exists in the database, (ii) that a user name is input, (iii) that an email is input, and (iv) that the email is in correct email format.
   - *Admin* - This is a high level collection of functions to manage Groups/Channels/Users
-    - Group - This component is displayed on user being successfully authorised to access the page. It provides the mechanism to add/update/delete groups.  It also provides a link to add users to groups.
+    - Group - This component is displayed on user being successfully authorised to access the page. It provides the mechanism to add/update/delete groups.  It also provides a link to add users to groups and channels to groups.
     - Channel - This component is displayed on user being successfully authorised to access the page.  It provides the mechanism to add/update/delete channels.  It also provides a link to add users to channels.
     - User - This component is displayed on user being successfully authorised to access the page.  It provides the mechanism to add/update/delete users.
   - *Chat* - This component is displayed on successful user login.  It is the default landing page.  The page can not be opened unless a user is logged in. Whilst basic chat functionality works, this is not a requirement at this stage.
