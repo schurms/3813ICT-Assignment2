@@ -1,9 +1,10 @@
 <app-navbar></app-navbar>
 <div style="text-align:center" class="container">
-  <h2>Group Management</h2>
+  <h2>Group</h2>
+  <h3>Group List Management</h3>
   <br>
   <div class="row">
-    <div class="col-3">
+    <div class="col-4">
       <form id="groupForm" [formGroup]="groupForm" (ngSubmit)="createGroup()" >
         <div class="form-group">
           <div class="text-left">
@@ -29,11 +30,11 @@
       </form>
     </div>
 
-    <div class="col-9">
+    <div class="col-8">
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Group ID</th>
+            <th>Group Id</th>
             <th>Group Name</th>
             <th>Channels</th>
             <th>Actions</th>
@@ -56,7 +57,7 @@
               <div class="btn-group">
                 <button id="btnEdit" (click)="updateGroup(group)" class="btn btn-success btn-sm">Update</button>
                 <button id="btnDelete" (click)="deleteGroup(group)" class="btn btn-danger btn-sm">Delete</button>
-                <a routerLink=<a routerLink="/groupuser/{{group.id}}"><button id="btnSelectUser" class="btn btn-warning">User</button></a>
+                <a routerLink=<a routerLink="/groupuser/{{group.id}}"><button id="btnSelectUser" class="btn btn-info">User</button></a>
                 <a routerLink=<a routerLink="/groupchannel/{{group.id}}"><button id="btnSelectChannel" class="btn btn-warning">Channel</button></a>
               </div>
             </td>

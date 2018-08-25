@@ -1,6 +1,6 @@
 // Modules
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // Models
@@ -34,7 +34,7 @@ export class GroupchannelComponent implements OnInit {
   ngOnInit() {
     // Set up Form Validators
     this.channelForm = this.formBuilder.group({
-      name: [''],
+      name: ['', [Validators.required]],
     });
 
     // Get initial Data
@@ -65,6 +65,46 @@ export class GroupchannelComponent implements OnInit {
       );
   }
 
+  // Delete channel
+  deleteChannel(id) {
+
+    const channelArray = this.group.channel;
+    this.group.channel = channelArray.filter(channel => channel.id != id);
+
+    let group = this.group;
+    this.updateGroup(group);
+  }
+
+  addChannel() {
+    this.submitted = true;
+    event.preventDefault();
+
+    if (this.channelForm.invalid) {
+      return;
+    }
+
+    // Find id of selected channel
+    const channelArray = this.channels;
+    const selectedChannel = channelArray.find(channel => channel.name == this.channelSelected);
+
+    // Test if channel already added
+    const groupArray = this.group.channel;
+    const groupFound = groupArray.some(group => group.name == this.channelSelected);
+    if (groupFound) {
+      alert("Can Not Add The Same Group to the Same Channel");
+    } else {
+      // Create new Channel
+      const addChannel = {
+        id: selectedChannel.id,
+        name: selectedChannel.name,
+      };
+
+      // Push new Channel to Group
+      this.group.channel.push(addChannel);
+      let group = this.group;
+      this.updateGroup(group);
+    }
+  }
 
   // Update Group
   updateGroup(group) {
@@ -78,43 +118,9 @@ export class GroupchannelComponent implements OnInit {
       );
   }
 
-  // Delete channel
-  deleteChannel() {
-    console.log(this.group);
-
-  }
-
-  // Return to previous page
-  goBack(): void {
+  // Return to Previous Page
+  goBack() {
     this.location.back();
   }
-
-  addChannel() {
-    // Find id of selected channel
-    const channelArray = this.channels;
-    const selectedChannel = channelArray.find(channel => channel.name == this.channelSelected);
-
-    // Create new Channel
-    const addChannel = {
-      id: selectedChannel.id,
-      name: selectedChannel.name,
-    };
-
-    // Push new Channel to Group
-    this.group.channel.push(addChannel);
-
-    console.log('here now');
-    let group = this.group;
-    this.groupService.updateGroup(group)
-      .subscribe(
-        data => {
-          this.getGroup();
-          return true;
-        },
-        err => console.log(err)
-      );
-  }
-
-
 
 }
