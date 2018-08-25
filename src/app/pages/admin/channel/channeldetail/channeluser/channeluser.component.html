@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div style="text-align:center" class="container">
-  <h2>Group: <span style='color: #4285f4'> {{group?.name}}</span></h2>
+  <h2>Channel: <span style='color: #4285f4'> {{channel?.name}}</span></h2>
   <h3>User List Management</h3>
   <br>
   <div class="row">
@@ -43,7 +43,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of group?.user">
+        <tr *ngFor="let item of channel?.user">
           <td>
             {{item?.name}}
           </td>

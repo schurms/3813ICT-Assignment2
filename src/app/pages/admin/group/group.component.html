@@ -34,18 +34,18 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Group Id</th>
+            <!--<th>Group Id</th>-->
             <th>Group Name</th>
-            <th>Channels</th>
-            <th>Users</th>
+            <th>Group Channels</th>
+            <th>Group Users</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let group of groups">
-            <td>
-              {{group.id}}
-            </td>
+            <!--<td>-->
+              <!--{{group.id}}-->
+            <!--</td>-->
             <td>
               <input type="text" name="user-name" [(ngModel)]="group.name" class="form-control-plaintext">
             </td>

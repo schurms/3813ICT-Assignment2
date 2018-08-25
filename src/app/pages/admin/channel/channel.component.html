@@ -1,6 +1,7 @@
 <app-navbar></app-navbar>
 <div style="text-align:center" class="container">
-  <h2>Channel Management</h2>
+  <h2>Channel</h2>
+  <h3>Channel List Management</h3>
   <br>
   <div class="row">
     <div class="col-3">
@@ -33,24 +34,29 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Channel ID</th>
             <th>Channel Name</th>
+            <th>Channel Users</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let channel of channels">
-            <td>
-              {{channel.id}}
-            </td>
+            <!--<td>-->
+              <!--{{channel.id}}-->
+            <!--</td>-->
             <td>
               <input type="text" name="user-name" [(ngModel)]="channel.name" class="form-control-plaintext">
+            </td>
+            <td>
+              <ng-container *ngFor="let u of channel.user">
+                {{u.name}}<br>
+              </ng-container>
             </td>
             <td>
               <div class="btn-group">
                 <button id="btnEdit" (click)="updateChannel(channel)" class="btn btn-success btn-sm">Update</button>
                 <button id="btnDelete" (click)="deleteChannel(channel)" class="btn btn-danger btn-sm">Delete</button>
-                <button id="btnSelect" class="btn btn-warning btn-sm">Manage</button>
+                <a routerLink="/channeluser/{{channel.id}}"><button id="btnSelectUser" class="btn btn-info">User</button></a>
               </div>
             </td>
           </tr>

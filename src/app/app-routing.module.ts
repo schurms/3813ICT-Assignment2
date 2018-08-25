@@ -10,6 +10,7 @@ import { GroupComponent } from './pages/admin/group/group.component';
 import { ChannelComponent } from './pages/admin/channel/channel.component';
 import { GroupuserComponent } from './pages/admin/group/groupdetail/groupuser/groupuser.component';
 import { GroupchannelComponent } from './pages/admin/group/groupdetail/groupchannel/groupchannel.component';
+import { ChanneluserComponent } from './pages/admin/channel/channeldetail/channeluser/channeluser.component';
 
 // Routes
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'groups', component: GroupComponent},
   { path: 'groupuser/:id', component: GroupuserComponent},
   { path: 'groupchannel/:id', component: GroupchannelComponent},
+  { path: 'channeluser/:id', component: ChanneluserComponent},
   { path: 'channels', component: ChannelComponent},
   { path: 'chat', component: ChatComponent},
   { path: 'chat', component: ChatComponent},

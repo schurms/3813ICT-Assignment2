@@ -100,6 +100,7 @@ export class GroupchannelComponent implements OnInit {
       const addChannel = {
         id: selectedChannel.id,
         name: selectedChannel.name,
+        user: selectedChannel.user,
       };
 
       // Push new Channel to Group

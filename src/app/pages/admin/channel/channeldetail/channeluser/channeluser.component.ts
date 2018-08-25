@@ -2,30 +2,30 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators}  from '@angular/forms';
 // Models
-import { Group } from '../../../../../models/group.model';
+import { Channel } from '../../../../../models/channel.model';
 import { User } from '../../../../../models/user.model';
 // Services
-import { GroupService } from '../../../../../services/group/group.service';
+import { ChannelService } from '../../../../../services/channel/channel.service';
 import { UserService } from '../../../../../services/user/user.service';
 
 @Component({
-  selector: 'app-groupduser',
-  templateUrl: './groupuser.component.html',
-  styleUrls: ['./groupuser.component.css']
+  selector: 'app-channeluser',
+  templateUrl: './channeluser.component.html',
+  styleUrls: ['./channeluser.component.css']
 })
-export class GroupuserComponent implements OnInit {
+export class ChanneluserComponent implements OnInit {
 
-  group: Group;
+  channel: Channel;
   users: User[];
   submitted = false;
   userForm: FormGroup;
-  groupId;
+  channelId;
   userSelected:string;
 
   constructor(private route: ActivatedRoute,
-              private groupService: GroupService,
+              private channelService: ChannelService,
               private userService: UserService,
               private location: Location,
               private formBuilder: FormBuilder) { }
@@ -37,17 +37,17 @@ export class GroupuserComponent implements OnInit {
       name: ['', [Validators.required]],
     });
 
-    this.getGroup();
+    this.getChannel();
     this.getUsers();
   }
 
-  // Get details for the selected group
-  getGroup(): void {
-    this.groupId = +this.route.snapshot.paramMap.get('id');
-    this.groupService.getGroup(this.groupId)
+  // Get details for the selected channel
+  getChannel(): void {
+    this.channelId = +this.route.snapshot.paramMap.get('id');
+    this.channelService.getChannel(this.channelId)
       .subscribe(
         data => {
-          this.group = data.group;
+          this.channel = data.channel;
         },
         err => console.log(err)
       );
@@ -67,16 +67,16 @@ export class GroupuserComponent implements OnInit {
   // Delete user
   deleteUser(id) {
     event.preventDefault();
-    const userArray = this.group.user;
+    const userArray = this.channel.user;
     // Remove the user out of local array
-    this.group.user = userArray.filter(user => user.id != id);
+    this.channel.user = userArray.filter(user => user.id != id);
 
-    let group = this.group;
-    // Update Group with new local array version
-    this.updateGroup(group);
+    let channel = this.channel;
+    // Update Channel with new local array version
+    this.updateChannel(channel);
   }
 
-  // Add a user to the Group
+  // Add a user to the Channel
   addUser() {
     this.submitted = true;
     event.preventDefault();
@@ -90,10 +90,10 @@ export class GroupuserComponent implements OnInit {
     const selectedUser = userArray.find(user => user.name == this.userSelected);
 
     // Test if user already added
-    const groupArray = this.group.user;
-    const groupFound = groupArray.some(group => group.name == this.userSelected);
-    if (groupFound) {
-      alert("Can Not Add The Same User to the Same Group");
+    const channelArray = this.channel.user;
+    const channelFound = channelArray.some(channel => channel.name == this.userSelected);
+    if (channelFound) {
+      alert("Can Not Add The Same User to the Same Channel");
     } else {
       // Create new User
       const addUser = {
@@ -103,20 +103,20 @@ export class GroupuserComponent implements OnInit {
         role: selectedUser.role,
       };
 
-      // Push new User to Group
-      this.group.user.push(addUser);
-      let group = this.group;
-      // Call Update Group route to update the group record
-      this.updateGroup(group);
+      // Push new User to Channel
+      this.channel.user.push(addUser);
+      let channel = this.channel;
+      // Call Update Channel route to update the channel record
+      this.updateChannel(channel);
     }
   }
 
-  // Update Group
-  updateGroup(group) {
-    this.groupService.updateGroup(group)
+  // Update Channel
+  updateChannel(channel) {
+    this.channelService.updateChannel(channel)
       .subscribe(
         data => {
-          this.getGroup();
+          this.getChannel();
           return true;
         },
         err => console.log(err)
@@ -127,4 +127,5 @@ export class GroupuserComponent implements OnInit {
   goBack() {
     this.location.back();
   }
+
 }

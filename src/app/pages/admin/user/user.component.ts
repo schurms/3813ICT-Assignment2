@@ -20,7 +20,7 @@ export class UserComponent implements OnInit {
 
   submitted = false;
   userForm: FormGroup;
-  users: User[] = null;
+  users: User[];
   user: User;
   username: string;
 
@@ -42,7 +42,7 @@ export class UserComponent implements OnInit {
     if (!sessionStorage.getItem('user')) {
       // No valid session is available
       this.authService.deleteUser();
-      alert('Please login In');
+      alert('Please login');
       this.router.navigateByUrl('login');
 
     } else {

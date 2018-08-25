@@ -1,6 +1,7 @@
 <app-navbar></app-navbar>
 <div style="text-align:center" class="container">
-  <h2>User Management</h2>
+  <h2>User</h2>
+  <h3>User List Management</h3>
   <br>
   <div class="row">
     <div class="col-3">
@@ -60,7 +61,7 @@
               <option *ngFor="let role of roles" [value]="role">{{role}}</option>
             </select>
           </div>
-              <button class="btn btn-primary btn-sm">Create New User</button>
+          <button class="btn btn-primary btn-sm">Create New User</button>
         </div>
       </form>
     </div>
@@ -69,7 +70,7 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>User ID</th>
+            <!--<th>User ID</th>-->
             <th>User Name</th>
             <th>Email</th>
             <th>Role</th>
@@ -78,9 +79,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let user of users">
-            <td>
-              {{user.id}}
-            </td>
+            <!--<td>-->
+              <!--{{user.id}}-->
+            <!--</td>-->
             <td>
               <input type="text" name="user-name" [(ngModel)]="user.name" class="form-control-plaintext">
             </td>
@@ -94,7 +95,6 @@
               <div class="btn-group">
                 <button id="btnEdit" (click)="updateUser(user)" class="btn btn-success btn-sm">Update</button>
                 <button id="btnDelete" (click)="deleteUser(user)" class="btn btn-danger btn-sm">Delete</button>
-                <button id="btnSelect"  class="btn btn-warning btn-sm">Manage</button>
               </div>
             </td>
           </tr>

@@ -25,6 +25,8 @@ Branches were taken where appropriate and data merged in.  However, this was gen
 
 ### Data Structures
 
+Data structures were modelled within the angular side as this is where the data is represented.  The structures implemented are complex and used to retrieve and display the results in the client side.  No data structures are defined in the server side.  
+
 Core data structures are:
 
 Group: - This model includes the Channel and User Class to allow Users and Channels to be added to Groups.
@@ -47,17 +49,21 @@ export class Group {
 }
 ```
 
-Channel:
+Channel: - This model includes the User Class to allow Users to be added to Channels
 ```typescript
+import { User } from './user.model';
+
 export class Channel {
-   id: number;
-   name: string;
- 
-   constructor( id: number, name: string) {
-     this.id = id;
-     this.name = name;
-   }
- }
+  id: number;
+  name: string;
+  user: User[];
+
+  constructor( id: number, name: string, user: User[] ) {
+    this.id = id;
+    this.name = name;
+    this.user = user;
+  }
+}
 ```
 
 User:

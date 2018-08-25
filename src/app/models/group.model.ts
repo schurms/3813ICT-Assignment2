@@ -9,7 +9,7 @@ export class Group {
   channel: Channel[];
   user: User[];
 
-  constructor( id: number, name: string, channel: Channel[], user: User[]) {
+  constructor( id: number, name: string, channel: Channel[], user: User[] ) {
     this.id = id;
     this.name = name;
     this.channel = channel;
