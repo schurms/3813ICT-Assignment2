@@ -6,6 +6,10 @@ Student Number: s5073958
 
 Due: 5pm Mon 3 September 2018
 
+### KEY DESIGN ASSUMPTIONS
+- A channel can be added to many Groups
+
+
 ### COMMANDS
 
 - Start server - Terminal Window 1 (This starts the server with nodemon)
@@ -155,11 +159,17 @@ app.delete('/api/group/:id', function(req,res)
   - Returns: Deleted group details
 #### route/channel.js - REST APIs within the route are:  
 ```javascript
-app.get('/api/channels', function(req,res)
+app.get('/api/channel', function(req,res)
 ```
 - GET endpoint API for retrieving all channels in the system. Retrieves data from channel.json.
   - Input Parameter: None
   - Returns: Array of Channels
+```javascript
+app.get('/api/channel/:id', function(req,res)
+```
+  - GET endpoint API for retrieving a specific channel in the system. Retrieves data from group.json.
+  	- Input Parameter: Channel id
+  	- Returns: Single Channel
 ```javascript
 app.post('/api/channel', function(req,res)
 ```
@@ -184,7 +194,10 @@ This section defines the Angular Architecture used.  It discusses the components
   - *Login* - This component is displayed on user page opening.  Its purpose is to manage login.  It performs validation to ensure only registered users can login.  It validates (i) that the user name exists in the database, (ii) that a user name is input, (iii) that an email is input, and (iv) that the email is in correct email format.
   - *Admin* - This is a high level collection of functions to manage Groups/Channels/Users
     - Group - This component is displayed on user being successfully authorised to access the page. It provides the mechanism to add/update/delete groups.  It also provides a link to add users to groups and channels to groups.
+      * GroupUser - This component is used to add/remove users to groups
+      * GroupChannel - This component is used to add/remove channels to groups
     - Channel - This component is displayed on user being successfully authorised to access the page.  It provides the mechanism to add/update/delete channels.  It also provides a link to add users to channels.
+      * ChannelUser - This component is used to add/remove users to channels 
     - User - This component is displayed on user being successfully authorised to access the page.  It provides the mechanism to add/update/delete users.
   - *Chat* - This component is displayed on successful user login.  It is the default landing page.  The page can not be opened unless a user is logged in. Whilst basic chat functionality works, this is not a requirement at this stage.
   - *Navbar* - This component displays the navbar at the top of pages.  This component is inserted via the <app-navbar> selector. Options on the Navbar are:
