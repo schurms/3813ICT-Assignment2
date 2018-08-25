@@ -60,9 +60,10 @@ module.exports = function(app,fs) {
             }));
             id = maximum + 1;
           }
-          // Define empty array for channels when created
+          // Define empty array for channels/users when created
           let channel = [];
-          let newGroup = {"id": id, "name": req.body.name, "channel": channel};
+          let user = [];
+          let newGroup = {"id": id, "name": req.body.name, "channel": channel, "user": user};
           groupArray.push(newGroup);
           let groupJson = JSON.stringify(groupArray);
           //Write data to JSON file
@@ -91,6 +92,7 @@ module.exports = function(app,fs) {
         let updateGroup = groupArray.find(group => group.id == id);
         updateGroup.name = req.body.name;
         updateGroup.channel = req.body.channel;
+        updateGroup.user = req.body.user;
         let groupJson = JSON.stringify(groupArray);
         //Write data to JSON file
         fs.writeFile('server/data/group.json', groupJson, 'utf-8', function (err) {

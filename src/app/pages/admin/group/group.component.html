@@ -4,7 +4,7 @@
   <h3>Group List Management</h3>
   <br>
   <div class="row">
-    <div class="col-4">
+    <div class="col-3">
       <form id="groupForm" [formGroup]="groupForm" (ngSubmit)="createGroup()" >
         <div class="form-group">
           <div class="text-left">
@@ -30,13 +30,14 @@
       </form>
     </div>
 
-    <div class="col-8">
+    <div class="col-9">
       <table class="table table-hover">
         <thead>
           <tr>
             <th>Group Id</th>
             <th>Group Name</th>
             <th>Channels</th>
+            <th>Users</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -49,8 +50,13 @@
               <input type="text" name="user-name" [(ngModel)]="group.name" class="form-control-plaintext">
             </td>
             <td>
-              <ng-container *ngFor="let item of group.channel">
-                {{item.name}}<br>
+              <ng-container *ngFor="let c of group.channel">
+                {{c.name}}<br>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngFor="let u of group.user">
+                {{u.name}}<br>
               </ng-container>
             </td>
             <td>
