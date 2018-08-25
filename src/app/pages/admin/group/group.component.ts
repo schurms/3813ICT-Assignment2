@@ -88,13 +88,16 @@ export class GroupComponent implements OnInit {
 
     const groupData = this.groupForm.value;
     this.groupService.createGroup(groupData)
-      .subscribe(
-        data => {
+      .subscribe((data: any) => {
+        // Test if data id is returned
+        if (data.id) {
           this.getGroups();
           return true;
-        },
-        err => console.log(err)
-      );
+        } else {
+          // Group Already Exists
+          alert('Duplicate Groups Can Not Be Created');
+        }
+      });
   }
 
   // Update Group

@@ -1,5 +1,5 @@
 
-#btnDelete, #btnEdit, #btnSelect {
+#btnDelete, #btnEdit, #btnSelectUser, #btnSelectChannel {
   padding: 5px;
   display: inline-block;
   vertical-align: top;

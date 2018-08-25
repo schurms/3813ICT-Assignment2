@@ -4,11 +4,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // Models
-import { Group } from '../../../../models/group.model';
-import { User } from '../../../../models/user.model';
+import { Group } from '../../../../../models/group.model';
+import { User } from '../../../../../models/user.model';
 // Services
-import { GroupService } from '../../../../services/group/group.service';
-import { UserService } from '../../../../services/user/user.service';
+import { GroupService } from '../../../../../services/group/group.service';
+import { UserService } from '../../../../../services/user/user.service';
 
 @Component({
   selector: 'app-groupduser',

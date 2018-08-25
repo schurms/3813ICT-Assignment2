@@ -34,9 +34,9 @@ import { Channel } from './channel.model';
 export class Group {
   id: number;
   name: string;
-  channel: Channel;
+  channel: Channel[];
 
-  constructor( id: number, name: string, channel: Channel) {
+  constructor( id: number, name: string, channel: Channel[]) {
     this.id = id;
     this.name = name;
     this.channel = channel;
@@ -44,15 +44,17 @@ export class Group {
 }
 ```
 
-Channel: 
+Channel: (Imports the Channel Class)
 ```typescript
-export class Channel {
+export class Group {
   id: number;
   name: string;
+  channel: Channel[];
 
-  constructor( id: number, name: string) {
+  constructor( id: number, name: string, channel: Channel[]) {
     this.id = id;
     this.name = name;
+    this.channel = channel;
   }
 }
 ```
@@ -65,10 +67,9 @@ export class User {
   email: string;
   role: string;
 
-  constructor( id: number, name: string, email: string, role: string ) {
+  constructor( id: number, name: string, role: string) {
     this.id = id;
     this.name = name;
-    this.email = email;
     this.role = role;
   }
 }

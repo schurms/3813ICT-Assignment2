@@ -76,7 +76,7 @@ export class ChannelComponent implements OnInit {
   }
 
   // Create Channel
-  createChannel(){
+  createChannel() {
     this.submitted = true;
     event.preventDefault();
 
@@ -86,13 +86,16 @@ export class ChannelComponent implements OnInit {
 
     const channelData = this.channelForm.value;
     this.channelService.createChannel(channelData)
-      .subscribe(
-        data => {
+      .subscribe((data: any) => {
+        // Test if data id is returned
+        if (data.id) {
           this.getChannels();
           return true;
-        },
-        err => console.log(err)
-      );
+        } else {
+          // Channel Already Exists
+          alert('Duplicate Channels Can Not Be Created');
+        }
+      });
   }
 
   // Update Channel

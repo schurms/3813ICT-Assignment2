@@ -100,8 +100,8 @@ export class UserComponent implements OnInit {
           this.getUsers();
           return true;
         } else {
-          // Userid already exists
-          alert('Userid already exists');
+          // User Already Exists
+          alert('Duplicate Users Can Not Be Created');
         }
       });
   }

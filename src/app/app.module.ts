@@ -19,7 +19,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ChannelComponent } from './pages/admin/channel/channel.component';
 import { GroupComponent } from './pages/admin/group/group.component';
 import { UserComponent } from './pages/admin/user/user.component';
-import { GroupuserComponent } from './pages/admin/group/groupdetail/groupuser.component';
+import { GroupuserComponent } from './pages/admin/group/groupdetail/groupuser/groupuser.component';
 
 // Services
 import { SocketService } from './services/socket/socket.service';
@@ -27,6 +27,7 @@ import { UserService } from './services/user/user.service';
 import { GroupService } from './services/group/group.service';
 import { ChannelService } from './services/channel/channel.service';
 import { AuthService } from './services/auth/auth.service';
+import { GroupchannelComponent } from './pages/admin/group/groupdetail/groupchannel/groupchannel.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { AuthService } from './services/auth/auth.service';
     ChannelComponent,
     GroupComponent,
     UserComponent,
-    GroupuserComponent
+    GroupuserComponent,
+    GroupchannelComponent
   ],
   imports: [
     BrowserModule,

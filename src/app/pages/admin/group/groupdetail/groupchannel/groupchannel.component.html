@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+<div style="text-align:center" class="container">
+  <h2>Group / Channel Management</h2>
+  <h3>{{group?.name}}</h3>
+  <br>
+
+  <div class="row">
+    <div class="col-4">
+      <form id="channelForm" [formGroup]="channelForm" (ngSubmit)="addChannel()">
+        <div class="form-group">
+          <label for="name" class="name">Channel Name</label>
+          <select [(ngModel)]="channelSelected"
+                  class="form-control"
+                  id="name"
+                  name="name"
+                  formControlName="name">
+            <option *ngFor="let channel of channels" [value]="channel.name">{{channel.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Add Channel</button>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" (click)="goBack()">Go Back</button>
+        </div>
+      </form>
+      <br>
+    </div>
+
+    <div class="col-8">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>Channel Id</th>
+          <th>Channel Name</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of group?.channel">
+          <td>
+            {{item.id}}
+          </td>
+          <td>
+            {{item.name}}
+          </td>
+          <td>
+            <div class="btn-group">
+              <button id="btnDelete" (click)="deleteChannel(item?.id)" class="btn btn-danger btn-sm">Delete</button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

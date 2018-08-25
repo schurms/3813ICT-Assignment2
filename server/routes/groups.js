@@ -60,7 +60,13 @@ module.exports = function(app,fs) {
             }));
             id = maximum + 1;
           }
-          let newGroup = {"id": id, "name": req.body.name, "channel": req.body.channel};
+          let channel;
+          if (typeof(req.body.channel) != "undefined") {
+            channel = req.body.channel;
+          } else {
+            channel = [];
+          }
+          let newGroup = {"id": id, "name": req.body.name, "channel": channel};
           groupArray.push(newGroup);
           let groupJson = JSON.stringify(groupArray);
           //Write data to JSON file

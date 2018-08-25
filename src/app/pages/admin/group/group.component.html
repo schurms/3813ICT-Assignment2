@@ -4,7 +4,7 @@
   <br>
   <div class="row">
     <div class="col-3">
-      <form id="groupForm" [formGroup]="groupForm" class="row" (ngSubmit)="createGroup()" >
+      <form id="groupForm" [formGroup]="groupForm" (ngSubmit)="createGroup()" >
         <div class="form-group">
           <div class="text-left">
             <label for="name">Group Name:</label>
@@ -56,7 +56,8 @@
               <div class="btn-group">
                 <button id="btnEdit" (click)="updateGroup(group)" class="btn btn-success btn-sm">Update</button>
                 <button id="btnDelete" (click)="deleteGroup(group)" class="btn btn-danger btn-sm">Delete</button>
-                <a routerLink="/groupdetail/{{group.id}}"><button id="btnSelect" class="btn btn-warning">Manage</button></a>
+                <a routerLink=<a routerLink="/groupuser/{{group.id}}"><button id="btnSelectUser" class="btn btn-warning">User</button></a>
+                <a routerLink=<a routerLink="/groupchannel/{{group.id}}"><button id="btnSelectChannel" class="btn btn-warning">Channel</button></a>
               </div>
             </td>
           </tr>
