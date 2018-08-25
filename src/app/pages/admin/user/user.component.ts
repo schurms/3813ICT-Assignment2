@@ -16,7 +16,8 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class UserComponent implements OnInit {
 
-  roles = ['','super', 'group'];
+  originalRoles = ['','super', 'group'];
+  roles: any = [];
 
   submitted = false;
   userForm: FormGroup;
@@ -60,8 +61,15 @@ export class UserComponent implements OnInit {
     this.authService.getAuthUser(user)
       .subscribe((data: any) => {
         if ((data.role === 'super') || (data.role === 'group')) {
+          // Create role list dependent upon role as only Super can create other Supers
+          if (data.role === 'super') {
+            this.roles = this.originalRoles;
+          } else {
+            this.roles = this.originalRoles.filter(role => role != 'super');
+          }
           // If Authorised
           this.getUsers();
+
           return true;
         } else {
           // If not authorised
