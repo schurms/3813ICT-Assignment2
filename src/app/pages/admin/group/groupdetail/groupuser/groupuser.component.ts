@@ -1,6 +1,6 @@
 // Modules
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // Models
@@ -18,9 +18,11 @@ import { UserService } from '../../../../../services/user/user.service';
 export class GroupuserComponent implements OnInit {
 
   group: Group;
-  users: User[] = null;
+  users: User[];
   submitted = false;
   userForm: FormGroup;
+  groupId;
+  userSelected:string;
 
   constructor(private route: ActivatedRoute,
               private groupService: GroupService,
@@ -30,7 +32,7 @@ export class GroupuserComponent implements OnInit {
 
   // On Page Opening
   ngOnInit() {
-
+    // Set up Form Validators
     this.userForm = this.formBuilder.group({
       name: ['', [Validators.required]],
     });
@@ -39,20 +41,19 @@ export class GroupuserComponent implements OnInit {
     this.getUsers();
   }
 
-  // Get detail for the group
+  // Get details for the selected group
   getGroup(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.groupService.getGroup(id)
+    this.groupId = +this.route.snapshot.paramMap.get('id');
+    this.groupService.getGroup(this.groupId)
       .subscribe(
         data => {
           this.group = data.group;
-          console.log(this.group.id, this.group.name);
         },
         err => console.log(err)
       );
   }
 
-  // Get User Data
+  // Get list of users available
   getUsers() {
     this.userService.getUsers()
       .subscribe(
@@ -63,17 +64,67 @@ export class GroupuserComponent implements OnInit {
       );
   }
 
+  // Delete user
+  deleteUser(id) {
+    event.preventDefault()
+    const userArray = this.group.user;
+    // Remove the user out of local array
+    this.group.user = userArray.filter(user => user.id != id);
+
+    let group = this.group;
+    // Update Group with new local array version
+    this.updateGroup(group);
+  }
+
+  // Add a user to the Group
   addUser() {
+    this.submitted = true;
+    event.preventDefault();
 
+    if (this.userForm.invalid) {
+      return;
+    }
+
+    // Find id of selected user
+    const userArray = this.users;
+    const selectedUser = userArray.find(user => user.name == this.userSelected);
+
+    // Test if user already added
+    const groupArray = this.group.user;
+    const groupFound = groupArray.some(group => group.name == this.userSelected);
+    if (groupFound) {
+      alert("Can Not Add The Same User to the Same Group");
+    } else {
+      // Create new User
+      const addUser = {
+        id: selectedUser.id,
+        name: selectedUser.name,
+        email: selectedUser.email,
+        role: selectedUser.role,
+      };
+
+      // Push new User to Group
+      this.group.user.push(addUser);
+      let group = this.group;
+      // Call Update Group route to update the group record
+      this.updateGroup(group);
+    }
   }
 
-  deleteUser() {
-
+  // Update Group
+  updateGroup(group) {
+    this.groupService.updateGroup(group)
+      .subscribe(
+        data => {
+          this.getGroup();
+          return true;
+        },
+        err => console.log(err)
+      );
   }
 
-  // Return to previous page
-  goBack(): void {
+  // Return to Previous Page
+  goBack() {
     this.location.back();
   }
-
 }

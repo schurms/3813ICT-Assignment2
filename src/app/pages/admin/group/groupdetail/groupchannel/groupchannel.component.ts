@@ -94,7 +94,7 @@ export class GroupchannelComponent implements OnInit {
     const groupArray = this.group.channel;
     const groupFound = groupArray.some(group => group.name == this.channelSelected);
     if (groupFound) {
-      alert("Can Not Add The Same Group to the Same Channel");
+      alert("Can Not Add The Same Channel to the Same Channel");
     } else {
       // Create new Channel
       const addChannel = {

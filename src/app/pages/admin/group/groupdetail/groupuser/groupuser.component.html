@@ -1,63 +1,58 @@
 <app-navbar></app-navbar>
 <div style="text-align:center" class="container">
-  <h2>Group / User Management</h2>
-  <p>Group Id: {{group.id}} Group Name: {{group.name}}</p>
+  <h2>Group: <span style='color: #4285f4'> {{group?.name}}</span></h2>
+  <h3>User List Management</h3>
   <br>
   <div class="row">
-    <div class="col-3">
-      <form id="userForm" [formGroup]="userForm" class="row" (ngSubmit)="addUser()" >
+    <div class="col-4">
+      <form id="userForm" [formGroup]="userForm" (ngSubmit)="addUser()">
         <div class="form-group">
-          <div class="text-left">
-            <label for="name">UserName:</label>
-          </div>
-          <select
-            class="form-control"
-            id="name"
-            name="name"
-            placeholder="Select Name"
-            formControlName="name"
-            required
-            [ngClass]="{ 'is-invalid': submitted && userForm.controls.name.errors }">
-            <option *ngFor="let user of users" [value]="user">{{user.name}}</option>
+          <label for="name" class="name">User Name</label>
+          <select [(ngModel)]="userSelected"
+                  class="form-control"
+                  id="name"
+                  name="name"
+                  formControlName="name"
+                  required
+                  [ngClass]="{ 'is-invalid': submitted && userForm.controls.name.errors }">
+            <option *ngFor="let user of users" [value]="user.name">{{user.name}}</option>
           </select>
           <div *ngIf="submitted && !!userForm.controls.name.errors" class="invalid-feedback">
             <div *ngIf="!!userForm.controls.name.errors.required">
-              User Name is required
+              Select a User Name
             </div>
           </div>
-          <br>
-          <button class="btn btn-primary btn-sm">Add User To Group</button>
-          <br>
-          <br>
-          <button class="btn btn-primary btn-sm" (click)="goBack()">Go Back</button>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Add User</button>
         </div>
       </form>
+      <div class="form-group">
+        <button class="btn btn-success" (click)="goBack()">Go Back</button>
+      </div>
+      <br>
     </div>
 
-    <div class="col-9">
+    <div class="col-8">
       <table class="table table-hover">
         <thead>
         <tr>
-          <th>User ID</th>
+          <th>User Id</th>
           <th>User Name</th>
-          <th>User Role</th>
           <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let user of users">
+        <tr *ngFor="let item of group?.user">
           <td>
-            {{user.id}}
+            {{item?.id}}
           </td>
           <td>
-            <input type="text" name="user-name" [(ngModel)]="user.name" class="form-control-plaintext">
-          </td>
-          <td>
-            {{user.role}}<br>
+            {{item?.name}}
           </td>
           <td>
             <div class="btn-group">
-              <button id="btnDelete" (click)="deleteUser(user)" class="btn btn-danger btn-sm">Delete</button>
+              <button id="btnDelete" (click)="deleteUser(item?.id)" class="btn btn-danger btn-sm">Delete</button>
             </div>
           </td>
         </tr>
