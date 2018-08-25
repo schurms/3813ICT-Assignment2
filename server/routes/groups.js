@@ -60,19 +60,15 @@ module.exports = function(app,fs) {
             }));
             id = maximum + 1;
           }
-          let channel;
-          if (typeof(req.body.channel) != "undefined") {
-            channel = req.body.channel;
-          } else {
-            channel = [];
-          }
+          // Define empty array for channels when created
+          let channel = [];
           let newGroup = {"id": id, "name": req.body.name, "channel": channel};
           groupArray.push(newGroup);
           let groupJson = JSON.stringify(groupArray);
           //Write data to JSON file
           fs.writeFile('server/data/group.json', groupJson, 'utf-8', function (err) {
             if (err) throw err;
-            //Return Created Group
+            //Return created group
             res.send(newGroup);
           });
         }
@@ -80,9 +76,9 @@ module.exports = function(app,fs) {
     });
   });
 
-  // PUT endpoint API for editing a group
+  // PUT endpoint API for Updating a group
   app.put('/api/group/:id', function (req, res) {
-    console.log('Edit Group');
+    console.log('Update Group');
     let groupArray;
     let id = req.params.id;
     //Read data from JSON file
@@ -91,16 +87,16 @@ module.exports = function(app,fs) {
         console.log(err);
       } else {
         groupArray = JSON.parse(data);
-        //Find group to be edited
-        let editGroup = groupArray.find(group => group.id == id);
-        editGroup.name = req.body.name;
-        editGroup.channel = req.body.channel;
+        //Find group to be updated
+        let updateGroup = groupArray.find(group => group.id == id);
+        updateGroup.name = req.body.name;
+        updateGroup.channel = req.body.channel;
         let groupJson = JSON.stringify(groupArray);
         //Write data to JSON file
         fs.writeFile('server/data/group.json', groupJson, 'utf-8', function (err) {
           if (err) throw err;
-          //Return edited Group
-          res.send(editGroup);
+          //Return updated Group
+          res.send(updateGroup);
         });
       }
     });

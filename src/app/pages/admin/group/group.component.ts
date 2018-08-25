@@ -118,7 +118,7 @@ export class GroupComponent implements OnInit {
       .subscribe(
         data => {
           this.getGroups();
-          return true;
+          return true
         },
         err => console.log(err)
       );

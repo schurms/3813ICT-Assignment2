@@ -103,7 +103,16 @@ export class GroupchannelComponent implements OnInit {
     // Push new Channel to Group
     this.group.channel.push(addChannel);
 
-    console.log(this.group)
+    console.log('here now');
+    let group = this.group;
+    this.groupService.updateGroup(group)
+      .subscribe(
+        data => {
+          this.getGroup();
+          return true;
+        },
+        err => console.log(err)
+      );
   }
 
 
