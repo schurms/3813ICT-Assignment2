@@ -44,19 +44,17 @@ export class Group {
 }
 ```
 
-Channel: (Imports the Channel Class)
+Channel:
 ```typescript
-export class Group {
-  id: number;
-  name: string;
-  channel: Channel[];
-
-  constructor( id: number, name: string, channel: Channel[]) {
-    this.id = id;
-    this.name = name;
-    this.channel = channel;
-  }
-}
+export class Channel {
+   id: number;
+   name: string;
+ 
+   constructor( id: number, name: string) {
+     this.id = id;
+     this.name = name;
+   }
+ }
 ```
 
 User:
