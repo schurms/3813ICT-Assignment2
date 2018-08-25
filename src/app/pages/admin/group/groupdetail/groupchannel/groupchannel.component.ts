@@ -67,14 +67,17 @@ export class GroupchannelComponent implements OnInit {
 
   // Delete channel
   deleteChannel(id) {
-
+    event.preventDefault()
     const channelArray = this.group.channel;
+    // Remove the channel out of local array
     this.group.channel = channelArray.filter(channel => channel.id != id);
 
     let group = this.group;
+    // Update Group with new local array version
     this.updateGroup(group);
   }
 
+  // Add a channel to the Group
   addChannel() {
     this.submitted = true;
     event.preventDefault();
@@ -102,6 +105,7 @@ export class GroupchannelComponent implements OnInit {
       // Push new Channel to Group
       this.group.channel.push(addChannel);
       let group = this.group;
+      // Call Update Group route to update the group record
       this.updateGroup(group);
     }
   }

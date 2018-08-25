@@ -48,7 +48,6 @@ export class GroupComponent implements OnInit {
       this.username = this.user.name;
       this.getAuthUser(this.username);
     }
-
   }
 
   // Validate user authority
