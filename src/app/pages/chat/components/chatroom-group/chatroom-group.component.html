@@ -1,7 +1,8 @@
 <div class="h-100 d-flex flex-column chatroom-group">
-  <ng-container *ngFor="let group of groups">
+  <h4>My Groups</h4>
+  <ng-container *ngFor="let group of myGroups">
     <div class="chatroom-group-item">
-      {{group.name}}
+      <a>{{ group.name }}</a>
     </div>
   </ng-container>
 </div>

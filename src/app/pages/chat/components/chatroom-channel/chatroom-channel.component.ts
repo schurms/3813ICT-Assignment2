@@ -11,7 +11,8 @@ export class ChatroomChannelComponent implements OnInit {
 
   channels: Channel[] = null;
 
-  constructor(private channelService: ChannelService) {
+  constructor(
+    private channelService: ChannelService) {
   }
 
   ngOnInit() {
@@ -27,4 +28,5 @@ export class ChatroomChannelComponent implements OnInit {
         err => console.log(err)
       );
   }
+
 }

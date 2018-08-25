@@ -1,4 +1,5 @@
 <div class="h-100 d-flex flex-column chatroom-channel">
+  <h4>My Channels</h4>
   <ng-container *ngFor="let channel of channels">
     <div class="chatroom-group-item">
       <a [routerLink]="['/chat', channel.id]">{{ channel.name }}</a>
