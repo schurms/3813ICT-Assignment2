@@ -288,4 +288,4 @@ This section defines the Angular Architecture used.  It discusses the components
 - **Models** - Models can be found within the MODELS folder.  The following Angular models are implemented:
   - *Group* - Model defining the structure of a Group Class.  A group has channels and user imports.
   - *Channel* - Model defining the structure of a Channel Class. A channel has user imports.
-  - *User* - Model defining the structure of a User Class.  A User has Group and Channel
+  - *User* - Model defining the structure of a User Class.
