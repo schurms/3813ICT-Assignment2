@@ -6,9 +6,57 @@ Student Number: s5073958
 
 Due: 5pm Mon 3 September 2018
 
+### TEST DATA PROVIDED
+The following test data is provided within the system
+#### Group Data
+| Group Name | Group Channels | Group Users | 
+| ------ | ------ | ------ |
+| Overseas Travel | Shopping | super | 
+| | Travel | jordan | 
+| | | fred|  
+| Computers | Notebooks | bill | 
+| | Monitors/videos | | 
+| | Windows | | 
+| | Peripherals | |  
+| | Apple | | 
+| | Desktops |  |
+| Entertainment | Home Theatre | | 
+| | TV Shows | 
+| Lounges | Automative | |
+| | Photography | | 
+#### User Data
+| User Name | User Email | User Role |
+| ------ | ------ | ------ |
+| super | super@gmail.com | super |
+| jordan | jordan@gmail.com	| |
+| fred | fred@gmail.com	| |
+| bill | bill@gmail.com|group |
+| Sam | sam@gmail.com | |
+| god | god@gmail.com | super |
+
+#### Channel Data
+| Channel Name | User Name |
+| ------ | ------ |
+| Shopping | super |
+|  | fred |
+| Travel | super |
+|  | jordan |
+|  | fred |
+| Notebooks | |
+| Monitors/Videos | |
+| Windows | |
+| Peripherals | |
+| Apple | |
+| Desktops | |
+| Home Theatre | |
+| TV Shows | |
+| Automative | |
+| Photography | |
+
 ### KEY DESIGN ASSUMPTIONS
 - A channel can be added to many Groups
 - Users need to be manually removed from all Groups and Channels they are in if the User is deleted.
+- Data is loaded from JSON files on the server on an as required basis.  It was decided not to load all the data into the client as when multiple people were working on the data, then concurrent update issues can occur.  Thus the source of truth for all data is the server.
 
 ### COMMANDS
 
