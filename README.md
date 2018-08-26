@@ -6,8 +6,30 @@ Student Number: s5073958
 
 Due: 5pm Mon 3 September 2018
 
+### KEY DESIGN ASSUMPTIONS
+
+- A channel can be added to one or many Groups
+- Users need to be manually removed from all Groups and Channels they are in, if the User is deleted.
+- Data is loaded from JSON files on the server on an as required basis.  It was decided not to load all the data into the client as when multiple people were working on the data, then concurrent update issues can occur.  Thus the source of truth for all data is the server.
+- Security
+  - A User with the super role can create super or group or normal users
+  - A User with the group role can create other group or normal users
+  - A User with the super role can delete users
+  - A User with the group role can not delete users
+
+### COMMANDS
+- Start server - Terminal Window 1 (This starts the server with nodemon)
+```javascript
+npm run server
+```
+- Start client - Terminal Window 2
+```javascript
+ng serve
+```
+
 ### TEST DATA PROVIDED
 The following test data is provided within the system
+
 #### Group Data
 | Group Name | Group Channels | Group Users | 
 | ------ | ------ | ------ |
@@ -24,6 +46,7 @@ The following test data is provided within the system
 | | TV Shows | 
 | Lounges | Automative | |
 | | Photography | | 
+
 #### User Data
 | User Name | User Email | User Role |
 | ------ | ------ | ------ |
@@ -52,22 +75,6 @@ The following test data is provided within the system
 | TV Shows | |
 | Automative | |
 | Photography | |
-
-### KEY DESIGN ASSUMPTIONS
-- A channel can be added to many Groups
-- Users need to be manually removed from all Groups and Channels they are in if the User is deleted.
-- Data is loaded from JSON files on the server on an as required basis.  It was decided not to load all the data into the client as when multiple people were working on the data, then concurrent update issues can occur.  Thus the source of truth for all data is the server.
-
-### COMMANDS
-
-- Start server - Terminal Window 1 (This starts the server with nodemon)
-```javascript
-npm run server
-```
-- Start client - Terminal Window 2
-```javascript
-ng serve
-```
 
 ### GIT Structure
 
