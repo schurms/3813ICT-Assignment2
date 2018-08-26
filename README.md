@@ -13,13 +13,13 @@ The following test data is provided within the system
 | ------ | ------ | ------ |
 | Overseas Travel | Shopping | super | 
 | | Travel | jordan | 
-| | | fred|  
+| | | fred |  
 | Computers | Notebooks | bill | 
 | | Monitors/videos | | 
 | | Windows | | 
 | | Peripherals | |  
 | | Apple | | 
-| | Desktops |  |
+| | Desktops | |
 | Entertainment | Home Theatre | | 
 | | TV Shows | 
 | Lounges | Automative | |
@@ -31,17 +31,17 @@ The following test data is provided within the system
 | jordan | jordan@gmail.com	| |
 | fred | fred@gmail.com	| |
 | bill | bill@gmail.com|group |
-| Sam | sam@gmail.com | |
-| god | god@gmail.com | super |
+| sam | sam@gmail.com | |
+| good | good@gmail.com | super |
 
 #### Channel Data
 | Channel Name | User Name |
 | ------ | ------ |
 | Shopping | super |
-|  | fred |
+| | fred |
 | Travel | super |
-|  | jordan |
-|  | fred |
+| | jordan |
+| | fred |
 | Notebooks | |
 | Monitors/Videos | |
 | Windows | |
