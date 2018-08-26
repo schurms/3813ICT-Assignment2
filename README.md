@@ -8,7 +8,7 @@ Due: 5pm Mon 3 September 2018
 
 ### KEY DESIGN ASSUMPTIONS
 - A channel can be added to many Groups
-
+- Users need to be manually removed from all Groups and Channels they are in if the User is deleted.
 
 ### COMMANDS
 
@@ -199,7 +199,11 @@ This section defines the Angular Architecture used.  It discusses the components
     - Channel - This component is displayed on user being successfully authorised to access the page.  It provides the mechanism to add/update/delete channels.  It also provides a link to add users to channels.
       * ChannelUser - This component is used to add/remove users to channels 
     - User - This component is displayed on user being successfully authorised to access the page.  It provides the mechanism to add/update/delete users.
-  - *Chat* - This component is displayed on successful user login.  It is the default landing page.  The page can not be opened unless a user is logged in. Whilst basic chat functionality works, this is not a requirement at this stage.
+  - *Chat* - This component is displayed on successful user login.  It is the default landing page.  The page can not be opened unless a user is logged in. The following sub-components exist.
+    - Chatroom-window - This component is a container for other chat components in addition to showing the message functionality.
+    - Chatroom-group - This component displays groups the user belongs to.
+    - Chatroom-channel - This component displays channels the user belongs to.
+    - Chatroom-history - This component displays links to history messages.
   - *Navbar* - This component displays the navbar at the top of pages.  This component is inserted via the <app-navbar> selector. Options on the Navbar are:
     - Admin - Clicking on this menu item opens a dropdown to allow the user to navigate to the appropriate administration page.  Dropdown options are (i) Groups (to manage Groups), (2) Users (to manage Users), and (3) Channels (to manage Channels). These features are discussed in the "Admin" component discussion.
 	- My Chat - Clicking on this menu item returns the user to the Chat page.  This feature is discussed in the "Chat" component discussion.

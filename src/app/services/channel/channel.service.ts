@@ -11,6 +11,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
+// Variable for backend API
 const BACKEND_URL = environment.apiURL;
 
 @Injectable({
@@ -43,6 +44,7 @@ export class ChannelService {
         return channel
       }));
   }
+
   // Function to manage channel creation
   createChannel(channel) {
     let body = JSON.stringify(channel);

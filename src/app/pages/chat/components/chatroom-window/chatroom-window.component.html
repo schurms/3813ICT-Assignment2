@@ -1,17 +1,16 @@
 <div class="h-100 d-flex flex-column chat-window">
+  <h5>Welcome <span style='color: #4285f4'> {{ username }} </span> to Channel: <span style='color: #4285f4'> {{channel?.name}}</span></h5>
   <ng-container>
-    <app-chatroom-title-bar [title]=""></app-chatroom-title-bar>
     <div class="message-wrapper h-100">
-      <h2>Welcome {{ username }}</h2>
       <ng-container *ngFor="let message of messages">
         <div class="chat-message d-flex">
           <div class="message">
-            {{message.text}}
+            {{message?.text}}
           </div>
         </div>
       </ng-container>
     </div>
-    <!--<app-chat-input></app-chat-input>-->
+
     <div class="new-message-wrapper d-flex">
       <div class="input-group">
         <input [(ngModel)]="message" type="text" class="form-control" placeholder="Enter a new message" >

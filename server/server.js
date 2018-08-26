@@ -8,10 +8,12 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 
 // Cross origin resource sharing to cater for port 4200 to port 3000
+// This is not required if running from ng build then client and server both run on port 3000
+// See https://github.com/expressjs/cors for implementation example
 const cors = require('cors');
 const corsOptions = {
-  origin: 'http://localhost:4200',
-  optionsSuccessStatus: 200
+  origin: 'http://localhost:4200', // Angular server address and port
+  optionsSuccessStatus: 200 //
 };
 
 // Set up CORS (Cross Site)

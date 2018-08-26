@@ -38,7 +38,7 @@ export class GroupComponent implements OnInit {
     if (!sessionStorage.getItem('user')) {
       // No valid session is available
       this.authService.deleteUser();
-      alert('Please login In');
+      alert('Please login');
       this.router.navigateByUrl('login');
 
     } else {

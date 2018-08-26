@@ -41,3 +41,10 @@ export class SocketService {
     return observableMessages;
   }
 }
+
+// const post: Message = {id: null, title: 'tttt', content: 'tllsls'};
+// this.http.post<{message: string}>('http://localhost:3000/api/messages', post)
+//   .subscribe((responseData) => {
+//     console.log(responseData.message);
+//   });
+// console.log(this.messageService.getMessages());

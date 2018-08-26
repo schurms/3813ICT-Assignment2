@@ -81,7 +81,6 @@ export class UserComponent implements OnInit {
 
   // Get User Data
   getUsers() {
-
     this.userService.getUsers()
       .subscribe(
         data => {
