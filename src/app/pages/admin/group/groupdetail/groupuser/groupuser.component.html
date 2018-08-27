@@ -9,12 +9,12 @@
         <div class="form-group">
           <label for="name" class="name">User Name</label>
           <select [(ngModel)]="userSelected"
-                  class="form-control"
-                  id="name"
-                  name="name"
-                  formControlName="name"
-                  required
-                  [ngClass]="{ 'is-invalid': submitted && userForm.controls.name.errors }">
+            class="form-control"
+            id="name"
+            name="name"
+            formControlName="name"
+            required
+            [ngClass]="{ 'is-invalid': submitted && userForm.controls.name.errors }">
             <option *ngFor="let user of users" [value]="user.name">{{user.name}}</option>
           </select>
           <div *ngIf="submitted && !!userForm.controls.name.errors" class="invalid-feedback">

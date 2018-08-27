@@ -34,19 +34,9 @@ export class ChannelComponent implements OnInit {
       name: ['', [Validators.required]],
     });
 
-    if (!sessionStorage.getItem('user')) {
-      // No valid session is available
-      this.authService.deleteUser();
-      alert('Please login');
-      this.router.navigateByUrl('login');
-
-    } else {
-
-      // Valid session
-      this.user = this.authService.readUser();
-      this.username = this.user.name;
-      this.getAuthUser(this.username);
-    }
+    this.user = this.authService.readUser();
+    this.username = this.user.name;
+    this.getAuthUser(this.username);
   }
 
   // Validate user authority

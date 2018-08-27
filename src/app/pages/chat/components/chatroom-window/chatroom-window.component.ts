@@ -1,14 +1,13 @@
 // Modules
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SocketService } from '../../../../services/socket/socket.service';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute, Params } from '@angular/router';
 // Models
 import { User } from '../../../../models/user.model';
+import { Channel } from '../../../../models/channel.model';
 // Services
 import { AuthService } from '../../../../services/auth/auth.service';
 import { ChannelService } from '../../../../services/channel/channel.service';
-import {Channel} from '../../../../models/channel.model';
 
 @Component({
   selector: 'app-chatroom-window',
@@ -30,41 +29,32 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private socketService: SocketService,
     private channelService: ChannelService,
-    private authService: AuthService,
-    private router: Router) { }
+    private authService: AuthService) { }
 
   // When entering this component
   ngOnInit() {
-    if (!sessionStorage.getItem('user')) {
-      // No valid session is available
-      this.authService.deleteUser();
-      alert('Please Login In');
-      this.router.navigateByUrl('login');
+    this.channelId = this.route.snapshot.paramMap['id'];
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.channelId = params['id'];
+        }
+      );
+    this.user = this.authService.readUser();
+    this.username = this.user.name;
+    // Valid user found
+    console.log('Session started for: ' + this.username);
+    this.getChannel();
 
-    } else {
-      this.channelId = this.route.snapshot.paramMap['id'];
-      this.route.params
-        .subscribe(
-          (params: Params) => {
-            this.channelId = params['id'];
-          }
-        );
-      this.user = this.authService.readUser();
-      this.username = this.user.name;
-      // Valid user found
-      console.log('Session started for: ' + this.username);
-      this.getChannel();
+    // Subscribe to the Chat Service
+    this.connection = this.socketService.getMessages()
+      .subscribe(
+        message => {
 
-      // Subscribe to the Chat Service
-      this.connection = this.socketService.getMessages()
-        .subscribe(
-          message => {
-
-          // Add chat message to the message array each time you are pushed a message from the server
-          this.messages.push(message);
-          this.message = '';
-          });
-    }
+        // Add chat message to the message array each time you are pushed a message from the server
+        this.messages.push(message);
+        this.message = '';
+        });
   }
 
   // Send a chat message back to the server

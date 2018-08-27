@@ -1,6 +1,8 @@
+// Modules
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {AuthService} from '../../services/auth/auth.service';
+// Services
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,11 +11,19 @@ import {AuthService} from '../../services/auth/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
+  isLoggedIn: boolean;
+
   constructor(
     private router: Router,
     private authService: AuthService) { }
 
+  // On Page Opening
   ngOnInit() {
+    if (!sessionStorage.getItem('user')) {
+      this.isLoggedIn = false;
+    } else {
+      this.isLoggedIn = true;
+    }
   }
 
   //Logout the user and go back to the Login component
