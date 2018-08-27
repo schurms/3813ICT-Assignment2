@@ -101,20 +101,32 @@ module.exports = function(app,fs) {
         fs.writeFile('server/data/user.json', userJson, 'utf-8', function (err) {
         if (err) throw err;
           //Return deleted user
+          deleteAllGroupUser(id);
+          deleteAllChannelUser(id);
           res.send(deleteUser);
         });
       }
     });
   });
 
+  function deleteAllGroupUser(id) {
+  // Delete user from groups
+  // let groupsArray = this.groups;
+  // let userName = 'super';
+  // groupsArray.forEach(function(object) {
+  //   object.user = object.user.filter(user => user.name != userName);
+  // });
+  // console.log(groupsArray);
+  }
+
+  function deleteAllChannelUser(id) {
+    // Delete user from groups
+    // let groupsArray = this.groups;
+    // let userName = 'super';
+    // groupsArray.forEach(function(object) {
+    //   object.user = object.user.filter(user => user.name != userName);
+    // });
+    // console.log(groupsArray);
+  }
 };
 
-// Delete user from groups
-// let groupsArray = this.groups;
-// let userName = 'super';
-// groupsArray.forEach(function(object) {
-//   object.user = object.user.filter(user => user.name != userName);
-// });
-// console.log(groupsArray);
-
-// Delete users from channels
