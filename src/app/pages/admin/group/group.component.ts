@@ -17,6 +17,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 export class GroupComponent implements OnInit {
 
   groups: Group[];
+  tempgroups: Group[];
   user: User;
   username: string;
   submitted = false;
@@ -61,9 +62,17 @@ export class GroupComponent implements OnInit {
       .subscribe(
         data => {
           this.groups = data.groups;
+          // let groupsArray = this.groups;
+          // let userName = 'super';
+          // groupsArray.forEach(function(object) {
+          //   object.user = object.user.filter(user => user.name != userName);
+          // });
+          // console.log(groupsArray);
+
         },
         err => console.log(err)
       );
+
   }
 
   // Create Group
