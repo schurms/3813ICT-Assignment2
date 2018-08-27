@@ -2,7 +2,8 @@
   <h5>Channel History</h5>
   <ng-container *ngFor="let channel of myChannels">
     <div>
-      <a >{{ channel?.name }}</a>
+      <a >{{ channel?.name | uppercase }}</a>
     </div>
   </ng-container>
 </div>
+

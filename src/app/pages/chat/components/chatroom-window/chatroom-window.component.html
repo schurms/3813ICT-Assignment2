@@ -1,23 +1,31 @@
 <div class="h-100 d-flex flex-column chat-window">
-  <h5>Welcome <span style='color: #4285f4'> {{ username }} </span> to Channel: <span style='color: #4285f4'> {{channel?.name}}</span></h5>
-  <ng-container>
-    <div class="message-wrapper h-100">
-      <ng-container *ngFor="let message of messages">
-        <div class="chat-message d-flex">
-          <div class="message">
-            {{message?.text}}
-          </div>
-        </div>
-      </ng-container>
-    </div>
-
-    <div class="new-message-wrapper d-flex">
-      <div class="input-group">
-        <input [(ngModel)]="message" type="text" class="form-control" placeholder="Enter a new message" >
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button" (click)="sendMessage()">Send</button>
-        </div>
+  <ng-container *ngIf="!chatroom else chatMessages">
+    <div class="select-room h-100 w-100 d-flex justify-content-center align-items-centre">
+      <div class="select-room-message">
+        <button class="btn btn-outline-dark" disabled>Select a CHANNEL to Start a Chat Session</button>
       </div>
     </div>
   </ng-container>
 </div>
+
+<ng-template #chatMessages>
+  <h5>Welcome <span style='color: #4285f4'> {{ username | uppercase }} </span> to Channel: <span style='color: #4285f4'> {{channel?.name | uppercase}}</span></h5>
+  <div class="message-wrapper h-100">
+    <ng-container *ngFor="let message of messages">
+      <div class="chat-message d-flex">
+        <div class="message">
+          {{message?.text}}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="new-message-wrapper d-flex">
+    <div class="input-group">
+      <input [(ngModel)]="message" type="text" class="form-control" placeholder="Enter a new message" >
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button" (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+

@@ -2,17 +2,15 @@
   overflow-y: scroll;
 }
 
-.select-channel .select-channel-message {
-  width: 30%;
-  height: 30%;
-  margin-top: 10%;
+.select-room {
+  width: 50%;
+  height: 15%;
+  padding-top: 10%;
   margin-bottom: 10%;
-  border: 1px solid #efefef;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.2em;
-  box-shadow: 0 5px 10px #efefef;
 }
 
 .new-message-wrapper .input-group {

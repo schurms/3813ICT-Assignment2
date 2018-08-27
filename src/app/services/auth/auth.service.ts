@@ -30,7 +30,7 @@ export class AuthService {
 
   // Function to read user on login
   readUser() {
-    if (typeof(Storage) !== 'undefined' ) {
+    if ( typeof(Storage) !== 'undefined' ) {
       return JSON.parse(sessionStorage.getItem('user'));
     }
   }

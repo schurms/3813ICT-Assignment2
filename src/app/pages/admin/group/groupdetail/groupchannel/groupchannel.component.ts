@@ -17,6 +17,7 @@ import { ChannelService } from '../../../../../services/channel/channel.service'
 })
 export class GroupchannelComponent implements OnInit {
 
+  groups: Group[];
   group: Group;
   channels: Channel[];
   submitted = false;
@@ -38,8 +39,20 @@ export class GroupchannelComponent implements OnInit {
     });
 
     // Get initial Data
+    this.getGroups();
     this.getGroup();
     this.getChannels();
+  }
+
+  // Get Groups So Can see if channel has been previously added
+  getGroups() {
+    this.groupService.getGroups()
+      .subscribe(
+        data => {
+          this.groups = data.groups;
+        },
+        err => console.log(err)
+      );
   }
 
   // Get details for the selected group
@@ -90,11 +103,11 @@ export class GroupchannelComponent implements OnInit {
     const channelArray = this.channels;
     const selectedChannel = channelArray.find(channel => channel.name == this.channelSelected);
 
-    // Test if channel already added
-    const groupArray = this.group.channel;
-    const groupFound = groupArray.some(group => group.name == this.channelSelected);
-    if (groupFound) {
-      alert("Can Not Add The Same Channel to the Same Channel");
+    // Test if channel already added to any group
+    const groupsArray = this.groups;
+    const groupFoundId = groupsArray.find(group => group.channel.some(item => item.name == this.channelSelected));
+    if ( typeof(groupFoundId) !== 'undefined' ) {
+      alert("Channel has already been added to a Group");
     } else {
       // Create new Channel
       const addChannel = {
@@ -109,6 +122,7 @@ export class GroupchannelComponent implements OnInit {
       // Call Update Group route to update the group record
       this.updateGroup(group);
     }
+    return;
   }
 
   // Update Group

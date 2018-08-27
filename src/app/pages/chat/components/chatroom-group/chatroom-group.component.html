@@ -2,7 +2,7 @@
   <h5>My Groups</h5>
   <ng-container *ngFor="let group of myGroups">
     <div class="chatroom-group-item">
-      <a>{{ group?.name }}</a>
+      <a>{{ group?.name | uppercase }}</a>
     </div>
   </ng-container>
 </div>

@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div style="text-align:center" class="container">
-  <h2>Group: <span style='color: #4285f4'> {{group?.name}}</span></h2>
+  <h2>Group: <span style='color: #4285f4'> {{group?.name | uppercase}}</span></h2>
   <h3>Channel List Management</h3>
   <br>
   <div class="row">
@@ -53,6 +53,7 @@
           <td>
             <div class="btn-group">
               <button id="btnDelete" (click)="deleteChannel(item?.id)" class="btn btn-danger btn-sm">Delete</button>
+              <a routerLink="/channeluser/{{item?.id}}"><button id="btnSelectUser" class="btn btn-info">User</button></a>
             </div>
           </td>
         </tr>

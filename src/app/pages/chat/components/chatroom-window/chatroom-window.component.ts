@@ -24,6 +24,7 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
   message;
   channelId;
   connection;
+  chatroom;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +35,6 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
 
   // When entering this component
   ngOnInit() {
-
     if (!sessionStorage.getItem('user')) {
       // No valid session is available
       this.authService.deleteUser();
@@ -69,17 +69,23 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
 
   // Send a chat message back to the server
   sendMessage() {
-    this.socketService.sendMessage(this.message + ' (' + this.username + ')' + ' ' + this.channel.name);
-    this.message = '';
+    if ( typeof(this.channel) === 'undefined' ) {
+      alert("Please select a channel");
+      return
+    } else {
+      this.socketService.sendMessage(this.message + ' (' + this.username + ')' + ' ' + this.channel.name);
+      this.message = '';
+      return
+    }
   }
 
   // Get details for the selected channel
   getChannel() {
-
     this.channelService.getChannel(this.channelId)
       .subscribe(
         data => {
           this.channel = data.channel;
+          this.chatroom = this.channel.name;
         },
         err => console.log(err)
       );

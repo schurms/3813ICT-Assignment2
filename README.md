@@ -8,7 +8,6 @@ Due: 5pm Mon 3 September 2018
 
 ### KEY DESIGN ASSUMPTIONS
 
-- A channel can be added to one or many Groups
 - Users need to be manually removed from all Groups and Channels they are in, if the User is deleted.
 - Data is loaded from JSON files on the server on an as required basis.  It was decided not to load all the data into the client as when multiple people were working on the data, then concurrent update issues can occur.  Thus the source of truth for all data is the server.
 - Security
@@ -251,8 +250,8 @@ This section defines the Angular Architecture used.  It discusses the components
     - Group - This component is displayed on user being successfully authorised to access the page. It provides the mechanism to add/update/delete groups.  It also provides a link to add users to groups and channels to groups.
       * GroupUser - This component is used to add/remove users to groups
       * GroupChannel - This component is used to add/remove channels to groups
-    - Channel - This component is displayed on user being successfully authorised to access the page.  It provides the mechanism to add/update/delete channels.  It also provides a link to add users to channels.
-      * ChannelUser - This component is used to add/remove users to channels 
+      * ChannelUser - This component is used to add/remove users to channels     
+    - Channel - This component is displayed on user being successfully authorised to access the page.  It provides the mechanism to add/update/delete channels. 
     - User - This component is displayed on user being successfully authorised to access the page.  It provides the mechanism to add/update/delete users.
   - *Chat* - This component is displayed on successful user login.  It is the default landing page.  The page can not be opened unless a user is logged in. The following sub-components exist.
     - Chatroom-window - This component is a container for other chat components in addition to showing the message functionality.
