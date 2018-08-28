@@ -1,14 +1,4 @@
 
-#btnDelete, #btnEdit, #btnSelect {
-  padding: 5px;
-  display: inline-block;
-  vertical-align: top;
-}
-
-#btnEdit {
-  margin-left: 20px;
-}
-
 table td {
   vertical-align: middle;
   position: relative;
@@ -16,4 +6,8 @@ table td {
 
 th, td {
   white-space: nowrap;
+}
+
+.btn-space {
+  margin-right: 5px;
 }

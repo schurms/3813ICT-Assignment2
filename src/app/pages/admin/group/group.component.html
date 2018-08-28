@@ -57,10 +57,10 @@
             </td>
             <td>
               <div class="btn-group">
-                <button id="btnEdit" (click)="updateGroup(group)" class="btn btn-success btn-sm">Update</button>
-                <button id="btnDelete" (click)="deleteGroup(group)" class="btn btn-danger btn-sm">Delete</button>
-                <a routerLink="/groupuser/{{group.id}}"><button id="btnSelectUser" class="btn btn-info">User</button></a>
-                <a routerLink="/groupchannel/{{group.id}}"><button id="btnSelectChannel" class="btn btn-warning">Channel</button></a>
+                <button class="btn btn-space btn-sm btn-success" (click)="updateGroup(group)">Update</button>
+                <button class="btn btn-space btn-sm btn-danger" (click)="deleteGroup(group)">Delete</button>
+                <a id="aSpace" routerLink="/groupuser/{{group.id}}"><button class="btn btn-sm btn-info">User</button></a>
+                <a routerLink="/groupchannel/{{group.id}}"><button class="btn btn-sm btn-warning">Channel</button></a>
               </div>
             </td>
           </tr>
