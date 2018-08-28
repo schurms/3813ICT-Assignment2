@@ -277,23 +277,23 @@ This section defines the Angular Architecture used.  It discusses the components
   - *AuthService* - The purpose of this service is to manage actions for user validation. Functions within the service are:
     - getAuthUser - Function to obtain User credentials to determine if have access to system.
     - readUser - Function to read user name from session storage
-	  - writeUser - Function to write user name to session storage upon validation
-	  - deleteUser - Function to delete user from session storage.
+    - writeUser - Function to write user name to session storage upon validation
+    - deleteUser - Function to delete user from session storage.
   - *GroupService* - The purpose of this service is to manage actions for group management. Functions within the service are:
     - getGroups - Function to get all groups
     - createGroup - Function to create a new group
-	  - updateGroup - Function to update group details
-	  - deleteGroup - Function to delete a group
+    - updateGroup - Function to update group details
+    - deleteGroup - Function to delete a group
   - *ChannelService* - The purpose of this service is to manage actions for channel management.  Functions within the service are:
     - getChannels - Function to get all channels
     - createChannel - Function to create channel details
-	  - updateChannel - Function to update channel details
-	  - deleteChannel - Function to delete channel details
+    - updateChannel - Function to update channel details
+    - deleteChannel - Function to delete channel details
   - *UserService* - The purpose of this service is to manage actions for user management.  Functions within the service are:
     - getUsers - Function to get all users
-	  - createUser - Function to create a new user
-	  - updateUser - Function to update user details
-	  - deleteUser - Function to delete a user
+    - createUser - Function to create a new user
+    - updateUser - Function to update user details
+    - deleteUser - Function to delete a user
 - **Models** - Models can be found within the MODELS folder.  The following Angular models are implemented:
   - *Group* - Model defining the structure of a Group Class.  A group has channels and user imports.
   - *Channel* - Model defining the structure of a Channel Class. A channel has user imports.
