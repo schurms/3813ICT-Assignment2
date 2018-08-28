@@ -6,16 +6,6 @@ Student Number: s5073958
 
 Due: 5pm Mon 3 September 2018
 
-### KEY DESIGN ASSUMPTIONS
-
-- Users need to be manually removed from all Groups and Channels they are in, if the User is deleted.
-- Data is loaded from JSON files on the server on an as required basis.  It was decided not to load all the data into the client as when multiple people were working on the data, then concurrent update issues can occur.  Thus the source of truth for all data is the server.
-- Security
-  - A User with the super role can create super or group or normal users
-  - A User with the group role can create other group or normal users
-  - A User with the super role can delete users
-  - A User with the group role can not delete users
-
 ### COMMANDS
 - Start server - Terminal Window 1 (This starts the server with nodemon)
 ```javascript
@@ -25,6 +15,26 @@ npm run server
 ```javascript
 ng serve
 ```
+
+### KEY DESIGN ASSUMPTIONS
+- Data is loaded from JSON files on the server on an as required basis.  It was decided not to load all the data into the client as when multiple people were working on the data, then concurrent update issues can occur.  Thus the source of truth for all data is the server.
+- Security
+  - A User with the super role can create super or group or normal users
+  - A User with the group role can create other group or normal users
+  - A User with the super role can delete users
+  - A User with the group role can not delete users
+
+### ADDITIONAL FEATURES IMPLEMENTED
+- User Authentication - The application tests for a valid user name before allowing access. Whilst an email address is required to be entered it is not authenticated.  New Users can only be created by users with the Super | Group Role.  Test users are:
+  - super, jordan, fred, bill, sam, good
+- Navigation Menu Display - Navigation menu options vary depending upon whether a user is logged in, logged out, and their role when logged in.  Options are;
+  - If not logged in - For all users display no navigation menu options.
+  - If logged in and user does not have the Super | Group role - Display 'Chatroom' / 'Logout' menu options
+  - If logged in and user has the Super |Ggroup role – Display 'Admin' / 'Chatroom' / 'Logout' menu options.
+- Data persistence – All data (User/Group/Channel), and not message data, is persisted with JSON files.  Data can be modified, and it is retained from session to session.
+- Basic Chat / message functionality – Basic chat / message functionality between clients is working though not per channel.
+- If a user attempts to access an unknown page, a 404 page is displayed.  They can return to the home page by clicking a button which also logs them out.
+- Implemented CORS (Cross-Origin Resource Sharing) to allow cross origin HTTP requests between the angular client running on port 4200 and the node server running on port 3000.  The advantage of this is that development can still occur.  Alternative is to action ng build and run all from port 3000 – however this approach does not allow for refreshing of changes on rebuilds.
 
 ### TEST DATA PROVIDED
 The following test data is provided within the system
@@ -267,23 +277,23 @@ This section defines the Angular Architecture used.  It discusses the components
   - *AuthService* - The purpose of this service is to manage actions for user validation. Functions within the service are:
     - getAuthUser - Function to obtain User credentials to determine if have access to system.
     - readUser - Function to read user name from session storage
-	- writeUser - Function to write user name to session storage upon validation
-	- deleteUser - Function to delete user from session storage.
+	  - writeUser - Function to write user name to session storage upon validation
+	  - deleteUser - Function to delete user from session storage.
   - *GroupService* - The purpose of this service is to manage actions for group management. Functions within the service are:
     - getGroups - Function to get all groups
     - createGroup - Function to create a new group
-	- updateGroup - Function to update group details
-	- deleteGroup - Function to delete a group
+	  - updateGroup - Function to update group details
+	  - deleteGroup - Function to delete a group
   - *ChannelService* - The purpose of this service is to manage actions for channel management.  Functions within the service are:
     - getChannels - Function to get all channels
     - createChannel - Function to create channel details
-	- updateChannel - Function to update channel details
-	- deleteChannel - Function to delete channel details
+	  - updateChannel - Function to update channel details
+	  - deleteChannel - Function to delete channel details
   - *UserService* - The purpose of this service is to manage actions for user management.  Functions within the service are:
     - getUsers - Function to get all users
-	- createUser - Function to create a new user
-	- updateUser - Function to update user details
-	- deleteUser - Function to delete a user
+	  - createUser - Function to create a new user
+	  - updateUser - Function to update user details
+	  - deleteUser - Function to delete a user
 - **Models** - Models can be found within the MODELS folder.  The following Angular models are implemented:
   - *Group* - Model defining the structure of a Group Class.  A group has channels and user imports.
   - *Channel* - Model defining the structure of a Channel Class. A channel has user imports.
