@@ -120,10 +120,34 @@ module.exports = function(app,fs) {
         fs.writeFile('server/data/channel.json', channelJson, 'utf-8', function (err) {
           if (err) throw err;
           //Return deleted channel
+          deleteAllGroupChannel(id);
           res.send(deleteChannel);
         });
       }
     });
   });
+
+  // DELETE selected channel from all user elements in Group Data
+  function deleteAllGroupChannel(id) {
+    console.log('Delete Channel from Groups Data');
+    let groupsArray;
+    //Read data from JSON file
+    fs.readFile('server/data/group.json', 'utf8', function (err,data) {
+      if (err) {
+        console.log(err);
+      } else {
+        groupsArray = JSON.parse(data);
+        // Filter out all channels that are being deleted
+        groupsArray.forEach(function(object) {
+          object.channel = object.channel.filter(channel => channel.id != id);
+        });
+        let groupJson = JSON.stringify(groupsArray);
+        //Write data to JSON file
+        fs.writeFile('server/data/group.json', groupJson, 'utf-8', function (err) {
+          if (err) throw err;
+        });
+      }
+    });
+  }
 
 };
