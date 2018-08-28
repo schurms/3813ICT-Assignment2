@@ -46,7 +46,7 @@ export class GroupComponent implements OnInit {
     const user = { name: name };
     this.authService.getAuthUser(user)
       .subscribe((data: any) => {
-        if ((data.role === 'super') || (data.role === 'group')) {
+        if ((data.role.toUpperCase() === 'SUPER') || (data.role.toUpperCase() === 'GROUP')) {
           this.getGroups();
           return true;
         } else {
@@ -62,13 +62,6 @@ export class GroupComponent implements OnInit {
       .subscribe(
         data => {
           this.groups = data.groups;
-          // let groupsArray = this.groups;
-          // let userName = 'super';
-          // groupsArray.forEach(function(object) {
-          //   object.user = object.user.filter(user => user.name != userName);
-          // });
-          // console.log(groupsArray);
-
         },
         err => console.log(err)
       );

@@ -47,8 +47,9 @@ module.exports = function(app,fs) {
       if (err) {
         console.log(err);
       } else {
-        channelArray = JSON.parse(data);
-        if (channelArray.find(channel => channel.name === req.body.name)) {
+        channelArray = JSON.parse(data)
+        // Test uppercase version - ignore case
+        if (channelArray.find(channel => channel.name.toUpperCase() === req.body.name.toUpperCase())) {
           // Channel exists
           res.send({"ok": false});
         } else {

@@ -101,11 +101,11 @@ export class GroupchannelComponent implements OnInit {
 
     // Find id of selected channel
     const channelArray = this.channels;
-    const selectedChannel = channelArray.find(channel => channel.name == this.channelSelected);
+    const selectedChannel = channelArray.find(channel => channel.name.toUpperCase() == this.channelSelected.toUpperCase());
 
     // Test if channel already added to any group
     const groupsArray = this.groups;
-    const groupFoundId = groupsArray.find(group => group.channel.some(item => item.name == this.channelSelected));
+    const groupFoundId = groupsArray.find(group => group.channel.some(item => item.name.toUpperCase() == this.channelSelected.toUpperCase()));
     if ( typeof(groupFoundId) !== 'undefined' ) {
       alert("Channel has already been added to a Group");
     } else {

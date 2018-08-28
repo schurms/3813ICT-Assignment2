@@ -87,11 +87,11 @@ export class GroupuserComponent implements OnInit {
 
     // Find id of selected user
     const userArray = this.users;
-    const selectedUser = userArray.find(user => user.name == this.userSelected);
+    const selectedUser = userArray.find(user => user.name.toUpperCase() == this.userSelected.toUpperCase());
 
     // Test if user already added
     const groupArray = this.group.user;
-    const groupFound = groupArray.some(group => group.name == this.userSelected);
+    const groupFound = groupArray.some(group => group.name.toUpperCase() == this.userSelected.toUpperCase());
     if (groupFound) {
       alert("Can Not Add The Same User to the Same Group");
     } else {

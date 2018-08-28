@@ -47,8 +47,9 @@ module.exports = function(app,fs) {
       if (err) {
         console.log(err);
       } else {
-        groupArray = JSON.parse(data);
-        if (groupArray.find(group => group.name === req.body.name)) {
+        groupArray = JSON.parse(data)
+        // Test uppercase version - ignore case
+        if (groupArray.find(group => group.name.toUpperCase() === req.body.name.toUpperCase())) {
           // Group exists
           res.send({"ok": false});
         } else {

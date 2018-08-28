@@ -48,7 +48,7 @@ export class ChatroomHistoryComponent implements OnInit {
   getMyChannels(channelArray, userChannel) {
     return channelArray.filter((obj) => {
       for (let i = 0, length = obj.user.length; i < length; i++) {
-        if (obj.user[i].name === userChannel) {
+        if (obj.user[i].name.toUpperCase() === userChannel.toUpperCase()) {
           return true;
         }
       }

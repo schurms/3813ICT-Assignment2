@@ -28,7 +28,8 @@ module.exports = function(app,fs) {
         console.log(err);
       } else {
         userArray = JSON.parse(data);
-        if (userArray.find(user => user.name === req.body.name)) {
+        // Test uppercase version - ignore case
+        if (userArray.find(user => user.name.toUpperCase() === req.body.name.toUpperCase())) {
           //User exists
           res.send({"ok": false});
         } else {

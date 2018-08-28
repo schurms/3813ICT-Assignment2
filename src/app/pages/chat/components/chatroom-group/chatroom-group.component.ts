@@ -47,7 +47,7 @@ export class ChatroomGroupComponent implements OnInit {
   getMyGroups(groupArray, userGroup) {
     return groupArray.filter((obj) => {
       for (let i = 0, length = obj.user.length; i < length; i++) {
-        if (obj.user[i].name === userGroup) {
+        if (obj.user[i].name.toUpperCase() === userGroup.toUpperCase()) {
           return true;
         }
       }

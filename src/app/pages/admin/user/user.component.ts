@@ -50,12 +50,12 @@ export class UserComponent implements OnInit {
     const user = { name: name };
     this.authService.getAuthUser(user)
       .subscribe((data: any) => {
-        if ((data.role === 'super') || (data.role === 'group')) {
+        if ((data.role.toUpperCase() === 'SUPER') || (data.role.toUpperCase() === 'GROUP')) {
           // Create role list dependent upon role as only Super can create other Supers
-          if (data.role === 'super') {
+          if (data.role.toUpperCase() === 'SUPER') {
             this.roles = this.originalRoles;
           } else {
-            this.roles = this.originalRoles.filter(role => role != 'super');
+            this.roles = this.originalRoles.filter(role => role.toUpperCase() != 'SUPER');
           }
           // If Authorised
           this.getUsers();
