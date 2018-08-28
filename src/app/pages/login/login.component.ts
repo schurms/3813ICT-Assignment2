@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   public onlogin(): void {
     this.submitted = true;
     event.preventDefault();
-
+    // If errors found in input form
     if (this.loginForm.invalid) {
       return;
     }

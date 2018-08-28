@@ -94,7 +94,7 @@ export class GroupchannelComponent implements OnInit {
   addChannel() {
     this.submitted = true;
     event.preventDefault();
-
+    // If errors found in input form
     if (this.channelForm.invalid) {
       return;
     }

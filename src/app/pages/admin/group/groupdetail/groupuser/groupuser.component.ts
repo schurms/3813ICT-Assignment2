@@ -80,7 +80,7 @@ export class GroupuserComponent implements OnInit {
   addUser() {
     this.submitted = true;
     event.preventDefault();
-
+    // If errors found in input form
     if (this.userForm.invalid) {
       return;
     }

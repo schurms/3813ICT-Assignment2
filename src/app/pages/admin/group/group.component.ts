@@ -72,7 +72,7 @@ export class GroupComponent implements OnInit {
   createGroup() {
     this.submitted = true;
     event.preventDefault();
-
+    // If errors found in input form
     if (this.groupForm.invalid) {
       return;
     }

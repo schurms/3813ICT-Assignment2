@@ -55,11 +55,11 @@ export class UserComponent implements OnInit {
           if (data.role.toUpperCase() === 'SUPER') {
             this.roles = this.originalRoles;
           } else {
+            // Filter out the Super role
             this.roles = this.originalRoles.filter(role => role.toUpperCase() != 'SUPER');
           }
           // If Authorised
           this.getUsers();
-
           return true;
         } else {
           // If not authorised
@@ -84,7 +84,7 @@ export class UserComponent implements OnInit {
   createUser(){
     this.submitted = true;
     event.preventDefault();
-
+    // If errors found in input form
     if (this.userForm.invalid) {
       return;
     }
