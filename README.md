@@ -5,8 +5,50 @@ Student Name: Jordan Schurmann
 Student Number: s5073958
 
 Due: 5pm Mon 3 September 2018
+## TABLE OF CONTENTS
+1. Guide For How Application Works
+2. Application Start Commands
+3. Key Design Assumptions
+4. Additional Features Implemented
+5. Test Data Provided
+6. GIT Structure
+7. Data Structures
+8. Rest APIs
+9. Angular Architecture
+### 1. GUIDE FOR HOW APPLICATION WORKS
+1. Login
+  - The application authenticates valid users.  Valid users are listed in section 5.  The application only tests the username and the email is provided as a requirement.
+  - Additional users can be added via the administration function.  Once added, you are able to login using that username.
+2. Dashboard
+  - Upon logging in the user is presented with a dashboard.
+  - If the user has a SUPER or GROUP role they will see ADMIN | CHAT | LOGOUT options
+  - If the user does not have a SUPER or GROUP role they will see CHAT | LOGOUT options
+3. Chat Page
+  - Options on the CHAT page are:
+    - Groups the User is a member of
+    - Channels the User is a member of
+    - If the User has not selected a channel then a blank screen with a "Please Select a Channel" message Appearing
+    - If the User has selected a channel then a message displaying the User name and Channel is displayed together with basic Chat Functionality.
+    - NOTE this functionality is not working correctly as it was not a requirement of Assignment 1
+4. Admin Page
+  - Options on the ADMIN dropdown are:
+    - Group - This functionality is used to:
+      - Add/Update/Delete Groups
+      - Add/Delete Users to Groups
+      - Add/Delete Channels to Groups
+      - Add/Delete Users to Channels to Groups
+        - To Add a User to a Group > Select User on the Group List Management Page for the required Group > Add User on the User List Management Page
+        - To Delete a User from a Group > Select User on the Group List Management Page for the required Group > Delete on the User List Management Page for the required User
+        - To Add a Channel to a Group > Select Channel on the Group List Management Page for the required Group > Add Channel on the Channel List Management Page
+        - To Delete a Channel from a Group > Select Channel on the Group List Management Page for the required Group > Delete on the Channel List Management Page for the required Channel
+        - To Add a User to a Channel > Select Channel on the Group List Management Page for the required Group > Select User on the Channel List Management Page for the required Channel > Add User on the User List Management Page
+        - To Delete a User from a Channel > Select Channel on the Group List Management Page for the required Group > Select User on the Channel List Management Page for the required Channel > Delete User on the User List Management Page
+     - Channel - This functionality is used to:
+       - Add/Update/Delete Channels
+     - User - This functionality is used to:
+       - Add/Update/Delete Users
 
-### COMMANDS
+### 2. APPLICATION START COMMANDS
 - Start server - Terminal Window 1 (This starts the server with nodemon)
 ```javascript
 npm run server
@@ -16,7 +58,7 @@ npm run server
 ng serve
 ```
 
-### KEY DESIGN ASSUMPTIONS
+### 3. KEY DESIGN ASSUMPTIONS
 - Data is loaded from JSON files on the server on an as required basis.  It was decided not to load all the data into the client as when multiple people were working on the data, then concurrent update issues can occur.  Thus the source of truth for all data is the server.
 - Security
   - A User with the super role can create super or group or normal users
@@ -24,7 +66,7 @@ ng serve
   - A User with the super role can delete users
   - A User with the group role can not delete users
 
-### ADDITIONAL FEATURES IMPLEMENTED
+### 4. ADDITIONAL FEATURES IMPLEMENTED
 - User Authentication - The application tests for a valid user name before allowing access. Whilst an email address is required to be entered it is not authenticated.  New Users can only be created by users with the Super | Group Role.  Test users are:
   - super, jordan, fred, bill, sam, good
 - Navigation Menu Display - Navigation menu options vary depending upon whether a user is logged in, logged out, and their role when logged in.  Options are;
@@ -36,7 +78,7 @@ ng serve
 - If a user attempts to access an unknown page, a 404 page is displayed.  They can return to the home page by clicking a button which also logs them out.
 - Implemented CORS (Cross-Origin Resource Sharing) to allow cross origin HTTP requests between the angular client running on port 4200 and the node server running on port 3000.  The advantage of this is that development can still occur.  Alternative is to action ng build and run all from port 3000 – however this approach does not allow for refreshing of changes on rebuilds.
 
-### TEST DATA PROVIDED
+### 5. TEST DATA PROVIDED
 The following test data is provided within the system
 
 #### Group Data
@@ -46,7 +88,7 @@ The following test data is provided within the system
 | | Travel | jordan | 
 | | | fred |  
 | Computers | Notebooks | bill | 
-| | Monitors/videos | | 
+| | Monitors/videos | super | 
 | | Windows | | 
 | | Peripherals | |  
 | | Apple | | 
@@ -76,8 +118,8 @@ The following test data is provided within the system
 | | fred |
 | Notebooks | |
 | Monitors/Videos | |
-| Windows | |
-| Peripherals | |
+| Windows | bill |
+| Peripherals | bill |
 | Apple | |
 | Desktops | |
 | Home Theatre | |
@@ -85,13 +127,13 @@ The following test data is provided within the system
 | Automative | |
 | Photography | |
 
-### GIT Structure
+### 6. GIT Structure
 
 The approach to utilising GIT and version control was to commit after each complete build.  Whilst development was undertaken on a local machine, the version control solution was stored in a local GIT repository and then pushed to GITHUB.
 
 Branches were taken where appropriate and data merged in.  However, this was generally performed locally and only the final merged versions were pushed to GITHUB.  This approach reduced complexity and allowed work to continue in GIT when offline.
 
-### Data Structures
+### 7. DATA STRUCTURES
 
 Data structures were modelled within the angular side as this is where the data is represented.  The structures implemented are complex and used to retrieve and display the results in the client side.  No data structures are defined in the server side.  
 
@@ -150,7 +192,7 @@ export class User {
 }
 ```
 
-### REST API's
+### 8. REST API's
 This section defines the REST APIs implemented within Node.js.
 #### route/Auth.js - REST APIs within the route are:
 ```javascript
@@ -252,7 +294,7 @@ app.delete('/api/channel/:id', function(req,res)
 - DELETE endpoint API for deleting a channel.  Updates data into channel.json.
   - Input Parameter: Channel id
   - Returns: Deleted channel details
-### Angular Architecture
+### 9. ANGULAR ARCHITECTURE
 This section defines the Angular Architecture used.  It discusses the components, services and models used.
 - **Components** - Components can be found within the PAGES folder. The following Angular components are implemented:
   - *Login* - This component is displayed on user page opening.  Its purpose is to manage login.  It performs validation to ensure only registered users can login.  It validates (i) that the user name exists in the database, (ii) that a user name is input, (iii) that an email is input, and (iv) that the email is in correct email format.
