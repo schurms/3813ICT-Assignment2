@@ -135,7 +135,7 @@ export class UserComponent implements OnInit {
     const authUser = { name: this.user.name };
     this.authService.getAuthUser(authUser)
       .subscribe((data: any) => {
-        if (data.role === 'super') {
+        if (data.role.toUpperCase() === 'SUPER') {
           // If have the 'super' role then authorised to delete a user
           this.deleteAuthUser(nameDelete);
           return true;
