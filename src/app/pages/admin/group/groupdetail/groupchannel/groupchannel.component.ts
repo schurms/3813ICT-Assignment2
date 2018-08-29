@@ -1,6 +1,6 @@
 // Modules
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // Models
@@ -9,6 +9,7 @@ import { Channel } from '../../../../../models/channel.model';
 // Services
 import { GroupService } from '../../../../../services/group/group.service';
 import { ChannelService } from '../../../../../services/channel/channel.service';
+import { AuthService } from '../../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-groupchannel',
@@ -28,6 +29,8 @@ export class GroupchannelComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private groupService: GroupService,
               private channelService: ChannelService,
+              private authService: AuthService,
+              private router: Router,
               private location: Location,
               private formBuilder: FormBuilder) { }
 
@@ -38,10 +41,19 @@ export class GroupchannelComponent implements OnInit {
       name: ['', [Validators.required]],
     });
 
-    // Get initial Data
-    this.getGroups();
-    this.getGroup();
-    this.getChannels();
+    if(!sessionStorage.getItem('user')) {
+      // No valid session is available
+      this.authService.deleteUser();
+      alert('Please login');
+      this.router.navigateByUrl('login');
+    } else {
+      // Get initial Data
+      this.getGroups();
+      this.getGroup();
+      this.getChannels();
+    }
+
+
   }
 
   // Get Groups So Can see if channel has been previously added

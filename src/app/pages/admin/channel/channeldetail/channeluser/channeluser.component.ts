@@ -1,6 +1,6 @@
 // Modules
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators}  from '@angular/forms';
 // Models
@@ -9,6 +9,7 @@ import { User } from '../../../../../models/user.model';
 // Services
 import { ChannelService } from '../../../../../services/channel/channel.service';
 import { UserService } from '../../../../../services/user/user.service';
+import { AuthService } from '../../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-channeluser',
@@ -27,6 +28,8 @@ export class ChanneluserComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private channelService: ChannelService,
               private userService: UserService,
+              private authService: AuthService,
+              private router: Router,
               private location: Location,
               private formBuilder: FormBuilder) { }
 
@@ -37,8 +40,16 @@ export class ChanneluserComponent implements OnInit {
       name: ['', [Validators.required]],
     });
 
-    this.getChannel();
-    this.getUsers();
+    if(!sessionStorage.getItem('user')) {
+      // No valid session is available
+      this.authService.deleteUser();
+      this.router.navigateByUrl('404');
+    } else {
+      // Get initial Data
+      this.getChannel();
+      this.getUsers();
+    }
+
   }
 
   // Get details for the selected channel

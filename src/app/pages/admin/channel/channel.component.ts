@@ -1,7 +1,7 @@
 // Modules
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // Models
 import { Channel } from '../../../models/channel.model';
 import { User } from '../../../models/user.model';
@@ -34,9 +34,15 @@ export class ChannelComponent implements OnInit {
       name: ['', [Validators.required]],
     });
 
-    this.user = this.authService.readUser();
-    this.username = this.user.name;
-    this.getAuthUser(this.username);
+    if(!sessionStorage.getItem('user')) {
+      // No valid session is available
+      this.authService.deleteUser();
+      this.router.navigateByUrl('404');
+    } else {
+      this.user = this.authService.readUser();
+      this.username = this.user.name;
+      this.getAuthUser(this.username);
+    }
   }
 
   // Validate user authority

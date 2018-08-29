@@ -40,9 +40,16 @@ export class UserComponent implements OnInit {
       role:[''],
     });
 
-    this.user = this.authService.readUser();
-    this.username = this.user.name;
-    this.getAuthUser(this.username);
+    if(!sessionStorage.getItem('user')) {
+      // No valid session is available
+      this.authService.deleteUser();
+      this.router.navigateByUrl('404');
+    } else {
+      this.user = this.authService.readUser();
+      this.username = this.user.name;
+      this.getAuthUser(this.username);
+    }
+
   }
 
   // Validate user authority
