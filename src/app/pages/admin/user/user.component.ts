@@ -23,6 +23,7 @@ export class UserComponent implements OnInit {
   userForm: FormGroup;
   users: User[];
   user: User;
+  authUser: User;
   username: string;
 
   constructor(
@@ -57,6 +58,7 @@ export class UserComponent implements OnInit {
     const user = { name: name };
     this.authService.getAuthUser(user)
       .subscribe((data: any) => {
+        this.authUser = data;
         if ((data.role.toUpperCase() === 'SUPER') || (data.role.toUpperCase() === 'GROUP')) {
           // Create role list dependent upon role as only Super can create other Supers
           if (data.role.toUpperCase() === 'SUPER') {
@@ -112,6 +114,12 @@ export class UserComponent implements OnInit {
 
   // Update existing User
   updateUser(user){
+    if (this.authUser.role.toUpperCase() === "GROUP") {
+      if (user.role.toUpperCase() === "SUPER") {
+        alert("You are not authorised to create Super Users");
+        return;
+      }
+    }
     this.userService.updateUser(user)
       .subscribe(
         data => {
