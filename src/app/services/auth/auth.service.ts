@@ -22,7 +22,13 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient) { }
 
-  // Function to manage user creation
+  // Function to validate if user is in the system
+  getLoginUser(user) {
+  let body = JSON.stringify(user);
+  return this.httpClient.post(BACKEND_URL + '/api/login/', body, httpOptions);
+}
+
+// Function to manage user creation
   getAuthUser(user) {
     let body = JSON.stringify(user);
     return this.httpClient.post(BACKEND_URL + '/api/authuser/', body, httpOptions);
@@ -51,4 +57,5 @@ export class AuthService {
       sessionStorage.clear();
     }
   }
+
 }

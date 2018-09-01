@@ -1,8 +1,17 @@
 // Modules
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as io from 'socket.io-client';
 
+// Variables
+import { environment} from '../../../environments/environment';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+};
+
+const BACKEND_URL = environment.apiURL;
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +19,8 @@ export class SocketService {
   private url = 'http://localhost:3000';
   private socket;
 
-  constructor() { }
+  constructor(
+    private httpClient: HttpClient) { }
 
   // Function to send a message
   sendMessage(message) {
@@ -40,6 +50,13 @@ export class SocketService {
       });
     return observableMessages;
   }
+
+  // Function to store a message
+  writeMessageHistory(message) {
+    let body = JSON.stringify(message);
+    return this.httpClient.post(BACKEND_URL + '/api/messages/', body, httpOptions);
+  }
+
 }
 
 // const post: Message = {id: null, title: 'tttt', content: 'tllsls'};

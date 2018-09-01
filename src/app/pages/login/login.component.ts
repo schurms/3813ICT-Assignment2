@@ -2,13 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 // Services
 import { AuthService } from '../../services/auth/auth.service';
-// Environment Variable
-import { environment } from '../../../environments/environment';
-
-const BACKEND_URL = environment.apiURL;
 
 @Component({
   selector: 'app-login',
@@ -22,8 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private authService: AuthService,
-              private httpClient: HttpClient) { }
+              private authService: AuthService) { }
 
   // On Page Opening
   ngOnInit() {
@@ -34,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   // Process user Login
-  public onlogin(): void {
+  onlogin() {
     this.submitted = true;
     event.preventDefault();
     // If errors found in input form
@@ -42,16 +36,21 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const userData  = this.loginForm.value;
-    this.httpClient.post(BACKEND_URL + '/api/login/', userData)
+    const userData = this.loginForm.value;
+    this.getLoginUser(userData);
+  }
+
+  // Validate user exists
+  getLoginUser(userData) {
+    this.authService.getLoginUser(userData)
       .subscribe((data: any) => {
-        if (data.ok) {
-          this.router.navigateByUrl('/chat');
-          this.authService.writeUser(userData);
-          this.loginForm.reset();
-        } else {
-          alert('Username does not exist');
-        }
+      if (data.ok) {
+        this.router.navigateByUrl('/chat');
+        this.authService.writeUser(userData);
+        this.loginForm.reset();
+      } else {
+        alert('Username does not exist');
+      }
     });
   }
 

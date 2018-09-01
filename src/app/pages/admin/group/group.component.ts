@@ -17,7 +17,6 @@ import { AuthService } from '../../../services/auth/auth.service';
 export class GroupComponent implements OnInit {
 
   groups: Group[];
-  tempgroups: Group[];
   user: User;
   username: string;
   submitted = false;

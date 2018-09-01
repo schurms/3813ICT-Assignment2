@@ -4,13 +4,13 @@ module.exports = function(app, io) {
 
   io.on('connection',(socket) => {console.log('user connection');
 
-      socket.on('disconnect',function() {
-        console.log('user disconnection');
-      });
+    socket.on('disconnect',function() {
+      console.log('user disconnection');
+    });
 
-      socket.on('add-message',(message) => {
-        io.emit('message',{type:'new-message',text:message});
-      });
+    socket.on('add-message',(message) => {
+      io.emit('message',{type:'new-message',text:message});
+    });
   });
 
 };

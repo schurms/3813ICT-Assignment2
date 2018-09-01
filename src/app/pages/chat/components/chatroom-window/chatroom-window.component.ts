@@ -17,6 +17,7 @@ import { ChannelService } from '../../../../services/channel/channel.service';
 export class ChatroomWindowComponent implements OnInit, OnDestroy {
 
   channel: Channel;
+  authUser: User;
   user: User;
   username: string;
   messages = [];
@@ -42,6 +43,8 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
       );
     this.user = this.authService.readUser();
     this.username = this.user.name;
+    this.getAuthUser(this.username);
+
     // Valid user found
     console.log('Session started for: ' + this.username);
     this.getChannel();
@@ -64,6 +67,17 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
       return
     } else {
       this.socketService.sendMessage(this.message + ' (' + this.username + ')' + ' ' + this.channel.name);
+
+      // Send message to Message History
+      let msgHistory = {
+        message: this.message,
+        date: new Date(),
+        user: this.authUser,
+        channelid: this.channel.id,
+        channelname: this.channel.name,
+      };
+     this.writeMessageHistory(msgHistory);
+
       this.message = '';
       return
     }
@@ -79,6 +93,23 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
         },
         err => console.log(err)
       );
+  }
+
+  writeMessageHistory(msgHistory) {
+    this.socketService.writeMessageHistory(msgHistory)
+      .subscribe((data: any) => {
+        // Test if data id is returned
+          return true;
+    });
+  }
+
+  // Validate user authority
+  getAuthUser(name) {
+    const user = { name: name };
+    this.authService.getAuthUser(user)
+      .subscribe((data: any) => {
+        this.authUser = data;
+      });
   }
 
   // When leaving this component close down the subscription

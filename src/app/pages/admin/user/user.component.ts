@@ -54,7 +54,7 @@ export class UserComponent implements OnInit {
   }
 
   // Validate user authority
-  getAuthUser(name){
+  getAuthUser(name) {
     const user = { name: name };
     this.authService.getAuthUser(user)
       .subscribe((data: any) => {
@@ -90,7 +90,7 @@ export class UserComponent implements OnInit {
   }
 
   // Create a new user
-  createUser(){
+  createUser() {
     this.submitted = true;
     event.preventDefault();
     // If errors found in input form
@@ -113,7 +113,7 @@ export class UserComponent implements OnInit {
   }
 
   // Update existing User
-  updateUser(user){
+  updateUser(user) {
     if (this.authUser.role.toUpperCase() === "GROUP") {
       if (user.role.toUpperCase() === "SUPER") {
         alert("You are not authorised to create Super Users");
@@ -131,7 +131,7 @@ export class UserComponent implements OnInit {
   }
 
   //Determine if authorised to delete a user;
-  deleteUser(nameDelete){
+  deleteUser(nameDelete) {
     const authUser = { name: this.user.name };
     this.authService.getAuthUser(authUser)
       .subscribe((data: any) => {
@@ -146,7 +146,7 @@ export class UserComponent implements OnInit {
   }
 
   // Delete a user
-  deleteAuthUser(user){
+  deleteAuthUser(user) {
     this.userService.deleteUser(user)
       .subscribe(
         data => {
