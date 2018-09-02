@@ -1,6 +1,6 @@
 module.exports = function(app,fs,MongoClient,db) {
 
-  //Route to add Users
+  // TEST API: Load Users
   app.get('/addusers', (req, res) => {
     console.log('Load Initial User Records');
     // Set up Data to Load
@@ -20,22 +20,13 @@ module.exports = function(app,fs,MongoClient,db) {
     });
   });
 
-  // GET endpoint API for Reading all users
-  app.get('/api/users', function (req, res) {
-    console.log('Read Users');
+  // TEST API: Delete Users
+  app.get('/deleteusers', (req, res) => {
+    console.log('Load Initial User Records');
     // Set Collection Constant
     const collection = db.collection('user');
-    // Retrieve User Data
-    collection.find().toArray(function (err, userArray) {
-      if (err) {
-        console.log(err);
-        // Some error happened opening the database file.
-        res.send({"ok": false});
-      } else {
-        //Return users
-        res.send({users: userArray});
-      }
-    });
+    // Find some documents
+    collection.deleteMany({});
   });
 
   // POST endpoint API for Creating a user
@@ -68,13 +59,31 @@ module.exports = function(app,fs,MongoClient,db) {
     });
   });
 
+  // GET endpoint API for Reading all users
+  app.get('/api/users', function (req, res) {
+    console.log('Read Users');
+    // Set Collection Constant
+    const collection = db.collection('user');
+    // Retrieve User Data
+    collection.find().toArray(function (err, userArray) {
+      if (err) {
+        console.log(err);
+        // Some error happened opening the database file.
+        res.send({"ok": false});
+      } else {
+        //Return users
+        res.send({users: userArray});
+      }
+    });
+  });
+
   // PUT endpoint API for Updating a user
   app.put('/api/user/:id', function (req, res) {
     console.log('Update User');
     let id = parseInt(req.params.id);
     // Set Collection Constant
     const collection = db.collection('user');
-    // Set up Delete query
+    // Set up Update query
     let myQuery = {id: id};
     let newValues = { $set: {name: req.body.name, email: req.body.email, role: req.body.role}};
     collection.updateOne(myQuery,newValues, function(err, result) { });
@@ -94,16 +103,6 @@ module.exports = function(app,fs,MongoClient,db) {
     res.send(id.toString());
   });
 
-  // Delete all Users test
-  app.get('/deleteusers', (req, res) => {
-    console.log('Load Initial User Records');
-
-    // Set Collection Constant
-    const collection = db.collection('user');
-    // Find some documents
-    collection.deleteMany({});
-  });
-  
   // DELETE selected user from all user elements in Group Data
   function deleteAllGroupUser(id) {
     console.log('Delete User from Groups Data');

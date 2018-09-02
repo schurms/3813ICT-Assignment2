@@ -1,59 +1,56 @@
 module.exports = function(app,fs,MongoClient,db) {
 
-  // GET endpoint API for getting all channels
-  app.get('/api/channel', function (req, res) {
-    console.log('Get Channels');
-    let channelArray;
-    //Read data from JSON file
-    fs.readFile('server/data/channel.json', 'utf8', function (err, data) {
-      if (err) {
-        console.log(err);
-        //Some error happened opened the file. No success.
-        res.send({"ok": false});
-      } else {
-        channelArray = JSON.parse(data);
-        //Return channels
-        res.send({channels: channelArray});
-      }
+  // TEST API: Load Channels
+  app.get('/addchannels', (req, res) => {
+    console.log('Load Initial Channel Records');
+    // Set up Data to Load
+    let myData = [
+      {"id":1,"name":"Notebooks","user":[]},
+      {"id":2,"name":"Peripherals","user":[{"id":4,"name":"bill","email":"bill@gmail.com","role":"group"}]},
+      {"id":3,"name":"Windows","user":[{"id":4,"name":"bill","email":"test@gmail.com","role":"group"}]},
+      {"id":4,"name":"Apple","user":[{"id":1,"name":"super","email":"super@gmail.com","role":"super"}]},
+      {"id":5,"name":"Shopping","user":[{"id":1,"name":"super","email":"super@gmail.com","role":"super"},{"id":3,"name":"fred","email":"fred@gmail.com","role":""}]},
+      {"id":6,"name":"Travel","user":[{"id":2,"name":"jordan","email":"jordan@gmail.com","role":""},{"id":3,"name":"fred","email":"fred@gmail.com","role":""},{"id":1,"name":"super","email":"super@gmail.com","role":"super"}]},
+      {"id":7,"name":"Home Theatre","user":[]},
+      {"id":8,"name":"TV Shows","user":[]},
+      {"id":9,"name":"Automative","user":[]},
+      {"id":10,"name":"Photography","user":[]},
+      {"id":11,"name":"Desktops","user":[]},
+      {"id":12,"name":"Monitors/Videos","user":[]}
+    ];
+    // Set Collection Constant
+    const collection = db.collection('channels');
+    // Insert Data
+    collection.insertMany(myData, function(err, result) {
+      res.send({result});
     });
   });
 
-  // GET endpoint API for getting a specific channel
-  app.get('/api/channel/:id', function (req,res) {
-    console.log('Get Channel');
-    let id = req.params.id;
-    let channelArray;
-    //Read data from JSON File
-    fs.readFile('server/data/channel.json', 'utf8', function (err, data) {
-      if (err) {
-        console.log(err);
-        //Some error happened opened the file. No success.
-        res.send({"ok": false});
-      } else {
-        channelArray = JSON.parse(data);
-        //Retrieve Channel - must exist
-        let foundChannel = channelArray.find(channel => channel.id == id);
-        res.send({channel: foundChannel});
-      }
-    });
+  // TEST API: Delete Channels
+  app.get('/deletechannels', (req, res) => {
+    console.log('Load Initial Channel Records');
+
+    // Set Collection Constant
+    const collection = db.collection('channels');
+    // Find some documents
+    collection.deleteMany({});
   });
 
-  // POST endpoint API for creating a new channel
+  // POST endpoint API for Creating a channel
   app.post('/api/channel', function (req, res) {
     console.log('Create Channel');
-    let channelArray;
-    //Read data from JSON file
-    fs.readFile('server/data/channel.json', 'utf8', function (err,data) {
+    // Set Collection Constant
+    const collection = db.collection('channels');
+    // Retrieve Channel Data
+    collection.find().toArray(function (err, channelArray) {
       if (err) {
         console.log(err);
       } else {
-        channelArray = JSON.parse(data)
         // Test uppercase version - ignore case
         if (channelArray.find(channel => channel.name.toUpperCase() === req.body.name.toUpperCase())) {
-          // Channel exists
+          //Channel exists
           res.send({"ok": false});
         } else {
-          // Determine next available id
           let id = 1;
           if (channelArray.length > 0) {
             let maximum = Math.max.apply(Math, channelArray.map(function (found) {
@@ -64,68 +61,75 @@ module.exports = function(app,fs,MongoClient,db) {
           // Define empty array for users when created
           let user = [];
           let newChannel = {"id": id, "name": req.body.name, "user": user};
-          channelArray.push(newChannel);
-          let channelJson = JSON.stringify(channelArray);
-          //Write data to JSON file
-          fs.writeFile('server/data/channel.json', channelJson, 'utf-8', function (err) {
-            if (err) throw err;
-            //Return created channel
-            res.send(newChannel);
-          });
+          collection.insertOne(newChannel);
+          res.send(newChannel);
         }
       }
     });
   });
 
-  // PUT endpoint API for editing a channel
-  app.put('/api/channel/:id', function (req, res) {
-    console.log('Edit Channel');
-    let channelArray;
-    let id = req.params.id;
-    //Read data from JSON file
-    fs.readFile('server/data/channel.json', 'utf8', function (err,data) {
+  // GET endpoint API for Reading all channels
+  app.get('/api/channel', function (req, res) {
+    console.log('Get Channels');
+    // Set Collection Constant
+    const collection = db.collection('channels');
+    // Retrieve Channel Data
+    collection.find().toArray(function (err, channelArray) {
       if (err) {
         console.log(err);
+        // Some error happened opening the database file.
+        res.send({"ok": false});
       } else {
-        channelArray = JSON.parse(data);
-        let editChannel = channelArray.find(channel => channel.id == id);
-        editChannel.name = req.body.name;
-        editChannel.user = req.body.user;
-        let channelJson = JSON.stringify(channelArray);
-        //Write data to JSON file
-        fs.writeFile('server/data/channel.json', channelJson, 'utf-8', function (err) {
-          if (err) throw err;
-          //Return edited Channel
-          res.send(editChannel);
-        });
+        //Return channels
+        res.send({channels: channelArray});
       }
     });
   });
 
-  // DELETE endpoint API for deleting a channel
-  app.delete('/api/channel/:id', function (req, res) {
-    console.log('Delete Channel');
-    let channelArray;
-    let id = req.params.id;
-    //Read data from JSON File
-    fs.readFile('server/data/channel.json', 'utf8', function (err,data) {
+  // GET endpoint API for Reading a specific channel
+  app.get('/api/channel/:id', function (req,res) {
+    console.log('Get Channel');
+    let id = parseInt(req.params.id);
+    // Set Collection Constant
+    const collection = db.collection('channels');
+    // Retrieve Channel Data
+    collection.find().toArray(function (err, channelArray) {
       if (err) {
         console.log(err);
+        // Some error happened opening the database file.
+        res.send({"ok": false});
       } else {
-        channelArray = JSON.parse(data);
-        let deleteChannel = channelArray.find(channel => channel.id == id);
-        //Set array to all data less deleted item
-        channelArray = channelArray.filter(channel => channel.id != id);
-        let channelJson = JSON.stringify(channelArray);
-        //Write data to JSON File
-        fs.writeFile('server/data/channel.json', channelJson, 'utf-8', function (err) {
-          if (err) throw err;
-          //Return deleted channel
-          deleteAllGroupChannel(id);
-          res.send(deleteChannel);
-        });
+        //Retrieve Channel - must exist
+        let foundChannel = channelArray.find(channel => channel.id == id);
+        res.send({channel: foundChannel});
       }
     });
+  });
+
+  // PUT endpoint API for Updating a channel;
+  app.put('/api/channel/:id', function (req, res) {
+    console.log('Update Channel');
+    let id = parseInt(req.params.id);
+    // Set Collection Constant
+    const collection = db.collection('channels');
+    // Set up Update query
+    let myQuery = {id: id};
+    let newValues = { $set: {name: req.body.name, user: req.body.user}};
+    collection.updateOne(myQuery,newValues, function(err, result) { });
+    res.send(id.toString());
+  });
+
+  // DELETE endpoint API for Deleting a channel
+  app.delete('/api/channel/:id', function (req, res) {
+    console.log('Delete Channel');
+    let id = parseInt(req.params.id);
+    // Set Collection Constant
+    const collection = db.collection('channels');
+    // Set up Delete query
+    let myQuery = {id: id};
+    // Find some documents
+    collection.deleteOne(myQuery, function(err, result) { });
+    res.send(id.toString());
   });
 
   // DELETE selected channel from all user elements in Group Data
