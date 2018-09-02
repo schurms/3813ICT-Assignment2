@@ -6,6 +6,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const url = 'mongodb://localhost:27017';
+const MongoClient = require('mongodb').MongoClient;
 
 // Cross origin resource sharing to cater for port 4200 to port 3000
 // This is not required if running from ng build then client and server both run on port 3000
@@ -26,12 +28,19 @@ app.use(bodyParser.urlencoded({extended:false}));
 // Point static path to dist
 app.use(express.static(path.join(__dirname , '../dist/myChat/')));
 
-// Include Modules
-require('./routes/user.js')(app,fs);
-require('./routes/auth.js')(app,fs);
-require('./routes/messages.js')(app,fs);
-require('./routes/groups.js')(app,fs);
-require('./routes/channels.js')(app,fs);
-require('./socket.js')(app, io);
-require('./listen.js')(http);
-
+// MongoDb Connect
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
+  const dbName = 'mychatdb';
+  const db = client.db(dbName);
+  if (err) {
+    return console.log(err)
+  } else {
+    require('./routes/user.js')(app,fs,MongoClient,db);
+    require('./routes/auth.js')(app,MongoClient,db);
+    require('./routes/messages.js')(app,fs,MongoClient,db);
+    require('./routes/groups.js')(app,fs,MongoClient,db);
+    require('./routes/channels.js')(app,fs,MongoClient,db);
+    require('./socket.js')(app,io,MongoClient,db);
+    require('./listen.js')(http);
+  }
+});

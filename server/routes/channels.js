@@ -1,4 +1,4 @@
-module.exports = function(app,fs) {
+module.exports = function(app,fs,MongoClient,db) {
 
   // GET endpoint API for getting all channels
   app.get('/api/channel', function (req, res) {

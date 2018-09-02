@@ -1,4 +1,4 @@
-module.exports = function(app,fs) {
+module.exports = function(app,fs,MongoClient,db) {
 
   app.get('/api/messages', function (req, res) {
     console.log('Get Messages');

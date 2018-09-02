@@ -106,6 +106,7 @@ export class GroupuserComponent implements OnInit {
     } else {
       // Create new User
       const addUser = {
+        _id: selectedUser._id,
         id: selectedUser.id,
         name: selectedUser.name,
         email: selectedUser.email,

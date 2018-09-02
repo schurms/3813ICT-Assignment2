@@ -102,7 +102,7 @@ export class UserComponent implements OnInit {
     this.userService.createUser(userData)
       .subscribe((data: any) => {
         // Test if data id is returned
-        if (data.id) {
+        if (data._id) {
           this.getUsers();
           return true;
         } else {
@@ -147,6 +147,7 @@ export class UserComponent implements OnInit {
 
   // Delete a user
   deleteAuthUser(user) {
+    console.log(user);
     this.userService.deleteUser(user)
       .subscribe(
         data => {
