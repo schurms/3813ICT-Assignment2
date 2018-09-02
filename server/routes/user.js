@@ -1,9 +1,29 @@
 module.exports = function(app,fs,MongoClient,db) {
 
-  // GET endpoint API for getting all users
+  //Route to add Users
+  app.get('/addusers', (req, res) => {
+    console.log('Load Initial User Records');
+    // Set up Data to Load
+    let myData = [
+      { id: 1, name:'super', email:'super@gmail.com', role:'super' },
+      { id: 2, name:'jordan', email:'jordan@gmail.com', role:'group' },
+      { id: 3, name:'fred', email:'fred@gmail.com', role:'' },
+      { id: 4, name:'bill', email:'bill@gmail.com', role:'group' },
+      { id: 5, name:'sam', email:'sam@gmail.com', role:'' },
+      { id: 6, name:'good', email:'good@gmail.com', role:'super' }
+    ];
+    // Set Collection Constant
+    const collection = db.collection('user');
+    // Insert Data
+    collection.insertMany(myData, function(err, result) {
+      res.send({result});
+    });
+  });
+
+  // GET endpoint API for Reading all users
   app.get('/api/users', function (req, res) {
-    console.log('Get Users');
-    // Get the user collection
+    console.log('Read Users');
+    // Set Collection Constant
     const collection = db.collection('user');
     // Retrieve User Data
     collection.find().toArray(function (err, userArray) {
@@ -18,10 +38,10 @@ module.exports = function(app,fs,MongoClient,db) {
     });
   });
 
-  // POST endpoint API for creating a new user
+  // POST endpoint API for Creating a user
   app.post('/api/user', function (req, res) {
     console.log('Create User');
-    // Get the user collection
+    // Set Collection Constant
     const collection = db.collection('user');
     // Retrieve User Data
     collection.find().toArray(function (err, userArray) {
@@ -48,47 +68,42 @@ module.exports = function(app,fs,MongoClient,db) {
     });
   });
 
-  // PUT endpoint API for editing a user
+  // PUT endpoint API for Updating a user
   app.put('/api/user/:id', function (req, res) {
-    console.log('Edit User');
-    let userObj;
+    console.log('Update User');
     let id = parseInt(req.params.id);
-    //Read data from JSON file
-    fs.readFile('server/data/user.json', 'utf8', function (err,data) {
-      if (err) {
-        console.log(err);
-      } else {
-        userObj = JSON.parse(data);
-        //Find user
-        let editUser = userObj.find(x => x.id == id);
-        editUser.name = req.body.name;
-        editUser.email = req.body.email;
-        editUser.role = req.body.role;
-        let userJson = JSON.stringify(userObj);
-        //Write Data to JSON File
-        fs.writeFile('server/data/user.json', userJson, 'utf-8', function (err) {
-          if (err) throw err;
-          //Return edited user
-          res.send(editUser);
-        });
-      }
-    });
-  });
-
-  // DELETE endpoint API for deleting a user
-  app.delete('/api/user/:id', function (req, res) {
-    console.log('Delete User');
-    let id = parseInt(req.params.id);
-    // Get the user collection
+    // Set Collection Constant
     const collection = db.collection('user');
     // Set up Delete query
-    let myQuery = { id: id};
-    // Find some documents
-    collection.deleteOne(myQuery, function(err, result) {
-    });
+    let myQuery = {id: id};
+    let newValues = { $set: {name: req.body.name, email: req.body.email, role: req.body.role}};
+    collection.updateOne(myQuery,newValues, function(err, result) { });
     res.send(id.toString());
   });
 
+  // DELETE endpoint API for Deleting a user
+  app.delete('/api/user/:id', function (req, res) {
+    console.log('Delete User');
+    let id = parseInt(req.params.id);
+    // Set Collection Constant
+    const collection = db.collection('user');
+    // Set up Delete query
+    let myQuery = {id: id};
+    // Find some documents
+    collection.deleteOne(myQuery, function(err, result) { });
+    res.send(id.toString());
+  });
+
+  // Delete all Users test
+  app.get('/deleteusers', (req, res) => {
+    console.log('Load Initial User Records');
+
+    // Set Collection Constant
+    const collection = db.collection('user');
+    // Find some documents
+    collection.deleteMany({});
+  });
+  
   // DELETE selected user from all user elements in Group Data
   function deleteAllGroupUser(id) {
     console.log('Delete User from Groups Data');
