@@ -86,7 +86,7 @@ export class GroupComponent implements OnInit {
     this.groupService.createGroup(groupData)
       .subscribe((data: any) => {
         // Test if data id is returned
-        if (data.id) {
+        if (data._id) {
           this.getGroups();
           return true;
         } else {

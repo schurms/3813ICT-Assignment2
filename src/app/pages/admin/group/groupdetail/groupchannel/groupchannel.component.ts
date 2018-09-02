@@ -123,6 +123,7 @@ export class GroupchannelComponent implements OnInit {
     } else {
       // Create new Channel
       const addChannel = {
+        _id: selectedChannel._id,
         id: selectedChannel.id,
         name: selectedChannel.name,
         user: selectedChannel.user,

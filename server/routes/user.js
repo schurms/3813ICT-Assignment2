@@ -1,4 +1,4 @@
-module.exports = function(app,fs,MongoClient,db) {
+module.exports = function(app,MongoClient,db) {
 
   // TEST API: Load Users
   app.get('/addusers', (req, res) => {

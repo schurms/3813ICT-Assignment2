@@ -84,7 +84,7 @@ export class ChannelComponent implements OnInit {
     this.channelService.createChannel(channelData)
       .subscribe((data: any) => {
         // Test if data id is returned
-        if (data.id) {
+        if (data._id) {
           this.getChannels();
           return true;
         } else {

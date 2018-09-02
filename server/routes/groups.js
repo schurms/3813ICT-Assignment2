@@ -1,4 +1,4 @@
-module.exports = function(app,fs,MongoClient,db) {
+module.exports = function(app,MongoClient,db) {
 
   // GET endpoint API for getting groups
   app.get('/api/group', function (req, res) {

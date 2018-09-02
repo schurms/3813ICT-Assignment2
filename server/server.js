@@ -10,8 +10,6 @@ const url = 'mongodb://localhost:27017';
 const MongoClient = require('mongodb').MongoClient;
 
 // Cross origin resource sharing to cater for port 4200 to port 3000
-// This is not required if running from ng build then client and server both run on port 3000
-// See https://github.com/expressjs/cors for implementation example
 const cors = require('cors');
 const corsOptions = {
   origin: 'http://localhost:4200', // Angular server address and port
@@ -35,11 +33,11 @@ MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
   if (err) {
     return console.log(err)
   } else {
-    require('./routes/user.js')(app,fs,MongoClient,db);
+    require('./routes/user.js')(app,MongoClient,db);
     require('./routes/auth.js')(app,MongoClient,db);
     require('./routes/messages.js')(app,fs,MongoClient,db);
-    require('./routes/groups.js')(app,fs,MongoClient,db);
-    require('./routes/channels.js')(app,fs,MongoClient,db);
+    require('./routes/groups.js')(app,MongoClient,db);
+    require('./routes/channels.js')(app,MongoClient,db);
     require('./socket.js')(app,io,MongoClient,db);
     require('./listen.js')(http);
   }
