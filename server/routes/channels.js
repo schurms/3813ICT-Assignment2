@@ -10,13 +10,15 @@ module.exports = function(app,MongoClient,db) {
       {"id":3,"name":"Windows","user":[{"id":4,"name":"bill","email":"test@gmail.com","role":"group"}]},
       {"id":4,"name":"Apple","user":[{"id":1,"name":"super","email":"super@gmail.com","role":"super"}]},
       {"id":5,"name":"Shopping","user":[{"id":1,"name":"super","email":"super@gmail.com","role":"super"},{"id":3,"name":"fred","email":"fred@gmail.com","role":""}]},
-      {"id":6,"name":"Travel","user":[{"id":2,"name":"jordan","email":"jordan@gmail.com","role":""},{"id":3,"name":"fred","email":"fred@gmail.com","role":""},{"id":1,"name":"super","email":"super@gmail.com","role":"super"}]},
+      {"id":6,"name":"Travel","user":[{"id":2,"name":"jordan","email":"jordan@gmail.com","role":"group"},{"id":3,"name":"fred","email":"fred@gmail.com","role":""},{"id":1,"name":"super","email":"super@gmail.com","role":"super"}]},
       {"id":7,"name":"Home Theatre","user":[]},
       {"id":8,"name":"TV Shows","user":[]},
       {"id":9,"name":"Automative","user":[]},
       {"id":10,"name":"Photography","user":[]},
       {"id":11,"name":"Desktops","user":[]},
-      {"id":12,"name":"Monitors/Videos","user":[]}
+      {"id":12,"name":"Monitors/Videos","user":[]},
+      {"id":13,"name":"Unallocated 1","user":[]},
+      {"id":14,"name":"Unallocatd 2","user":[]}
     ];
     // Set Collection Constant
     const collection = db.collection('channels');

@@ -5,12 +5,12 @@ module.exports = function(app,MongoClient,db) {
     console.log('Load Initial User Records');
     // Set up Data to Load
     let myData = [
-      { id: 1, name:'super', email:'super@gmail.com', role:'super' },
-      { id: 2, name:'jordan', email:'jordan@gmail.com', role:'group' },
-      { id: 3, name:'fred', email:'fred@gmail.com', role:'' },
-      { id: 4, name:'bill', email:'bill@gmail.com', role:'group' },
-      { id: 5, name:'sam', email:'sam@gmail.com', role:'' },
-      { id: 6, name:'good', email:'good@gmail.com', role:'super' }
+      {"id":1,"name":"super","email":"super@gmail.com","role":"super"},
+      {"id":2,"name":"jordan","email":"jordan@gmail.com","role":"group"},
+      {"id":3,"name":"fred","email":"fred@gmail.com","role":""},
+      {"id":4,"name":"bill","email":"bill@gmail.com","role":"group"},
+      {"id":5,"name":"sam","email":"sam@gmail.com","role":""},
+      {"id":6,"name":"good","email":"good@gmail.com","role":"super"}
     ];
     // Set Collection Constant
     const collection = db.collection('user');
