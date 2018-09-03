@@ -14,8 +14,10 @@ module.exports = function(app,MongoClient,db) {
     ];
     // Set Collection Constant
     const collection = db.collection('user');
-    // Insert Data
+    // Insert records
     collection.insertMany(myData, function(err, result) {
+      if (err) throw err;
+      console.log(result);
       res.send({result});
     });
   });
@@ -25,8 +27,13 @@ module.exports = function(app,MongoClient,db) {
     console.log('Load Initial User Records');
     // Set Collection Constant
     const collection = db.collection('user');
-    // Find some documents
-    collection.deleteMany({});
+    // Delete all records
+    let myQuery = { };
+    collection.deleteMany(myQuery, function(err, result) {
+      if (err) throw err;
+      console.log("Removed All Users");
+      res.send({result});
+    });
   });
 
   // POST endpoint API for Creating a user

@@ -18,12 +18,14 @@ module.exports = function(app,MongoClient,db) {
       {"id":11,"name":"Desktops","user":[]},
       {"id":12,"name":"Monitors/Videos","user":[]},
       {"id":13,"name":"Unallocated 1","user":[]},
-      {"id":14,"name":"Unallocatd 2","user":[]}
+      {"id":14,"name":"Unallocated 2","user":[]}
     ];
     // Set Collection Constant
     const collection = db.collection('channels');
     // Insert Data
     collection.insertMany(myData, function(err, result) {
+      if (err) throw err;
+      console.log(result);
       res.send({result});
     });
   });
@@ -31,11 +33,15 @@ module.exports = function(app,MongoClient,db) {
   // TEST API: Delete Channels
   app.get('/deletechannels', (req, res) => {
     console.log('Load Initial Channel Records');
-
     // Set Collection Constant
     const collection = db.collection('channels');
-    // Find some documents
-    collection.deleteMany({});
+    // Delete all records
+    let myQuery = { };
+    collection.deleteMany(myQuery, function(err, result) {
+      if (err) throw err;
+      console.log("Removed All Channels");
+      res.send({result});
+    });
   });
 
   // POST endpoint API for Creating a channel
@@ -134,7 +140,7 @@ module.exports = function(app,MongoClient,db) {
     res.send(id.toString());
   });
 
-  // DELETE selected channel from all user elements in Group Data
+  // DELETE selected channel from all channel elements in Group Data
   function deleteAllGroupChannel(id) {
     console.log('Delete Channel from Groups Data');
     let groupsArray;

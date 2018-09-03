@@ -37,74 +37,41 @@ module.exports = function(app,MongoClient,db) {
     const collection = db.collection('groups');
     // Insert Data
     collection.insertMany(myData, function(err, result) {
+      if (err) throw err;
+      console.log(result);
       res.send({result});
     });
   });
 
   // TEST API: Delete Groups
   app.get('/deletegroups', (req, res) => {
-    console.log('Load Initial User Records');
+    console.log('Load Initial Channel Records');
     // Set Collection Constant
     const collection = db.collection('groups');
-    // Find some documents
-    collection.deleteMany({});
-  });
-
-
-  // GET endpoint API for getting groups
-  app.get('/api/group', function (req, res) {
-    console.log('Get Groups');
-    let groupArray;
-    //Read data from JSON File
-    fs.readFile('server/data/group.json', 'utf8', function (err, data) {
-      if (err) {
-        console.log(err);
-        //Some error happened opened the file. No success.
-        res.send({"ok": false});
-      } else {
-        groupArray = JSON.parse(data);
-        //Return group data
-        res.send({groups: groupArray});
-      }
+    // Delete all records
+    let myQuery = { };
+    collection.deleteMany(myQuery, function(err, result) {
+      if (err) throw err;
+      console.log("Removed All Groups");
+      res.send({result});
     });
   });
 
-  // GET endpoint API for getting a specific group
-  app.get('/api/group/:id', function (req,res) {
-    console.log('Get Group');
-    let id = req.params.id;
-    let groupArray;
-    //Read data from JSON File
-    fs.readFile('server/data/group.json', 'utf8', function (err, data) {
-      if (err) {
-        console.log(err);
-        //Some error happened opened the file. No success.
-        res.send({"ok": false});
-      } else {
-        groupArray = JSON.parse(data);
-        //Retrieve Group - must exist
-        let foundGroup = groupArray.find(group => group.id == id);
-        res.send({group: foundGroup});
-      }
-    });
-  });
-
-  // POST endpoint API for creating a new group
+  // POST endpoint API for Creating a group
   app.post('/api/group', function (req, res) {
     console.log('Create Group');
-    let groupArray;
-    //Read data from JSON file
-    fs.readFile('server/data/group.json', 'utf8', function (err,data) {
+    // Set Collection Constant
+    const collection = db.collection('groups');
+    // Retrieve Group Data
+    collection.find().toArray(function (err, groupArray) {
       if (err) {
         console.log(err);
       } else {
-        groupArray = JSON.parse(data)
         // Test uppercase version - ignore case
         if (groupArray.find(group => group.name.toUpperCase() === req.body.name.toUpperCase())) {
-          // Group exists
+          //Group exists
           res.send({"ok": false});
         } else {
-          // Find next available id
           let id = 1;
           if (groupArray.length > 0) {
             let maximum = Math.max.apply(Math, groupArray.map(function (found) {
@@ -116,70 +83,75 @@ module.exports = function(app,MongoClient,db) {
           let channel = [];
           let user = [];
           let newGroup = {"id": id, "name": req.body.name, "channel": channel, "user": user};
-          groupArray.push(newGroup);
-          let groupJson = JSON.stringify(groupArray);
-          //Write data to JSON file
-          fs.writeFile('server/data/group.json', groupJson, 'utf-8', function (err) {
-            if (err) throw err;
-            //Return created group
-            res.send(newGroup);
-          });
+          collection.insertOne(newGroup);
+          res.send(newGroup);
         }
       }
     });
   });
 
-  // PUT endpoint API for Updating a group
-  app.put('/api/group/:id', function (req, res) {
-    console.log('Update Group');
-    let groupArray;
-    let id = req.params.id;
-    //Read data from JSON file
-    fs.readFile('server/data/group.json', 'utf8', function (err,data) {
+  // GET endpoint API for Reading all groups
+  app.get('/api/group', function (req, res) {
+    console.log('Get Groups');
+    // Set Collection Constant
+    const collection = db.collection('groups');
+    // Retrieve Group Data
+    collection.find().toArray(function (err, groupArray) {
       if (err) {
         console.log(err);
+        // Some error happened opening the database file.
+        res.send({"ok": false});
       } else {
-        groupArray = JSON.parse(data);
-        //Find group to be updated
-        let updateGroup = groupArray.find(group => group.id == id);
-        updateGroup.name = req.body.name;
-        updateGroup.channel = req.body.channel;
-        updateGroup.user = req.body.user;
-        let groupJson = JSON.stringify(groupArray);
-        //Write data to JSON file
-        fs.writeFile('server/data/group.json', groupJson, 'utf-8', function (err) {
-          if (err) throw err;
-          //Return updated Group
-          res.send(updateGroup);
-        });
+        //Return groups
+        res.send({groups: groupArray});
       }
     });
   });
 
-  // DELETE endpoint API for deleting a group
-  app.delete('/api/group/:id', function (req, res) {
-    console.log('Delete Group');
-    let groupArray;
-    let id = req.params.id;
-    //Read data from JSON file
-    fs.readFile('server/data/group.json', 'utf8', function (err,data) {
+  // GET endpoint API for Reading a specific group
+  app.get('/api/group/:id', function (req,res) {
+    console.log('Get Group');
+    let id = parseInt(req.params.id);
+    // Set Collection Constant
+    const collection = db.collection('groups');
+    // Retrieve Group Data
+    collection.find().toArray(function (err, groupArray) {
       if (err) {
         console.log(err);
+        // Some error happened opening the database file.
+        res.send({"ok": false});
       } else {
-        groupArray = JSON.parse(data);
-        //Find group to be deleted
-        let deleteGroup = groupArray.find(group => group.id == id);
-        //Set new group array less item to be deleted
-        groupArray = groupArray.filter(group => group.id != id);
-        let groupJson = JSON.stringify(groupArray);
-        //Write data to JSON file
-        fs.writeFile('server/data/group.json', groupJson, 'utf-8', function (err) {
-          if (err) throw err;
-          //Return deleted Group.
-          res.send(deleteGroup);
-        });
+        //Retrieve Group - must exist
+        let foundGroup = groupArray.find(group => group.id == id);
+        res.send({group: foundGroup});
       }
     });
+  });
+
+  // PUT endpoint API for Updating a group;
+  app.put('/api/group/:id', function (req, res) {
+    console.log('Update Group');
+    let id = parseInt(req.params.id);
+    // Set Collection Constant
+    const collection = db.collection('groups');
+    // Set up Update query
+    let myQuery = {id: id};
+    let newValues = { $set: {name: req.body.name, channel: req.body.channel, user: req.body.user}};
+    collection.updateOne(myQuery,newValues, function(err, result) { });
+    res.send(id.toString());
+  });
+
+  // DELETE endpoint API for Deleting a group
+  app.delete('/api/group/:id', function (req, res) {
+    console.log('Delete Group');
+    let id = parseInt(req.params.id);
+    // Set Collection Constant
+    const collection = db.collection('groups');
+    // Set up Delete query
+    let myQuery = {id: id};
+    // Find some documents
+    collection.deleteOne(myQuery, function(err, result) { });
+    res.send(id.toString());
   });
 
 };
