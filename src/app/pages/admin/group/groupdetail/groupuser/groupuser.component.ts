@@ -78,8 +78,7 @@ export class GroupuserComponent implements OnInit {
     event.preventDefault();
     const userArray = this.group.user;
     // Remove the user out of local array
-    this.group.user = userArray.filter(user => user.id != id);
-
+    this.group.user = userArray.filter(user => user.id !== id);
     let group = this.group;
     // Update Group with new local array version
     this.updateGroup(group);

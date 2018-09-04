@@ -107,53 +107,28 @@ module.exports = function(app,MongoClient,db) {
     let myQuery = {id: id};
     // Find some documents
     collection.deleteOne(myQuery, function(err, result) { });
+    deleteAllGroupUser(id);
+    deleteAllChannelUser(id);
     res.send(id.toString());
   });
 
   // DELETE selected user from all user elements in Group Data
   function deleteAllGroupUser(id) {
     console.log('Delete User from Groups Data');
-    let groupsArray;
-    //Read data from JSON file
-    fs.readFile('server/data/group.json', 'utf8', function (err,data) {
-      if (err) {
-        console.log(err);
-      } else {
-        groupsArray = JSON.parse(data);
-        // Filter out all users that are being deleted
-        groupsArray.forEach(function(object) {
-            object.user = object.user.filter(user => user.id != id);
-          });
-        let groupJson = JSON.stringify(groupsArray);
-        //Write data to JSON file
-        fs.writeFile('server/data/group.json', groupJson, 'utf-8', function (err) {
-          if (err) throw err;
-        });
-      }
-    });
+    const collection = db.collection('groups');
+    let myQuery = { };
+    // Set up Delete query
+    collection.update(myQuery,{$pull:{user:{id:id}}}, {multi:true});
   }
 
   // DELETE selected user from all user elements in Channel Data
   function deleteAllChannelUser(id) {
     console.log('Delete User from Channel Data');
-    let channelsArray;
-    //Read data from JSON file
-    fs.readFile('server/data/channel.json', 'utf8', function (err,data) {
-      if (err) {
-        console.log(err);
-      } else {
-        channelsArray = JSON.parse(data);
-        // Filter out all users that are being deleted
-        channelsArray.forEach(function(object) {
-          object.user = object.user.filter(user => user.id != id);
-        });
-        let channelJson = JSON.stringify(channelsArray);
-        //Write data to JSON file
-        fs.writeFile('server/data/channel.json', channelJson, 'utf-8', function (err) {
-          if (err) throw err;
-        });
-      }
-    });
+    const collection = db.collection('channels');
+    let myQuery = { };
+    // Set up Delete query
+    collection.update(myQuery,{$pull:{user:{id:id}}}, {multi:true});
   }
+
 };
 

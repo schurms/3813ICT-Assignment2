@@ -137,30 +137,17 @@ module.exports = function(app,MongoClient,db) {
     let myQuery = {id: id};
     // Find some documents
     collection.deleteOne(myQuery, function(err, result) { });
+    deleteAllGroupChannel(id);
     res.send(id.toString());
   });
 
   // DELETE selected channel from all channel elements in Group Data
   function deleteAllGroupChannel(id) {
     console.log('Delete Channel from Groups Data');
-    let groupsArray;
-    //Read data from JSON file
-    fs.readFile('server/data/group.json', 'utf8', function (err,data) {
-      if (err) {
-        console.log(err);
-      } else {
-        groupsArray = JSON.parse(data);
-        // Filter out all channels that are being deleted
-        groupsArray.forEach(function(object) {
-          object.channel = object.channel.filter(channel => channel.id != id);
-        });
-        let groupJson = JSON.stringify(groupsArray);
-        //Write data to JSON file
-        fs.writeFile('server/data/group.json', groupJson, 'utf-8', function (err) {
-          if (err) throw err;
-        });
-      }
-    });
+    const collection = db.collection('groups');
+    let myQuery = { };
+    // Set up Delete query
+    collection.update(myQuery,{$pull:{channel:{id:id}}}, {multi:true});
   }
 
 };

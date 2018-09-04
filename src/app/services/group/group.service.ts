@@ -44,6 +44,17 @@ export class GroupService {
       }));
   }
 
+ // Function to get a group
+  getMyChannels(id) {
+    return this.httpClient.get<{groups: Group[]}>(BACKEND_URL + '/api/mychannels/' + id)
+      .pipe(map(group => {
+        if (group) {
+        }
+        return group
+      }));
+  }
+
+
   // Function to manage group creation
   createGroup(group) {
     let body = JSON.stringify(group);
