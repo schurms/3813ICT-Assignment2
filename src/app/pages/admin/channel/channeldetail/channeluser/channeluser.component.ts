@@ -98,11 +98,11 @@ export class ChanneluserComponent implements OnInit {
 
     // Find id of selected user
     const userArray = this.users;
-    const selectedUser = userArray.find(user => user.name == this.userSelected);
+    const selectedUser = userArray.find(user => user.name.toUpperCase() == this.userSelected.toUpperCase());
 
     // Test if user already added
     const channelArray = this.channel.user;
-    const channelFound = channelArray.some(channel => channel.name == this.userSelected);
+    const channelFound = channelArray.some(channel => channel.name.toUpperCase() == this.userSelected.toUpperCase());
     if (channelFound) {
       alert("Can Not Add The Same User to the Same Channel");
     } else {
@@ -118,6 +118,7 @@ export class ChanneluserComponent implements OnInit {
       // Push new User to Channel
       this.channel.user.push(addUser);
       let channel = this.channel;
+      console.log(channel);
       // Call Update Channel route to update the channel record
       this.updateChannel(channel);
     }

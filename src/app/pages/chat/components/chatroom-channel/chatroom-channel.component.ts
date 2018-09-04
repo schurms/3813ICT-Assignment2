@@ -17,13 +17,11 @@ import { GroupService } from '../../../../services/group/group.service';
 export class ChatroomChannelComponent implements OnInit {
 
   user: User;
-  myUser: User;
   username: string;
   userid: number;
   channels: Channel[];
   groups: Group[];
   myGroups: Group[];
-  myGroupChannel: any;
   myChannels: Channel[];
 
   constructor(
