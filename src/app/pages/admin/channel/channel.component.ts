@@ -33,7 +33,6 @@ export class ChannelComponent implements OnInit {
     this.channelForm = this.formBuilder.group({
       name: ['', [Validators.required]],
     });
-
     if(!sessionStorage.getItem('user')) {
       // No valid session is available
       this.authService.deleteUser();
@@ -79,7 +78,6 @@ export class ChannelComponent implements OnInit {
     if (this.channelForm.invalid) {
       return;
     }
-
     const channelData = this.channelForm.value;
     this.channelService.createChannel(channelData)
       .subscribe((data: any) => {

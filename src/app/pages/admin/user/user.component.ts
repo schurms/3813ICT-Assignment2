@@ -40,7 +40,6 @@ export class UserComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       role:[''],
     });
-
     if(!sessionStorage.getItem('user')) {
       // No valid session is available
       this.authService.deleteUser();
@@ -50,7 +49,6 @@ export class UserComponent implements OnInit {
       this.username = this.user.name;
       this.getAuthUser(this.username);
     }
-
   }
 
   // Validate user authority
@@ -97,11 +95,10 @@ export class UserComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     }
-
     const userData = this.userForm.value;
     this.userService.createUser(userData)
       .subscribe((data: any) => {
-        // Test if data id is returned
+        // Test if data id is returned then new user able to be created
         if (data._id) {
           this.getUsers();
           return true;
@@ -114,12 +111,15 @@ export class UserComponent implements OnInit {
 
   // Update existing User
   updateUser(user) {
+    // If logged on user has Group role
     if (this.authUser.role.toUpperCase() === "GROUP") {
+      // If trying to create a user with a Super role
       if (user.role.toUpperCase() === "SUPER") {
         alert("You are not authorised to create Super Users");
         return;
       }
     }
+    // Create new user
     this.userService.updateUser(user)
       .subscribe(
         data => {
@@ -135,6 +135,7 @@ export class UserComponent implements OnInit {
     const authUser = { name: this.user.name };
     this.authService.getAuthUser(authUser)
       .subscribe((data: any) => {
+        // If logged on user has Super role
         if (data.role.toUpperCase() === 'SUPER') {
           // If have the 'super' role then authorised to delete a user
           this.deleteAuthUser(nameDelete);

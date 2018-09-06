@@ -34,7 +34,6 @@ export class GroupComponent implements OnInit {
     this.groupForm = this.formBuilder.group({
       name: ['', [Validators.required]],
     });
-
     if(!sessionStorage.getItem('user')) {
       // No valid session is available
       this.authService.deleteUser();
@@ -51,6 +50,7 @@ export class GroupComponent implements OnInit {
     const user = { name: name };
     this.authService.getAuthUser(user)
       .subscribe((data: any) => {
+        // Confirm only Super and Group users can enter admin page
         if ((data.role.toUpperCase() === 'SUPER') || (data.role.toUpperCase() === 'GROUP')) {
           this.getGroups();
           return true;
@@ -70,7 +70,6 @@ export class GroupComponent implements OnInit {
         },
         err => console.log(err)
       );
-
   }
 
   // Create Group
@@ -81,7 +80,6 @@ export class GroupComponent implements OnInit {
     if (this.groupForm.invalid) {
       return;
     }
-
     const groupData = this.groupForm.value;
     this.groupService.createGroup(groupData)
       .subscribe((data: any) => {

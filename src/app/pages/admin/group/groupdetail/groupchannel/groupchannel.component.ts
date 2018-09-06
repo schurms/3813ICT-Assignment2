@@ -92,7 +92,7 @@ export class GroupchannelComponent implements OnInit {
 
   // Delete channel
   deleteChannel(id) {
-    event.preventDefault()
+    event.preventDefault();
     const channelArray = this.group.channel;
     // Remove the channel out of local array
     this.group.channel = channelArray.filter(channel => channel.id != id);
