@@ -2,7 +2,7 @@ module.exports = function(app,MongoClient,db) {
 
   // TEST API: Load Users
   app.get('/addusers', (req, res) => {
-    console.log('Load Initial User Records');
+    console.log('Load Test User Records');
     // Set up Data to Load
     let myData = [
       {"id":1,"name":"super","email":"super@gmail.com","role":"super"},
@@ -24,7 +24,7 @@ module.exports = function(app,MongoClient,db) {
 
   // TEST API: Delete Users
   app.get('/deleteusers', (req, res) => {
-    console.log('Load Initial User Records');
+    console.log('Delete All User Records');
     // Set Collection Constant
     const collection = db.collection('user');
     // Delete all records

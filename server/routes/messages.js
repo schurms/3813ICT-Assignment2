@@ -1,59 +1,102 @@
-module.exports = function(app,fs,MongoClient,db) {
+module.exports = function(app,MongoClient,db) {
 
-  app.get('/api/messages', function (req, res) {
-    console.log('Get Messages');
-    let messageArray;
-    //Read data from JSON File
-    fs.readFile('server/data/message.json', 'utf8', function (err, data) {
+  // TEST API: Load Messages
+  app.get('/addmessages', (req, res) => {
+    console.log('Load Test message Records');
+    // Set up Data to Load
+    let myData = [
+      {"id":1,"message":"Message 1","messagedate":"Thu Sep 06 2018 19:50:14 GMT+1000 (Australian Eastern Standard Time)","userid":1,"username": "super","channelid":"6","channelname":"Travel"},
+      {"id":2,"message":"Message 2","messagedate":"Thu Sep 06 2018 19:51:14 GMT+1000 (Australian Eastern Standard Time)","userid":2,"username": "jordan","channelid":"6","channelname":"Travel"},
+      {"id":3,"message":"Message 3","messagedate":"Thu Sep 06 2018 19:52:14 GMT+1000 (Australian Eastern Standard Time)","userid":2,"username": "jordan","channelid":"6","channelname":"Travel"},
+      {"id":4,"message":"Message 4","messagedate":"Thu Sep 06 2018 19:53:14 GMT+1000 (Australian Eastern Standard Time)","userid":1,"username": "super","channelid":"6","channelname":"Travel"},
+      {"id":5,"message":"Message 5","messagedate":"Thu Sep 06 2018 19:54:14 GMT+1000 (Australian Eastern Standard Time)","userid":2,"username": "jordan","channelid":"6","channelname":"Travel"},
+      {"id":6,"message":"Message 6","messagedate":"Thu Sep 06 2018 19:55:14 GMT+1000 (Australian Eastern Standard Time)","userid":1,"username": "super","channelid":"6","channelname":"Travel"}
+    ];
+    // Set Collection Constant
+    const collection = db.collection('messages');
+    // Insert records
+    collection.insertMany(myData, function(err, result) {
+      if (err) throw err;
+      console.log(result);
+      res.send({result});
+    });
+  });
+
+  // TEST API: Delete Messages
+  app.get('/deletemessages', (req, res) => {
+    console.log('Delete All Message Records');
+    // Set Collection Constant
+    const collection = db.collection('messages');
+    // Delete all records
+    let myQuery = { };
+    collection.deleteMany(myQuery, function(err, result) {
+      if (err) throw err;
+      console.log("Removed All Messages");
+      res.send({result});
+    });
+  });
+
+  // POST endpoint API for Creating a Message in History
+  app.post('/api/message', function (req, res) {
+    console.log('Add a message to history');
+    // Set Collection Constant
+    const collection = db.collection('messages');
+    // Retrieve Message Data
+    collection.find().toArray(function (err, messageArray) {
       if (err) {
         console.log(err);
-        //Some error happened opened the file. No success.
+      } else {
+        console.log('Here2');
+        console.log(req.body.message);
+        let id = 1;
+        if (messageArray.length > 0) {
+          let maximum = Math.max.apply(Math, messageArray.map(function (found) {
+            return found.id;
+          }));
+          id = maximum + 1;
+        }
+        let newMsg = {"id": id, "message": req.body.message, "messagedate": req.body.messagedate, "userid": req.body.userid, "username": req.body.username, "channelid": req.body.channelid, "channelname": req.body.channelname};
+        collection.insertOne(newMsg);
+        res.send(newMsg);
+      }
+    });
+  });
+
+  // GET endpoint API for Reading all messages
+  app.get('/api/messages', function (req, res) {
+    console.log('Read Messages');
+    // Set Collection Constant
+    const collection = db.collection('messages');
+    // Retrieve Message Data
+    collection.find().toArray(function (err, messageArray) {
+      if (err) {
+        console.log(err);
+        // Some error happened opening the database file.
         res.send({"ok": false});
       } else {
-        messageArray = JSON.parse(data);
-        //Return group data
+        //Return messages
         res.send({messages: messageArray});
       }
     });
   });
 
-
-  // POST endpoint API for creating a new user
-  app.post('/api/messages', function (req, res) {
-    console.log('Create Message History');
-    let messageArray;
-    //Read data from JSON
-    fs.readFile('server/data/message.json', 'utf8', function (err,data) {
+  // GET endpoint API for getting messages for a specific channel
+  app.get('/api/messages/:id', function (req,res) {
+    console.log('Get Messages for a Channel');
+    let id = parseInt(req.params.id);
+    // Set Collection Constant
+    const collection = db.collection('messages');
+    // Retrieve messages based on channel id
+    collection.find({channelid: id}).sort({messagedate: 1}).toArray(function (err, messageArray) {
       if (err) {
         console.log(err);
+        // Some error happened opening the database file.
+        res.send({"ok": false});
       } else {
-        messageArray = JSON.parse(data);
-        //Determine the next available id
-        let id = 1;
-        if (messageArray.length > 0) {
-            let maximum = Math.max.apply(Math, messageArray.map(function (found) {
-              return found.id;
-            }));
-            id = maximum + 1;
-          }
-          let channel = {
-            id: req.body.channelid,
-            name: req.body.channelname,
-          };
-          let newMsg = {"id": id, "message": req.body.message, "date": req.body.date, "user": req.body.user, "channel": channel};
-          messageArray.push(newMsg);
-          let msgJson = JSON.stringify(messageArray);
-          //Write data to JSON
-          fs.writeFile('server/data/message.json', msgJson, 'utf-8', function (err) {
-            if (err) throw err;
-            //Return created message
-            res.send(newMsg);
-          });
-
+        res.send({channel: messageArray});
       }
     });
   });
-
 
 
 };

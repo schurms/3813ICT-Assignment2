@@ -16,7 +16,7 @@ const BACKEND_URL = environment.apiURL;
   providedIn: 'root'
 })
 export class SocketService {
-  private url = 'http://localhost:3000';
+  private url = BACKEND_URL;
   private socket;
 
   constructor(
@@ -52,16 +52,10 @@ export class SocketService {
   }
 
   // Function to store a message
-  writeMessageHistory(message) {
+  writeMessage(message) {
     let body = JSON.stringify(message);
-    return this.httpClient.post(BACKEND_URL + '/api/messages/', body, httpOptions);
+    return this.httpClient.post(BACKEND_URL + '/api/message/', body, httpOptions);
   }
 
 }
 
-// const post: Message = {id: null, title: 'tttt', content: 'tllsls'};
-// this.http.post<{message: string}>('http://localhost:3000/api/messages', post)
-//   .subscribe((responseData) => {
-//     console.log(responseData.message);
-//   });
-// console.log(this.messageService.getMessages());

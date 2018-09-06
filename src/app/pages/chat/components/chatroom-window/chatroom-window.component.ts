@@ -71,12 +71,13 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
       // Send message to Message History
       let msgHistory = {
         message: this.message,
-        date: new Date(),
-        user: this.authUser,
+        messagedate: Date(),
+        userid: this.authUser.id,
+        username: this.authUser.name,
         channelid: this.channel.id,
         channelname: this.channel.name,
       };
-     this.writeMessageHistory(msgHistory);
+     this.writeMessage(msgHistory);
 
       this.message = '';
       return
@@ -95,8 +96,8 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
       );
   }
 
-  writeMessageHistory(msgHistory) {
-    this.socketService.writeMessageHistory(msgHistory)
+  writeMessage(msgHistory) {
+    this.socketService.writeMessage(msgHistory)
       .subscribe((data: any) => {
         // Test if data id is returned
           return true;

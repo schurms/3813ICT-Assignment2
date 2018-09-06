@@ -5,7 +5,6 @@ const path = require('path');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const bodyParser = require('body-parser');
-const fs = require('fs');
 const url = 'mongodb://localhost:27017';
 const MongoClient = require('mongodb').MongoClient;
 
@@ -35,7 +34,7 @@ MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
   } else {
     require('./routes/user.js')(app,MongoClient,db);
     require('./routes/auth.js')(app,MongoClient,db);
-    require('./routes/messages.js')(app,fs,MongoClient,db);
+    require('./routes/messages.js')(app,MongoClient,db);
     require('./routes/groups.js')(app,MongoClient,db);
     require('./routes/channels.js')(app,MongoClient,db);
     require('./socket.js')(app,io,MongoClient,db);

@@ -1,20 +1,21 @@
 // Message Class Model
 
-import { Channel } from './channel.model';
-import { User } from './user.model';
-
 export class Message {
   id: number;
   message: string;
   date: Date;
-  user: User;
-  channel: Channel;
+  userId: number;
+  userName: string;
+  channelId: number;
+  channelName: string;
 
-  constructor( id: number, name: string, date: Date, user: User, channel: Channel ) {
+  constructor( id: number, message: string, date: Date, userId: number, userName: string, channelId: number, channelName: string ) {
     this.id = id;
-    this.message = name;
+    this.message = message;
     this.date = date;
-    this.user = user;
-    this.channel = channel;
+    this.userId = userId;
+    this.userName = userName;
+    this.channelId = channelId;
+    this.channelName = channelName;
   }
 }

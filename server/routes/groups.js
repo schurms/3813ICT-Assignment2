@@ -130,23 +130,27 @@ module.exports = function(app,MongoClient,db) {
 
   // GET endpoint API for Reading a specific group channel
   app.get('/api/mychannels/:id', function (req,res) {
+    let testArray;
+
     console.log('Get User Group / Channel');
     let id = parseInt(req.params.id);
+    id = 1;
     // Set Collection Constant
     const collection = db.collection('groups');
     // Retrieve Group Data
-    collection.find({$and:[{"channel.user.id":id},{"user.id":id}]}).toArray(function (err, groupArray) {
+    collection.find({$and:[{"channel.user.id":id},{"user.id":id}]},{"channel.user.id":  id}).toArray(function (err, groupArray) {
       if (err) {
         console.log(err);
         // Some error happened opening the database file.
         res.send({"ok": false});
       } else {
-        console.log("here");
+        testArray = groupArray;
+        console.log(testArray);
         //Remove all channels without user
-        // groupArray.forEach(function(object) {
-        //   object.channel = object.channel.filter(channel => channel.user.id != id);
+        // testArray.forEach(function(object) {
+        //   object.channel = object.channel.filter(channel => channel.name.user.id === id);
         // });
-        res.send({groups: groupArray});
+        res.send({groups: testArray});
       }
     });
   });
