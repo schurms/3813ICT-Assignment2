@@ -60,29 +60,12 @@ module.exports = function(app,MongoClient,db) {
     });
   });
 
-  // GET endpoint API for Reading all messages
-  app.get('/api/messages', function (req, res) {
-    console.log('Read Messages');
-    // Set Collection Constant
-    const collection = db.collection('messages');
-    // Retrieve Message Data
-    collection.find().toArray(function (err, messageArray) {
-      if (err) {
-        console.log(err);
-        // Some error happened opening the database file.
-        res.send({"ok": false});
-      } else {
-        //Return messages
-        res.send({messages: messageArray});
-      }
-    });
-  });
-
-  // GET endpoint API for getting messages for a specific channel
-  app.get('/api/messages/:id', function (req,res) {
-    console.log('Get Messages for a Channel');
-    let id = parseInt(req.params.id);
-    // Set Collection Constant
+  //Route to retrieve all product items
+  app.post('/api/messages', function (req, res) {
+    // Get the products collection
+    console.log("Get Messages for Channel");
+    let id = req.body.id;
+    console.log(id);
     const collection = db.collection('messages');
     // Retrieve messages based on channel id
     collection.find({channelid: id}).sort({messagedate: 1}).toArray(function (err, messageArray) {
@@ -91,7 +74,25 @@ module.exports = function(app,MongoClient,db) {
         // Some error happened opening the database file.
         res.send({"ok": false});
       } else {
-        res.send({channel: messageArray});
+        res.send({messages: messageArray});
+      }
+    });
+  });
+
+  // GET endpoint API for Reading a specific channel
+  app.get('/api/messages/:id', function (req,res) {
+    console.log('Get Messages for channel');
+    let id = parseInt(req.params.id);
+    // Set Collection Constant
+    const collection = db.collection('messages');
+    // Retrieve Message Data
+    collection.find({channelid: id}).sort({messagedate: 1}).toArray(function (err, messagesArray) {
+      if (err) {
+        console.log(err);
+        // Some error happened opening the database file.
+        res.send({"ok": false});
+      } else {
+        res.send({messages: messagesArray});
       }
     });
   });

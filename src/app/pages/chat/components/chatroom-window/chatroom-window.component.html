@@ -1,11 +1,24 @@
-<div class="h-100 d-flex flex-column chat-window">
-  <ng-container *ngIf="!chatroom; else chatMessages">
-    <div class="select-room h-100 w-100 d-flex justify-content-center align-items-centre">
-      <div class="select-room-message">
-        <button class="btn btn-outline-dark" disabled>Select a CHANNEL to Start a Chat Session</button>
+<div class="container d-flex">
+
+  <div class="h-100 d-flex flex-column chat-window col-6">
+    <ng-container *ngIf="!chatroom; else chatMessages">
+      <div class="select-room h-100 w-100 d-flex justify-content-center align-items-centre">
+        <div class="select-room-message">
+          <button class="btn btn-outline-dark" disabled>Select a CHANNEL to Start a Chat Session</button>
+        </div>
       </div>
-    </div>
-  </ng-container>
+    </ng-container>
+  </div>
+
+  <div class="h-100 d-flex flex-column col-4">
+    <h5 class="h5small">Channel Message History</h5>
+    <ng-container *ngFor="let message of channelMessages">
+      <div>
+        <a> {{ message?.message }} ({{message?.username}}) - {{message?.channelname}} </a>
+      </div>
+    </ng-container>
+  </div>
+
 </div>
 
 <ng-template #chatMessages>

@@ -5,6 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 // Models
 import { User } from '../../../../models/user.model';
 import { Channel } from '../../../../models/channel.model';
+import { Message } from '../../../../models/message.model';
 // Services
 import { AuthService } from '../../../../services/auth/auth.service';
 import { ChannelService } from '../../../../services/channel/channel.service';
@@ -23,10 +24,12 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
   messages = [];
   message;
   messageChannelText;
-  messageChannel;
   channelId;
   connection;
   chatroom;
+  channels: Channel[];
+  myChannels: Channel[];
+  channelMessages: Message[];
 
   constructor(
     private route: ActivatedRoute,
@@ -46,6 +49,7 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
     this.user = this.authService.readUser();
     this.username = this.user.name;
     this.getAuthUser(this.username);
+    this.getChannelMessages(this.channelId);
 
     // Valid user found
     console.log('Session started for: ' + this.username);
@@ -58,8 +62,15 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
 
         // Add chat message to the message array each time you are pushed a message from the server
         this.messageChannelText = message;
-        this.messageChannel = this.messageChannelText.text.split('*').pop();
-        if (this.messageChannel === this.chatroom) {
+        // Get Channel this message is for
+        let messageChannel = this.messageChannelText.text.split('*')[1];
+        // Get the front of the message less channel
+        let messageText = this.messageChannelText.text.split('*')[0];
+        this.getChannelMessages(this.channelId);
+        // Remove channel from the message
+        this.messageChannelText.text = messageText;
+        // Only show messages for my current channel
+        if (messageChannel === this.chatroom) {
           this.messages.push(message);
           this.message = '';
         }
@@ -72,8 +83,8 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
       alert("Please select a channel");
       return
     } else {
-      this.socketService.sendMessage(this.message + ' (' + this.username + ')' + ' Channel:*' + this.channel.name);
-
+      // Append channel so we know what channel this message is being sent from
+      this.socketService.sendMessage(this.message + ' (' + this.username + ')' + '*' + this.channel.name);
       // Send message to Message History
       let msgHistory = {
         message: this.message,
@@ -97,20 +108,26 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
         data => {
           this.channel = data.channel;
           this.chatroom = this.channel.name;
-          this.joinChannel(this.chatroom);
         },
         err => console.log(err)
       );
   }
 
-  joinChannel(channel) {
-    this.socketService.joinChannel(channel);
+  getChannelMessages(id) {
+    this.socketService.getChannelMessages(id)
+      .subscribe(
+        data => {
+          this.channelMessages = data.messages;
+        },
+        err => console.log(err)
+      );
   }
 
   writeMessage(msgHistory) {
     this.socketService.writeMessage(msgHistory)
       .subscribe((data: any) => {
-          return true;
+        this.getChannelMessages(this.channelId);
+        return true;
     });
   }
 

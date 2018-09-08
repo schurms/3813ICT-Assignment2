@@ -28,3 +28,14 @@
   box-shadow: none;
 }
 
+.message {
+  font-size: small;
+}
+
+.h5small {
+  font-size: medium;
+}
+
+a {
+  font-size: small;
+}

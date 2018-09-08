@@ -3,21 +3,27 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as io from 'socket.io-client';
-
+import {map} from 'rxjs/operators';
+// Models
+import { Message } from '../../models/message.model';
 // Variables
 import { environment} from '../../../environments/environment';
+import {Channel} from '../../models/channel.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
 const BACKEND_URL = environment.apiURL;
+
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
   private url = BACKEND_URL;
   private socket;
+
+  messages: Message[];
 
   constructor(
     private httpClient: HttpClient) { }
@@ -51,15 +57,36 @@ export class SocketService {
     return observableMessages;
   }
 
-  // Function to Join a channel
-  joinChannel(channel) {
-    this.socket.emit('room', channel);
-  }
+  // // Function to Join a channel
+  // joinChannel(channel) {
+  //   this.socket.emit('room', channel);
+  // }
 
   // Function to store a message
   writeMessage(message) {
     let body = JSON.stringify(message);
     return this.httpClient.post(BACKEND_URL + '/api/message/', body, httpOptions);
+  }
+
+  // // Function to get channel messages
+  // getChannelMessages(id) {
+  //   let body = JSON.stringify(id);
+  //   return this.httpClient.post<{messages: Message[]}>(BACKEND_URL + '/api/messages/', body, httpOptions)
+  //     .pipe(map(messages => {
+  //       if (messages) {
+  //       }
+  //       return messages
+  //     }));
+  // }
+
+  // Function to get a channel
+  getChannelMessages(id) {
+    return this.httpClient.get<{messages: Message[]}>(BACKEND_URL + '/api/messages/' + id)
+      .pipe(map(messages => {
+        if (messages) {
+        }
+        return messages
+      }));
   }
 
 }
