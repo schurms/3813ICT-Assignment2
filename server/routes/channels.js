@@ -143,7 +143,7 @@ module.exports = function(app,MongoClient,db) {
 
   // DELETE selected channel from all channel elements in Group Data
   function deleteAllGroupChannel(id) {
-    console.log('Delete Channel from Groups Data');
+    console.log('Delete the Channel from the Groups Data');
     const collection = db.collection('groups');
     let myQuery = { };
     // Set up Delete query

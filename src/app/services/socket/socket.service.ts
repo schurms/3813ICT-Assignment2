@@ -43,12 +43,17 @@ export class SocketService {
           observer.next(data);
         });
 
-        // When the observer ends (unsubscribes) then disconnect the socket.
+        // When the observer ends (unsubscribe) then disconnect the socket.
         return() => {
           this.socket.disconnect();
         };
       });
     return observableMessages;
+  }
+
+  // Function to Join a channel
+  joinChannel(channel) {
+    this.socket.emit('room', channel);
   }
 
   // Function to store a message

@@ -22,6 +22,9 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
   username: string;
   messages = [];
   message;
+  messageChannelText;
+  messageText;
+  messageChannel;
   channelId;
   connection;
   chatroom;
@@ -55,8 +58,13 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
         message => {
 
         // Add chat message to the message array each time you are pushed a message from the server
-        this.messages.push(message);
-        this.message = '';
+        this.messageChannelText = message;
+        this.messageChannel = this.messageChannelText.text.split('*').pop();
+        this.messageText = this.messageChannelText.text.substr(0, this.messageChannelText.text.indexOf('*'));
+        if (this.messageChannel === this.chatroom) {
+          this.messages.push(message);
+          this.message = '';
+        }
         });
   }
 
@@ -66,7 +74,7 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
       alert("Please select a channel");
       return
     } else {
-      this.socketService.sendMessage(this.message + ' (' + this.username + ')' + ' ' + this.channel.name);
+      this.socketService.sendMessage(this.message + ' (' + this.username + ')' + ' Channel:*' + this.channel.name);
 
       // Send message to Message History
       let msgHistory = {
@@ -91,15 +99,19 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
         data => {
           this.channel = data.channel;
           this.chatroom = this.channel.name;
+          this.joinChannel(this.chatroom);
         },
         err => console.log(err)
       );
   }
 
+  joinChannel(channel) {
+    this.socketService.joinChannel(channel);
+  }
+
   writeMessage(msgHistory) {
     this.socketService.writeMessage(msgHistory)
       .subscribe((data: any) => {
-        // Test if data id is returned
           return true;
     });
   }

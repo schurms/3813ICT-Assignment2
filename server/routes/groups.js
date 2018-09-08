@@ -146,10 +146,6 @@ module.exports = function(app,MongoClient,db) {
       } else {
         testArray = groupArray;
         console.log(testArray);
-        //Remove all channels without user
-        // testArray.forEach(function(object) {
-        //   object.channel = object.channel.filter(channel => channel.name.user.id === id);
-        // });
         res.send({groups: testArray});
       }
     });

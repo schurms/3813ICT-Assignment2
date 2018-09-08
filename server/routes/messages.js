@@ -46,8 +46,6 @@ module.exports = function(app,MongoClient,db) {
       if (err) {
         console.log(err);
       } else {
-        console.log('Here2');
-        console.log(req.body.message);
         let id = 1;
         if (messageArray.length > 0) {
           let maximum = Math.max.apply(Math, messageArray.map(function (found) {
