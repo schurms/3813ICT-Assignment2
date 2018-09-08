@@ -54,7 +54,6 @@ export class GroupService {
       }));
   }
 
-
   // Function to manage group creation
   createGroup(group) {
     let body = JSON.stringify(group);

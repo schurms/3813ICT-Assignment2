@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-
     const userData = this.loginForm.value;
     this.getLoginUser(userData);
   }

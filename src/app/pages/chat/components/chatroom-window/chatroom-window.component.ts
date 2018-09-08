@@ -23,7 +23,6 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
   messages = [];
   message;
   messageChannelText;
-  messageText;
   messageChannel;
   channelId;
   connection;
@@ -60,12 +59,11 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
         // Add chat message to the message array each time you are pushed a message from the server
         this.messageChannelText = message;
         this.messageChannel = this.messageChannelText.text.split('*').pop();
-        this.messageText = this.messageChannelText.text.substr(0, this.messageChannelText.text.indexOf('*'));
         if (this.messageChannel === this.chatroom) {
           this.messages.push(message);
           this.message = '';
         }
-        });
+      });
   }
 
   // Send a chat message back to the server

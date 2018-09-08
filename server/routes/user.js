@@ -59,8 +59,10 @@ module.exports = function(app,MongoClient,db) {
             id = maximum + 1;
           }
           let newUser = {"id": id, "name": req.body.name, "email": req.body.email, "role": req.body.role};
-          collection.insertOne(newUser);
-          res.send(newUser);
+          collection.insertOne(newUser, function(err, result) {
+            if (err) throw err;
+            res.send(newUser);
+          });
         }
       }
     });
@@ -116,8 +118,9 @@ module.exports = function(app,MongoClient,db) {
   function deleteAllGroupUser(id) {
     console.log('Delete User from Groups Data');
     const collection = db.collection('groups');
+    // Set up delete query
     let myQuery = { };
-    // Set up Delete query
+    // Delete all users from group array where userid is being deleted
     collection.update(myQuery,{$pull:{user:{id:id}}}, {multi:true});
   }
 
@@ -125,8 +128,9 @@ module.exports = function(app,MongoClient,db) {
   function deleteAllChannelUser(id) {
     console.log('Delete User from Channel Data');
     const collection = db.collection('channels');
+    // Set up delete query
     let myQuery = { };
-    // Set up Delete query
+    // Delete all users from channel array where userid is being deleted
     collection.update(myQuery,{$pull:{user:{id:id}}}, {multi:true});
   }
 

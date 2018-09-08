@@ -69,8 +69,10 @@ module.exports = function(app,MongoClient,db) {
           // Define empty array for users when created
           let user = [];
           let newChannel = {"id": id, "name": req.body.name, "user": user};
-          collection.insertOne(newChannel);
-          res.send(newChannel);
+          collection.insertOne(newChannel, function(err, result) {
+            if (err) throw err;
+            res.send(newChannel);
+          });
         }
       }
     });

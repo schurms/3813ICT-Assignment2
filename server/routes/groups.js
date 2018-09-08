@@ -83,8 +83,10 @@ module.exports = function(app,MongoClient,db) {
           let channel = [];
           let user = [];
           let newGroup = {"id": id, "name": req.body.name, "channel": channel, "user": user};
-          collection.insertOne(newGroup);
-          res.send(newGroup);
+          collection.insertOne(newGroup, function(err, result) {
+            if (err) throw err;
+            res.send(newGroup);
+          });
         }
       }
     });

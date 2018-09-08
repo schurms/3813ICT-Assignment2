@@ -1,5 +1,5 @@
 // Modules
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 // Services
 import {AuthService} from '../../services/auth/auth.service';
@@ -9,13 +9,12 @@ import {AuthService} from '../../services/auth/auth.service';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router) { }
 
   ngOnInit() {
-
     if(!sessionStorage.getItem('user')) {
       // No valid session is available
       this.authService.deleteUser();
