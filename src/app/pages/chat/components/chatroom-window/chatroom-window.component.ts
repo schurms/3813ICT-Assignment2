@@ -28,7 +28,6 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
   connection;
   chatroom;
   channels: Channel[];
-  myChannels: Channel[];
   channelMessages: Message[];
 
   constructor(
