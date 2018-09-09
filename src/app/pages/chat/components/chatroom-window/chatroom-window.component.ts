@@ -85,6 +85,7 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
       // Append channel so we know what channel this message is being sent from
       this.socketService.sendMessage(this.message + ' (' + this.username + ')' + '*' + this.channel.name);
       // Send message to Message History
+      this.getChannelMessages(this.channelId);
       let msgHistory = {
         message: this.message,
         messagedate: Date(),
