@@ -108,6 +108,7 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
         data => {
           this.channel = data.channel;
           this.chatroom = this.channel.name;
+          this.joinChannel();
         },
         err => console.log(err)
       );
@@ -140,8 +141,23 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
       });
   }
 
+  // Join Channel
+  joinChannel() {
+    let userNameTitleCase = this.username.charAt(0).toUpperCase() + this.username.toLowerCase().slice(1);
+    let joinMessage = userNameTitleCase + " has joined the " + this.chatroom + " Channel*" + this.chatroom;
+    this.socketService.joinChannel(joinMessage);
+  }
+
+  // Leave Channel
+  // leaveChannel() {
+  //   let userNameTitleCase = this.username.charAt(0).toUpperCase() + this.username.toLowerCase().slice(1);
+  //   let leaveMessage = userNameTitleCase + " has left the " + this.chatroom + " Channel*" + this.chatroom;
+  //   this.socketService.leaveChannel(leaveMessage);
+  // }
+
   // When leaving this component close down the subscription
   ngOnDestroy() {
+    // this.leaveChannel();
     if (this.connection) {
       this.connection.unsubscribe();
     }

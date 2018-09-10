@@ -57,10 +57,14 @@ export class SocketService {
     return observableMessages;
   }
 
-  // // Function to Join a channel
-  // joinChannel(channel) {
-  //   this.socket.emit('room', channel);
-  // }
+  // Function to Join a channel
+  joinChannel(channel) {
+    this.socket.emit('room', channel);
+  }
+
+  leaveChannel(channel) {
+    this.socket.emit('disconnect', channel);
+  }
 
   // Function to store a message
   writeMessage(message) {
@@ -68,16 +72,6 @@ export class SocketService {
     return this.httpClient.post(BACKEND_URL + '/api/message/', body, httpOptions);
   }
 
-  // // Function to get channel messages
-  // getChannelMessages(id) {
-  //   let body = JSON.stringify(id);
-  //   return this.httpClient.post<{messages: Message[]}>(BACKEND_URL + '/api/messages/', body, httpOptions)
-  //     .pipe(map(messages => {
-  //       if (messages) {
-  //       }
-  //       return messages
-  //     }));
-  // }
 
   // Function to get a channel
   getChannelMessages(id) {

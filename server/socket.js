@@ -2,16 +2,18 @@ module.exports = function(app, io) {
 
   console.log("Server Socket Initialised");
 
-  let mychannel;
-
   io.on('connection',(socket) => {console.log('user connection');
 
-    socket.on('disconnect',function() {
-      console.log('user disconnection');
+    socket.on('disconnect', (channel) => {
+      socket.leave(channel, function() {
+        console.log(channel);
+        io.emit('message',{type:'new-message',text:channel});
+      });
     });
 
     socket.on('room', (channel) => {
       socket.join(channel);
+      io.emit('message',{type:'new-message',text:channel});
     });
 
     socket.on('add-message',(message) => {
