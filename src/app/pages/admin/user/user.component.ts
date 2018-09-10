@@ -37,6 +37,7 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.userForm = this.formBuilder.group({
       name: ['', [Validators.required]],
+      password: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       role:[''],
     });

@@ -10,21 +10,41 @@
           <div class="text-left">
             <label for="name">User Name:</label>
           </div>
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              name="name"
-              placeholder="Enter user name"
-              formControlName="name"
-              required
-              [ngClass]="{ 'is-invalid': submitted && userForm.controls.name.errors }"/>
-            <div *ngIf="submitted && !!userForm.controls.name.errors" class="invalid-feedback">
-              <div *ngIf="!!userForm.controls.name.errors.required">
-                User Name is required
-              </div>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Enter user name"
+            formControlName="name"
+            required
+            [ngClass]="{ 'is-invalid': submitted && userForm.controls.name.errors }"/>
+          <div *ngIf="submitted && !!userForm.controls.name.errors" class="invalid-feedback">
+            <div *ngIf="!!userForm.controls.name.errors.required">
+              User Name is required
             </div>
           </div>
+        </div>
+
+        <div class="form-group">
+          <div class="text-left">
+            <label for="password">Password:</label>
+          </div>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="Enter password"
+            formControlName="password"
+            required
+            [ngClass]="{ 'is-invalid': submitted && userForm.controls.password.errors }"/>
+          <div *ngIf="submitted && !!userForm.controls.password.errors" class="invalid-feedback">
+            <div *ngIf="!!userForm.controls.password.errors.required">
+              Password is required
+            </div>
+          </div>
+        </div>
 
         <div>
           <div class="form-group">
@@ -72,6 +92,7 @@
           <tr>
             <!--<th>User ID</th>-->
             <th>User Name</th>
+            <th>User Password</th>
             <th>User Email</th>
             <th>user Role</th>
             <th>Actions</th>
@@ -84,6 +105,9 @@
             <!--</td>-->
             <td>
               <input type="text" name="user-name" [(ngModel)]="user.name" class="form-control-plaintext">
+            </td>
+            <td>
+              <input type="password" name="user-password" [(ngModel)]="user.password" class="form-control-plaintext">
             </td>
             <td>
               <input type="email" name="user-email" [(ngModel)]="user.email" class="form-control-plaintext">

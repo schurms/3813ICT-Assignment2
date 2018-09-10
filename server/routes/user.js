@@ -5,12 +5,12 @@ module.exports = function(app,MongoClient,db) {
     console.log('Load Test User Records');
     // Set up Data to Load
     let myData = [
-      {"id":1,"name":"super","email":"super@gmail.com","role":"super"},
-      {"id":2,"name":"jordan","email":"jordan@gmail.com","role":"group"},
-      {"id":3,"name":"fred","email":"fred@gmail.com","role":""},
-      {"id":4,"name":"bill","email":"bill@gmail.com","role":"group"},
-      {"id":5,"name":"sam","email":"sam@gmail.com","role":""},
-      {"id":6,"name":"good","email":"good@gmail.com","role":"super"}
+      {"id":1,"name":"super","password":"1234","email":"super@gmail.com","role":"super"},
+      {"id":2,"name":"jordan","password":"1234","email":"jordan@gmail.com","role":"group"},
+      {"id":3,"name":"fred","password":"1234","email":"fred@gmail.com","role":""},
+      {"id":4,"name":"bill","password":"1234","email":"bill@gmail.com","role":"group"},
+      {"id":5,"name":"sam","password":"1234","email":"sam@gmail.com","role":""},
+      {"id":6,"name":"good","password":"1234","email":"good@gmail.com","role":"super"}
     ];
     // Set Collection Constant
     const collection = db.collection('user');
@@ -58,7 +58,7 @@ module.exports = function(app,MongoClient,db) {
             }));
             id = maximum + 1;
           }
-          let newUser = {"id": id, "name": req.body.name, "email": req.body.email, "role": req.body.role};
+          let newUser = {"id": id, "name": req.body.name, "password": req.body.password, "email": req.body.email, "role": req.body.role};
           collection.insertOne(newUser, function(err, result) {
             if (err) throw err;
             res.send(newUser);
@@ -94,7 +94,7 @@ module.exports = function(app,MongoClient,db) {
     const collection = db.collection('user');
     // Set up Update query
     let myQuery = {id: id};
-    let newValues = { $set: {name: req.body.name, email: req.body.email, role: req.body.role}};
+    let newValues = { $set: {name: req.body.name, password: req.body.password, email: req.body.email, role: req.body.role}};
     collection.updateOne(myQuery,newValues, function(err, result) { });
     res.send(id.toString());
   });

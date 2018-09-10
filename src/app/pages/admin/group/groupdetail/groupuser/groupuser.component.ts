@@ -108,6 +108,7 @@ export class GroupuserComponent implements OnInit {
         _id: selectedUser._id,
         id: selectedUser.id,
         name: selectedUser.name,
+        password: selectedUser.password,
         email: selectedUser.email,
         role: selectedUser.role,
       };

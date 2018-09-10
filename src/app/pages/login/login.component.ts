@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]]
+      password: ['', [Validators.required]],
+      // email: ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
         this.authService.writeUser(userData);
         this.loginForm.reset();
       } else {
-        alert('Username does not exist');
+        alert('Username / Password Incorrect or User does not exist');
       }
     });
   }

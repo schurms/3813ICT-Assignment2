@@ -6,7 +6,8 @@ module.exports = function(app,MongoClient,db) {
     // Get the user collection
     const collection = db.collection('user');
     // Retrieve User Data
-    collection.find().toArray(function (err, userArray) {
+    // collection.find().toArray(function (err, userArray) {
+    collection.find({ $and : [ {name: req.body.name}, {password: req.body.password}]}).toArray(function (err, userArray) {
       if (err) {
         console.log(err);
         // Some error happened opening the database file.
