@@ -13,14 +13,14 @@
     <h5 class="h5small">Channel Message History</h5>
     <ng-container *ngFor="let message of channelMessages">
       <div>
-        <a> {{ message?.message }} ({{message?.username}}) - {{message?.channelname}} </a>
+        <a> {{message?.message}} ({{message?.username}}) - {{message?.channelname}} </a>
       </div>
     </ng-container>
   </div>
 </div>
 
 <ng-template #chatMessages>
-  <h5>Welcome <span style='color: #4285f4'> {{ username | uppercase }} </span> to Channel: <span style='color: #4285f4'> {{channel?.name | uppercase}}</span></h5>
+  <h5>Welcome to the<span style='color: #4285f4'> {{channel?.name | titlecase}} </span>Channel</h5>
   <div class="message-wrapper h-100">
     <ng-container *ngFor="let message of messages">
       <div class="chat-message d-flex">

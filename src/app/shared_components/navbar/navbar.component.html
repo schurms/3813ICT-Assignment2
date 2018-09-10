@@ -15,7 +15,7 @@
             <a routerLink="/chat" routerLinkActive="active" class="nav-link" >Chat Rooms</a>
           </li>
           <li class="nav-item">
-            <a [routerLink]="'/profile/' + user.id" routerLinkActive="active" class="nav-link" >Profile</a>
+            <a [routerLink]="'/profile/' + user.id" routerLinkActive="active" class="nav-link" >{{authUser.name | titlecase }}'s Profile</a>
           </li>
           <li class="nav-item">
             <a routerLink="/signin" routerLinkActive="active" class="nav-link" (click)="logOut()" >Log Out</a>
@@ -49,7 +49,7 @@
         <a routerLink="/chat" routerLinkActive="active" class="nav-link" >Chat Rooms</a>
       </li>
       <li class="nav-item">
-        <a [routerLink]="'/profile/' + authUser.id" routerLinkActive="active" class="nav-link" >Profile</a>
+        <a [routerLink]="'/profile/' + authUser.id" routerLinkActive="active" class="nav-link" >{{authUser.name | titlecase}}'s Profile</a>
       </li>
       <li class="nav-item">
         <a routerLink="/signin" routerLinkActive="active" class="nav-link" (click)="logOut()" >Log Out</a>
