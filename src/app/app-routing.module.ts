@@ -12,6 +12,7 @@ import { GroupuserComponent } from './pages/admin/group/groupdetail/groupuser/gr
 import { GroupchannelComponent } from './pages/admin/group/groupdetail/groupchannel/groupchannel.component';
 import { ChanneluserComponent } from './pages/admin/channel/channeldetail/channeluser/channeluser.component';
 import { ChatroomHistoryComponent } from './pages/chat/components/chatroom-history/chatroom-history.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 // Routes
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'channels', component: ChannelComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'chat/:id', component: ChatComponent },
+  { path: 'profile/:id', component: ProfileComponent},
   { path: '404', component: NotfoundComponent },
   { path: '**', redirectTo: '404' }
 ];

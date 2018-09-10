@@ -14,6 +14,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class NavbarComponent implements OnInit {
 
   user: User;
+  authUser: User;
   username: string;
   isLoggedIn: boolean;
   isAdmin: boolean;
@@ -39,6 +40,7 @@ export class NavbarComponent implements OnInit {
     const user = { name: name };
     this.authService.getAuthUser(user)
       .subscribe((data: any) => {
+        this.authUser = data;
         if ((data.role.toUpperCase() === 'SUPER') || (data.role.toUpperCase() === 'GROUP')) {
           this.isAdmin = true;
         } else {

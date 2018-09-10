@@ -29,6 +29,7 @@ import { UserService } from './services/user/user.service';
 import { GroupService } from './services/group/group.service';
 import { ChannelService } from './services/channel/channel.service';
 import { AuthService } from './services/auth/auth.service';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { AuthService } from './services/auth/auth.service';
     UserComponent,
     GroupuserComponent,
     GroupchannelComponent,
-    ChanneluserComponent
+    ChanneluserComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
