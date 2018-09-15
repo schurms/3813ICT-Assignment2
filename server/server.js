@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname , '../dist/myChat/')));
 app.use('/images',express.static(path.join(__dirname, './public/images')));
 
 // MongoDb Connect
-MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
+MongoClient.connect(url, {poolSize:10, useNewUrlParser: true }, function(err, client) {
   const dbName = 'mychatdb';
   const db = client.db(dbName);
   if (err) {

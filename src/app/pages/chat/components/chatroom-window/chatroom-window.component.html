@@ -9,11 +9,13 @@
     </ng-container>
   </div>
 
-  <div class="h-100 d-flex flex-column col-4">
+  <div class="h-100 d-flex flex-column col-6">
     <h5 class="h5small">Channel Message History</h5>
     <ng-container *ngFor="let message of channelMessages">
       <div>
-        <a> {{message?.message}} ({{message?.username}}) - {{message?.channelname}} - {{message?.userimage}}<img src="http://localhost:3000/images/avatar2.png" style="width: 20px;height: auto;"/> </a>
+        <a> {{message?.message}} ({{message?.username}}) - {{message?.channelname}} <img src="{{message?.userimage}}" style="width: 20px;height: auto;"/> </a>
+        <a> {{message?.messagedate | date }}</a>
+        <br>
       </div>
     </ng-container>
   </div>

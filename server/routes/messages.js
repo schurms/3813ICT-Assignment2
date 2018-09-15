@@ -53,7 +53,7 @@ module.exports = function(app,MongoClient,db) {
           }));
           id = maximum + 1;
         }
-        let newMsg = {"id": id, "message": req.body.message, "messagedate": req.body.messagedate, "userid": req.body.userid, "username": req.body.username, "channelid": req.body.channelid, "channelname": req.body.channelname};
+        let newMsg = {"id": id, "message": req.body.message, "messagedate": req.body.messagedate, "userid": req.body.userid, "username": req.body.username, "channelid": req.body.channelid, "channelname": req.body.channelname, "userimage": req.body.userimage};
         collection.insertOne(newMsg);
         res.send(newMsg);
       }

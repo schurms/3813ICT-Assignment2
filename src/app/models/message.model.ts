@@ -8,7 +8,7 @@ export class Message {
   username: string;
   channelid: number;
   channelname: string;
-  userimage: string
+  userimage: string;
 
   constructor( id: number, message: string, messagedate: Date, userid: number, username: string, channelid: number, channelname: string, userimage: string ) {
     this.id = id;
