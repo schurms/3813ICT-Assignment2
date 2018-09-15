@@ -1,2 +1,17 @@
 <app-navbar></app-navbar>
 
+<div class="container">
+  <h1>Avatar File Upload</h1>
+  <form>
+    <div class="form-group">
+      <input type="file" class="form-control" id="uploadfile" name="uploadfile" (change)="onFileSelected($event)">
+    </div>
+    <button class="btn btn-primary btn-md" type="button" (click)="onUpload()">Submit</button>
+  </form>
+  <div class="form-group">
+    <button class="btn btn-success" (click)="goBack()">Go Back</button>
+  </div>
+
+  <!--<img src="images\{{imagepath}}" alt="Avatar" style="width: 70px;height: auto;"/>-->
+  <img src="{{imagepath}}" alt="Avatar" style="width: 70px;height: auto;"/>
+</div>

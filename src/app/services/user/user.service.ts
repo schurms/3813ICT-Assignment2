@@ -29,7 +29,7 @@ export class UserService {
       .pipe(map(users => {
         if (users) {
         }
-        return users
+        return users;
       }));
   }
 
@@ -43,6 +43,12 @@ export class UserService {
   updateUser(user) {
     let body = JSON.stringify(user);
     return this.httpClient.put(BACKEND_URL + '/api/user/' + user.id, body, httpOptions);
+  }
+
+  // Function to Update Avatar for a Product
+  updateAvatar(user) {
+    let body = JSON.stringify(user);
+    return this.httpClient.put(BACKEND_URL + '/api/updateone/' + user.id, body, httpOptions);
   }
 
   // Function to manage user deletion

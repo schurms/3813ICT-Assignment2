@@ -5,12 +5,12 @@ module.exports = function(app,MongoClient,db) {
     console.log('Load Test User Records');
     // Set up Data to Load
     let myData = [
-      {"id":1,"name":"super","password":"1234","email":"super@gmail.com","role":"super"},
-      {"id":2,"name":"jordan","password":"1234","email":"jordan@gmail.com","role":"group"},
-      {"id":3,"name":"fred","password":"1234","email":"fred@gmail.com","role":""},
-      {"id":4,"name":"bill","password":"1234","email":"bill@gmail.com","role":"group"},
-      {"id":5,"name":"sam","password":"1234","email":"sam@gmail.com","role":""},
-      {"id":6,"name":"good","password":"1234","email":"good@gmail.com","role":"super"}
+      {"id":1,"name":"super","password":"1234","email":"super@gmail.com","role":"super","userimage":"http://localhost:3000/images/avatar1.png"},
+      {"id":2,"name":"jordan","password":"1234","email":"jordan@gmail.com","role":"group","userimage":"http://localhost:3000/images/avatar2.png"},
+      {"id":3,"name":"fred","password":"1234","email":"fred@gmail.com","role":"","userimage":"http://localhost:3000/images/avatar3.png"},
+      {"id":4,"name":"bill","password":"1234","email":"bill@gmail.com","role":"group","userimage":"http://localhost:3000/images/avatar4.png"},
+      {"id":5,"name":"sam","password":"1234","email":"sam@gmail.com","role":"","userimage":"http://localhost:3000/images/avatar5.png"},
+      {"id":6,"name":"good","password":"1234","email":"good@gmail.com","role":"super","userimage":"http://localhost:3000/images/default.png"}
     ];
     // Set Collection Constant
     const collection = db.collection('user');
@@ -58,7 +58,7 @@ module.exports = function(app,MongoClient,db) {
             }));
             id = maximum + 1;
           }
-          let newUser = {"id": id, "name": req.body.name, "password": req.body.password, "email": req.body.email, "role": req.body.role};
+          let newUser = {"id": id, "name": req.body.name, "password": req.body.password, "email": req.body.email, "role": req.body.role,"userimage":"http://localhost:3000/images/default.png"};
           collection.insertOne(newUser, function(err, result) {
             if (err) throw err;
             res.send(newUser);
@@ -94,10 +94,26 @@ module.exports = function(app,MongoClient,db) {
     const collection = db.collection('user');
     // Set up Update query
     let myQuery = {id: id};
-    let newValues = { $set: {name: req.body.name, password: req.body.password, email: req.body.email, role: req.body.role}};
+    let newValues = { $set: {name: req.body.name, password: req.body.password, email: req.body.email, role: req.body.role, userimage: req.body.userimage}};
     collection.updateOne(myQuery,newValues, function(err, result) { });
     res.send(id.toString());
   });
+
+  // PUT endpoint API for Updating a Users's Avatar
+  app.put('/api/updateone/:id', function (req, res) {
+    console.log('Update User Avatar');
+    let id = parseInt(req.params.id);
+    // Set Collection Constant
+    const collection = db.collection('user');
+    // Set up Update query
+    let myQuery = {id: id};
+    let imageLocation = "http://localhost:3000/images/" + req.body.userimage;
+    let newValues = { $set: {userimage: imageLocation}};
+    collection.updateOne(myQuery,newValues, function(err, result) { });
+    res.send(id.toString());
+  });
+
+
 
   // DELETE endpoint API for Deleting a user
   app.delete('/api/user/:id', function (req, res) {

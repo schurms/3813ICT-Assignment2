@@ -114,6 +114,7 @@ export class ChanneluserComponent implements OnInit {
         password: selectedUser.password,
         email: selectedUser.email,
         role: selectedUser.role,
+        userimage: selectedUser.userimage
       };
 
       // Push new User to Channel

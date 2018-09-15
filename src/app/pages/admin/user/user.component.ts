@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Location } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 // Models
 import { User } from '../../../models/user.model';
 // Services
@@ -31,7 +32,8 @@ export class UserComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private location: Location,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private domSanitizer: DomSanitizer) { }
 
   // On Page Opening validate user
   ngOnInit() {

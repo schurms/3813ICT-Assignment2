@@ -13,7 +13,7 @@
     <h5 class="h5small">Channel Message History</h5>
     <ng-container *ngFor="let message of channelMessages">
       <div>
-        <a> {{message?.message}} ({{message?.username}}) - {{message?.channelname}} </a>
+        <a> {{message?.message}} ({{message?.username}}) - {{message?.channelname}} - {{message?.userimage}}<img src="http://localhost:3000/images/avatar2.png" style="width: 20px;height: auto;"/> </a>
       </div>
     </ng-container>
   </div>

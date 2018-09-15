@@ -1,5 +1,12 @@
+// Modules
 import { Component, OnInit } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+// Models
+import { User } from '../../models/user.model';
+// Services
+import { ImguploadService } from '../../services/imgupload/imgupload.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,11 +15,70 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  selectedfile = null;
+  imagepath="";
+  userId;
+  user: User;
+  users: User[];
 
+  constructor(
+    private route: ActivatedRoute,
+    private imguploadService: ImguploadService,
+    private userService: UserService,
+    private location: Location) { }
+
+  // On Page Opening
   ngOnInit() {
+    this.userId = +this.route.snapshot.paramMap.get('id');
+    this.getUsers();
   }
 
+  // On File Selection
+  onFileSelected(event) {
+    this.selectedfile = event.target.files[0];
+  }
 
+  // On File Uploading
+  onUpload() {
+    const fd = new FormData();
+    fd.append('image',this.selectedfile, this.selectedfile.name);
+    this.imguploadService.imgupload(fd)
+      .subscribe( res => {
+        this.imagepath = res.data.filename;
+        this.updateAvatar();
+      });
+  }
 
+  // Get current avatar
+  getUsers() {
+    this.userService.getUsers()
+      .subscribe(
+        data => {
+          this.users = data.users;
+          this.user = this.users.find(user => user.id ==  this.userId);
+          this.imagepath = this.user.userimage;
+        },
+        err => console.log(err)
+      );
+  }
+
+  // Update a Product
+  updateAvatar() {
+    const addAvatar = {
+      id: this.userId,
+      userimage: this.selectedfile.name,
+    };
+    this.userService.updateAvatar(addAvatar)
+      .subscribe(
+        data => {
+          return true;
+        },
+        err => console.log(err)
+      );
+  }
+
+  // Return to Previous Page
+  goBack() {
+    this.location.back();
+  }
 }

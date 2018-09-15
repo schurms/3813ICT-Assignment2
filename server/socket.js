@@ -4,11 +4,10 @@ module.exports = function(app, io) {
 
   io.on('connection',(socket) => {console.log('user connection');
 
-    socket.on('disconnect', (channel) => {
-      socket.leave(channel, function() {
-        console.log(channel);
-        io.emit('message',{type:'new-message',text:channel});
-      });
+    socket.on('disconnect',(channel) => {
+      socket.leave('Travel');
+        io.in('Travel').emit('message',{type:'new-message',text:channel});
+
     });
 
     socket.on('room', (channel) => {

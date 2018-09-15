@@ -90,19 +90,16 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <!--<th>User ID</th>-->
             <th>User Name</th>
             <th>User Password</th>
             <th>User Email</th>
-            <th>user Role</th>
+            <th>User Role</th>
+            <th>User Avatar</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let user of users">
-            <!--<td>-->
-              <!--{{user.id}}-->
-            <!--</td>-->
             <td>
               <input type="text" name="user-name" [(ngModel)]="user.name" class="form-control-plaintext">
             </td>
@@ -115,6 +112,8 @@
             <td>
               <input type="role" name="user-role" [(ngModel)]="user.role" class="form-control-plaintext">
             </td>
+            <!--<td><img src="images\{{user.userimage}}" alt="Avatar" style="width: 40px;height: auto;"/></td>-->
+            <td><img src="{{user.userimage}}" alt="Avatar" style="width: 40px;height: auto;"/></td>
             <td>
               <div class="btn-group">
                 <button class="btn btn-space btn-sm btn-success" (click)="updateUser(user)">Update</button>

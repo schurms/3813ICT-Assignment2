@@ -111,6 +111,7 @@ export class GroupuserComponent implements OnInit {
         password: selectedUser.password,
         email: selectedUser.email,
         role: selectedUser.role,
+        userimage: selectedUser.userimage,
       };
 
       // Push new User to Group

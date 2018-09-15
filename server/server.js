@@ -4,6 +4,7 @@ const app = express();
 const path = require('path');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const formidable = require('formidable');
 const bodyParser = require('body-parser');
 const url = 'mongodb://localhost:27017';
 const MongoClient = require('mongodb').MongoClient;
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname , '../dist/myChat/')));
+app.use('/images',express.static(path.join(__dirname, './public/images')));
 
 // MongoDb Connect
 MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
@@ -38,6 +40,7 @@ MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
     require('./routes/groups.js')(app,MongoClient,db);
     require('./routes/channels.js')(app,MongoClient,db);
     require('./socket.js')(app,io,MongoClient,db);
+    require('./routes/uploads.js')(app,formidable);
     require('./listen.js')(http);
   }
 });

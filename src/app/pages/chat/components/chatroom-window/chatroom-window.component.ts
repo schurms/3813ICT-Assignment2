@@ -34,7 +34,12 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private socketService: SocketService,
     private channelService: ChannelService,
-    private authService: AuthService) { }
+    private authService: AuthService) {
+
+    this.user = this.authService.readUser();
+    this.username = this.user.name;
+    this.getAuthUser(this.username);
+  }
 
   // When entering this component
   ngOnInit() {
@@ -45,10 +50,11 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
           this.channelId = params['id'];
         }
       );
-    this.user = this.authService.readUser();
-    this.username = this.user.name;
-    this.getAuthUser(this.username);
-    this.getChannelMessages(this.channelId);
+    // this.user = this.authService.readUser();
+    // this.username = this.user.name;
+    // this.getAuthUser(this.username);
+    // this.getChannelMessages(this.channelId);
+    // this.leaveChannel();
 
     // Valid user found
     console.log('Session started for: ' + this.username);
@@ -93,6 +99,7 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
         username: this.authUser.name,
         channelid: this.channel.id,
         channelname: this.channel.name,
+        userimage: this.authUser.userimage,
       };
      this.writeMessage(msgHistory);
 
@@ -138,6 +145,7 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
     this.authService.getAuthUser(user)
       .subscribe((data: any) => {
         this.authUser = data;
+
       });
   }
 
@@ -149,11 +157,11 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
   }
 
   // Leave Channel
-  // leaveChannel() {
-  //   let userNameTitleCase = this.username.charAt(0).toUpperCase() + this.username.toLowerCase().slice(1);
-  //   let leaveMessage = userNameTitleCase + " has left the " + this.chatroom + " Channel*" + this.chatroom;
-  //   this.socketService.leaveChannel(leaveMessage);
-  // }
+  leaveChannel() {
+    let userNameTitleCase = this.username.charAt(0).toUpperCase() + this.username.toLowerCase().slice(1);
+    let leaveMessage = userNameTitleCase + " has left the " + this.chatroom + " Channel*" + this.chatroom;
+    this.socketService.leaveChannel(leaveMessage);
+  }
 
   // When leaving this component close down the subscription
   ngOnDestroy() {

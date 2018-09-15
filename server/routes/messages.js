@@ -5,12 +5,12 @@ module.exports = function(app,MongoClient,db) {
     console.log('Load Test message Records');
     // Set up Data to Load
     let myData = [
-      {"id":1,"message":"Message 1","messagedate":"Thu Sep 06 2018 19:50:14 GMT+1000 (Australian Eastern Standard Time)","userid":1,"username": "super","channelid":"6","channelname":"Travel"},
-      {"id":2,"message":"Message 2","messagedate":"Thu Sep 06 2018 19:51:14 GMT+1000 (Australian Eastern Standard Time)","userid":2,"username": "jordan","channelid":"6","channelname":"Travel"},
-      {"id":3,"message":"Message 3","messagedate":"Thu Sep 06 2018 19:52:14 GMT+1000 (Australian Eastern Standard Time)","userid":2,"username": "jordan","channelid":"6","channelname":"Travel"},
-      {"id":4,"message":"Message 4","messagedate":"Thu Sep 06 2018 19:53:14 GMT+1000 (Australian Eastern Standard Time)","userid":1,"username": "super","channelid":"6","channelname":"Travel"},
-      {"id":5,"message":"Message 5","messagedate":"Thu Sep 06 2018 19:54:14 GMT+1000 (Australian Eastern Standard Time)","userid":2,"username": "jordan","channelid":"6","channelname":"Travel"},
-      {"id":6,"message":"Message 6","messagedate":"Thu Sep 06 2018 19:55:14 GMT+1000 (Australian Eastern Standard Time)","userid":1,"username": "super","channelid":"6","channelname":"Travel"}
+      {"id":1,"message":"Message 1","messagedate":"Thu Sep 06 2018 19:50:14 GMT+1000 (Australian Eastern Standard Time)","userid":1,"username": "super","channelid":"6","channelname":"Travel","userimage":"http://localhost:3000/images/avatar1.png"},
+      {"id":2,"message":"Message 2","messagedate":"Thu Sep 06 2018 19:51:14 GMT+1000 (Australian Eastern Standard Time)","userid":2,"username": "jordan","channelid":"6","channelname":"Travel","userimage":"http://localhost:3000/images/avatar2.png"},
+      {"id":3,"message":"Message 3","messagedate":"Thu Sep 06 2018 19:52:14 GMT+1000 (Australian Eastern Standard Time)","userid":2,"username": "jordan","channelid":"6","channelname":"Travel","userimage":"http://localhost:3000/images/avatar2.png"},
+      {"id":4,"message":"Message 4","messagedate":"Thu Sep 06 2018 19:53:14 GMT+1000 (Australian Eastern Standard Time)","userid":1,"username": "super","channelid":"6","channelname":"Travel","userimage":"http://localhost:3000/images/avatar1.png"},
+      {"id":5,"message":"Message 5","messagedate":"Thu Sep 06 2018 19:54:14 GMT+1000 (Australian Eastern Standard Time)","userid":2,"username": "jordan","channelid":"6","channelname":"Travel","userimage":"http://localhost:3000/images/avatar2.png"},
+      {"id":6,"message":"Message 6","messagedate":"Thu Sep 06 2018 19:55:14 GMT+1000 (Australian Eastern Standard Time)","userid":1,"username": "super","channelid":"6","channelname":"Travel","userimage":"http://localhost:3000/images/avatar1.png"}
     ];
     // Set Collection Constant
     const collection = db.collection('messages');
