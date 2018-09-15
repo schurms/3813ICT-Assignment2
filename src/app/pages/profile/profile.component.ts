@@ -44,8 +44,10 @@ export class ProfileComponent implements OnInit {
     fd.append('image',this.selectedfile, this.selectedfile.name);
     this.imguploadService.imgupload(fd)
       .subscribe( res => {
-        this.imagepath = res.data.filename;
+        // this.imagepath = res.data.filename;
         this.updateAvatar();
+        this.getUsers();
+        location.reload();
       });
   }
 
