@@ -26,7 +26,7 @@ module.exports = function(app,MongoClient,db) {
     collection.insertMany(myData, function(err, result) {
       if (err) throw err;
       console.log(result);
-      res.send({result});
+      res.status(200).send({result});
     });
   });
 
@@ -40,7 +40,7 @@ module.exports = function(app,MongoClient,db) {
     collection.deleteMany(myQuery, function(err, result) {
       if (err) throw err;
       console.log("Removed All Channels");
-      res.send({result});
+      res.status(200).send({result});
     });
   });
 
@@ -57,7 +57,7 @@ module.exports = function(app,MongoClient,db) {
         // Test uppercase version - ignore case
         if (channelArray.find(channel => channel.name.toUpperCase() === req.body.name.toUpperCase())) {
           //Channel exists
-          res.send({"ok": false});
+          res.status(200).send({"ok": false});
         } else {
           let id = 1;
           if (channelArray.length > 0) {
@@ -71,7 +71,7 @@ module.exports = function(app,MongoClient,db) {
           let newChannel = {"id": id, "name": req.body.name, "user": user};
           collection.insertOne(newChannel, function(err, result) {
             if (err) throw err;
-            res.send(newChannel);
+            res.status(200).send(newChannel);
           });
         }
       }
@@ -79,7 +79,7 @@ module.exports = function(app,MongoClient,db) {
   });
 
   // GET endpoint API for Reading all channels
-  app.get('/api/channel', function (req, res) {
+  app.get('/api/channels', function (req, res) {
     console.log('Get Channels');
     // Set Collection Constant
     const collection = db.collection('channels');
@@ -88,10 +88,10 @@ module.exports = function(app,MongoClient,db) {
       if (err) {
         console.log(err);
         // Some error happened opening the database file.
-        res.send({"ok": false});
+        res.status(404).send({"ok": false});
       } else {
         //Return channels
-        res.send({channels: channelArray});
+        res.status(200).send({channels: channelArray});
       }
     });
   });
@@ -126,7 +126,7 @@ module.exports = function(app,MongoClient,db) {
     let myQuery = {id: id};
     let newValues = { $set: {name: req.body.name, user: req.body.user}};
     collection.updateOne(myQuery,newValues, function(err, result) { });
-    res.send(id.toString());
+    res.status(200).send(id.toString());
   });
 
   // DELETE endpoint API for Deleting a channel
@@ -140,7 +140,7 @@ module.exports = function(app,MongoClient,db) {
     // Find some documents
     collection.deleteOne(myQuery, function(err, result) { });
     deleteAllGroupChannel(id);
-    res.send(id.toString());
+    res.status(200).send(id.toString());
   });
 
   // DELETE selected channel from all channel elements in Group Data

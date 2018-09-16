@@ -27,7 +27,7 @@ export class ChannelService {
 
   // Function to manage channel reads
   getChannels() {
-    return this.httpClient.get<{channels: Channel[]}>(BACKEND_URL + '/api/channel/')
+    return this.httpClient.get<{channels: Channel[]}>(BACKEND_URL + '/api/channels/')
       .pipe(map(channels => {
         if (channels) {
         }

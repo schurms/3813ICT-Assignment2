@@ -55,12 +55,12 @@ module.exports = function(app,MongoClient,db) {
         }
         let newMsg = {"id": id, "message": req.body.message, "messagedate": req.body.messagedate, "userid": req.body.userid, "username": req.body.username, "channelid": req.body.channelid, "channelname": req.body.channelname, "userimage": req.body.userimage};
         collection.insertOne(newMsg);
-        res.send(newMsg);
+        res.status(200).send(newMsg);
       }
     });
   });
 
-  //Route to retrieve all product items
+  //POST endpoint API to retrieve all messages
   app.post('/api/messages', function (req, res) {
     // Get the products collection
     console.log("Get Messages for Channel");
@@ -72,9 +72,9 @@ module.exports = function(app,MongoClient,db) {
       if (err) {
         console.log(err);
         // Some error happened opening the database file.
-        res.send({"ok": false});
+        res.status(200).send({"ok": false});
       } else {
-        res.send({messages: messageArray});
+        res.status(200).send({messages: messageArray});
       }
     });
   });
@@ -90,9 +90,9 @@ module.exports = function(app,MongoClient,db) {
       if (err) {
         console.log(err);
         // Some error happened opening the database file.
-        res.send({"ok": false});
+        res.status(200).send({"ok": false});
       } else {
-        res.send({messages: messagesArray});
+        res.status(200).send({messages: messagesArray});
       }
     });
   });

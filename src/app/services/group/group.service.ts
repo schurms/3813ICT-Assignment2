@@ -26,7 +26,7 @@ export class GroupService {
 
   // Function to manage group reads
   getGroups() {
-    return this.httpClient.get<{groups: Group[]}>(BACKEND_URL + '/api/group/')
+    return this.httpClient.get<{groups: Group[]}>(BACKEND_URL + '/api/groups/')
       .pipe(map(groups => {
         if (groups) {
         }

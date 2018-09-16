@@ -18,7 +18,7 @@ module.exports = function(app,MongoClient,db) {
     collection.insertMany(myData, function(err, result) {
       if (err) throw err;
       console.log(result);
-      res.send({result});
+      res.status(200).send({result});
     });
   });
 
@@ -32,7 +32,7 @@ module.exports = function(app,MongoClient,db) {
     collection.deleteMany(myQuery, function(err, result) {
       if (err) throw err;
       console.log("Removed All Users");
-      res.send({result});
+      res.status(200).send({result});
     });
   });
 
@@ -49,7 +49,7 @@ module.exports = function(app,MongoClient,db) {
         // Test uppercase version - ignore case
         if (userArray.find(user => user.name.toUpperCase() === req.body.name.toUpperCase())) {
           //User exists
-          res.send({"ok": false});
+          res.status(200).send({"ok": false});
         } else {
           let id = 1;
           if (userArray.length > 0) {
@@ -61,7 +61,7 @@ module.exports = function(app,MongoClient,db) {
           let newUser = {"id": id, "name": req.body.name, "password": req.body.password, "email": req.body.email, "role": req.body.role,"userimage":"http://localhost:3000/images/default.png"};
           collection.insertOne(newUser, function(err, result) {
             if (err) throw err;
-            res.send(newUser);
+            res.status(200).send(newUser);
           });
         }
       }
@@ -78,10 +78,10 @@ module.exports = function(app,MongoClient,db) {
       if (err) {
         console.log(err);
         // Some error happened opening the database file.
-        res.send({"ok": false});
+        res.status(404).send({"ok": false});
       } else {
         //Return users
-        res.send({users: userArray});
+        res.status(200).send({users: userArray});
       }
     });
   });
@@ -96,7 +96,7 @@ module.exports = function(app,MongoClient,db) {
     let myQuery = {id: id};
     let newValues = { $set: {name: req.body.name, password: req.body.password, email: req.body.email, role: req.body.role, userimage: req.body.userimage}};
     collection.updateOne(myQuery,newValues, function(err, result) { });
-    res.send(id.toString());
+    res.status(200).send(id.toString());
   });
 
   // PUT endpoint API for Updating a Users's Avatar
@@ -110,7 +110,7 @@ module.exports = function(app,MongoClient,db) {
     let imageLocation = "http://localhost:3000/images/" + req.body.userimage;
     let newValues = { $set: {userimage: imageLocation}};
     collection.updateOne(myQuery,newValues, function(err, result) { });
-    res.send(id.toString());
+    res.status(200).send(id.toString());
   });
 
 
@@ -127,7 +127,7 @@ module.exports = function(app,MongoClient,db) {
     collection.deleteOne(myQuery, function(err, result) { });
     deleteAllGroupUser(id);
     deleteAllChannelUser(id);
-    res.send(id.toString());
+    res.status(200).send(id.toString());
   });
 
   // DELETE selected user from all user elements in Group Data

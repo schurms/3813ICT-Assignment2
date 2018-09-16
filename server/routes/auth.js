@@ -10,15 +10,15 @@ module.exports = function(app,MongoClient,db) {
       if (err) {
         console.log(err);
         // Some error happened opening the database file.
-        res.send({"ok": false});
+        res.status(404).send({"ok": false});
       } else {
         // if user id found
         if (userArray.length === 1) {
           //Return true
-          res.send({"ok": true});
+          res.status(200).send({"ok": true});
         } else {
           //Return false
-          res.send({"ok": false});
+          res.status(200).send({"ok": false});
         }
       }
     });
@@ -34,12 +34,12 @@ module.exports = function(app,MongoClient,db) {
       if (err) {
         console.log(err);
         // Some error happened opening the database file.
-        res.send({"ok": false});
+        res.status(404).send({"ok": false});
       } else {
         //If user exists
         let foundUser = userArray.find(user => user.name === req.body.name);
         //Return found user details
-        res.send(foundUser);
+        res.status(200).send(foundUser);
       }
     });
   });

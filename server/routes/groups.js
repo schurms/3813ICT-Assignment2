@@ -93,7 +93,7 @@ module.exports = function(app,MongoClient,db) {
   });
 
   // GET endpoint API for Reading all groups
-  app.get('/api/group', function (req, res) {
+  app.get('/api/groups', function (req, res) {
     console.log('Get Groups');
     // Set Collection Constant
     const collection = db.collection('groups');
