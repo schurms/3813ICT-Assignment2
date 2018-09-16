@@ -53,11 +53,11 @@ Due: 28 September 2018
 ```javascript
 ./mongod
 ```
-- Start server - Terminal Window 1 (This starts the server with nodemon)
+- Start server - Terminal Window 2 (This starts the server with nodemon)
 ```javascript
 npm run server
 ```
-- Start client - Terminal Window 2
+- Start client - Terminal Window 3
 ```javascript
 ng serve
 ```

@@ -1,8 +1,15 @@
 const request = require('supertest');
+const expect = require('chai').expect;
+const chaihttp = require('chai-http');
+const assert = require('assert');
+const chai = require('chai');
 const express = require('express');
 const app = express();
 const url = 'mongodb://localhost:27017';
+let should = chai.should()
 const MongoClient = require('mongodb').MongoClient;
+
+chai.use(chaihttp);
 
 MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
   const dbName = 'mychatdb';
