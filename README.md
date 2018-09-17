@@ -457,7 +457,6 @@ This section defines the Angular Architecture used.  It discusses the components
     - writeMessage - Function to write a message to message History
     - getChannelMessages - Function to get messages for a specific channel
     - leaveChannel - Not Working
-    - 
 
 **3. Models** - Models can be found within the MODELS folder.  The following Angular models are implemented:
   - *Group* - Model defining the structure of a Group Class.  A group has channels and user imports.
