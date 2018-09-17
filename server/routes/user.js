@@ -1,27 +1,5 @@
 module.exports = function(app,MongoClient,db) {
 
-  // TEST API: Load Users
-  app.get('/addusers', (req, res) => {
-    console.log('Load Test User Records');
-    // Set up Data to Load
-    let myData = [
-      {"id":1,"name":"super","password":"1234","email":"super@gmail.com","role":"super","userimage":"http://localhost:3000/images/avatar1.png"},
-      {"id":2,"name":"jordan","password":"1234","email":"jordan@gmail.com","role":"group","userimage":"http://localhost:3000/images/avatar2.png"},
-      {"id":3,"name":"fred","password":"1234","email":"fred@gmail.com","role":"","userimage":"http://localhost:3000/images/avatar3.png"},
-      {"id":4,"name":"bill","password":"1234","email":"bill@gmail.com","role":"group","userimage":"http://localhost:3000/images/avatar4.png"},
-      {"id":5,"name":"sam","password":"1234","email":"sam@gmail.com","role":"","userimage":"http://localhost:3000/images/avatar5.png"},
-      {"id":6,"name":"good","password":"1234","email":"good@gmail.com","role":"super","userimage":"http://localhost:3000/images/default.png"}
-    ];
-    // Set Collection Constant
-    const collection = db.collection('user');
-    // Insert records
-    collection.insertMany(myData, function(err, result) {
-      if (err) throw err;
-      console.log(result);
-      res.status(200).send({result});
-    });
-  });
-
   // TEST API: Delete Users
   app.get('/deleteusers', (req, res) => {
     console.log('Delete All User Records');

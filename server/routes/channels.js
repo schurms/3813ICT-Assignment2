@@ -1,35 +1,5 @@
 module.exports = function(app,MongoClient,db) {
 
-  // TEST API: Load Channels
-  app.get('/addchannels', (req, res) => {
-    console.log('Load Initial Channel Records');
-    // Set up Data to Load
-    let myData = [
-      {"id":1,"name":"Notebooks","user":[]},
-      {"id":2,"name":"Peripherals","user":[{"id":4,"name":"bill","email":"bill@gmail.com","role":"group"}]},
-      {"id":3,"name":"Windows","user":[{"id":4,"name":"bill","email":"test@gmail.com","role":"group"}]},
-      {"id":4,"name":"Apple","user":[{"id":1,"name":"super","email":"super@gmail.com","role":"super"}]},
-      {"id":5,"name":"Shopping","user":[{"id":1,"name":"super","email":"super@gmail.com","role":"super"},{"id":3,"name":"fred","email":"fred@gmail.com","role":""}]},
-      {"id":6,"name":"Travel","user":[{"id":2,"name":"jordan","email":"jordan@gmail.com","role":"group"},{"id":3,"name":"fred","email":"fred@gmail.com","role":""},{"id":1,"name":"super","email":"super@gmail.com","role":"super"}]},
-      {"id":7,"name":"Home Theatre","user":[]},
-      {"id":8,"name":"TV Shows","user":[]},
-      {"id":9,"name":"Automative","user":[]},
-      {"id":10,"name":"Photography","user":[]},
-      {"id":11,"name":"Desktops","user":[]},
-      {"id":12,"name":"Monitors/Videos","user":[]},
-      {"id":13,"name":"Unallocated 1","user":[]},
-      {"id":14,"name":"Unallocated 2","user":[]}
-    ];
-    // Set Collection Constant
-    const collection = db.collection('channels');
-    // Insert Data
-    collection.insertMany(myData, function(err, result) {
-      if (err) throw err;
-      console.log(result);
-      res.status(200).send({result});
-    });
-  });
-
   // TEST API: Delete Channels
   app.get('/deletechannels', (req, res) => {
     console.log('Load Initial Channel Records');

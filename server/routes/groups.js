@@ -1,48 +1,5 @@
 module.exports = function(app,MongoClient,db) {
 
-  // TEST API: Load Groups
-  app.get('/addgroups', (req, res) => {
-    console.log('Load Initial Group Records');
-    // Set up Data to Load
-    let myData = [
-      {"id":1,"name":"Overseas",
-        "channel":[
-          {"id":5,"name":"Shopping","user":[{"id":1,"name":"super","email":"super@gmail.com","role":"super"},{"id":3,"name":"fred","email":"fred@gmail.com","role":""}]},
-          {"id":6,"name":"Travel","user":[{"id":2,"name":"jordan","email":"jordan@gmail.com","role":"group"},{"id":3,"name":"fred","email":"fred@gmail.com","role":""},{"id":1,"name":"super","email":"super@gmail.com","role":"super"}]}],
-        "user":[{"id":1,"name":"super","email":"super@gmail.com","role":"super"},{"id":2,"name":"jordan","email":"jordan@gmail.com","role":"group"},{"id":3,"name":"fred","email":"fred@gmail.com","role":""}]},
-      {"id":2,"name":"Computers",
-        "channel":[
-          {"id":1,"name":"Notebooks","user":[]},
-          {"id":3,"name":"Windows","user":[{"id":4,"name":"bill","email":"test@gmail.com","role":"group"}]},
-          {"id":2,"name":"Peripherals","user":[{"id":4,"name":"bill","email":"bill@gmail.com","role":"group"}]},
-          {"id":4,"name":"Apple","user":[{"id":1,"name":"super","email":"super@gmail.com","role":"super"}]},
-          {"id":11,"name":"Desktops","user":[]},
-          {"id":12,"name":"Monitors/Videos","user":[]}],
-        "user":[
-          {"id":4,"name":"bill","email":"bill@gmail.com","role":"group"},
-          {"id":1,"name":"super","email":"super@gmail.com","role":"super"}]},
-      {"id":3,"name":"Entertainment",
-        "channel":[
-          {"id":7,"name":"Home Theatre","user":[]},
-          {"id":8,"name":"TV Shows","user":[]}],
-        "user":[]},
-      {"id":4,"name":"Lounges",
-        "channel":[
-          {"id":9,"name":"Automative","user":[]},
-          {"id":10,"name":"Photography","user":[]}],
-        "user":[]}
-    ];
-
-    // Set Collection Constant
-    const collection = db.collection('groups');
-    // Insert Data
-    collection.insertMany(myData, function(err, result) {
-      if (err) throw err;
-      console.log(result);
-      res.send({result});
-    });
-  });
-
   // TEST API: Delete Groups
   app.get('/deletegroups', (req, res) => {
     console.log('Load Initial Channel Records');
