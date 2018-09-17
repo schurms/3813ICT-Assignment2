@@ -61,18 +61,8 @@ npm run server
 ```javascript
 ng serve
 ```
-- Add initial test users
-```
-http:\\localhost:3000/addusers
-```
-- Add initial test channels
-```javascript
-http:\\localhost:3000/addchannels
-```
-- Add initial test groups
-```javascript
-http:\\localhost:3000/addgroups
-```
+- Upon start initial users/channels/groups are created.  This includes initialising the collection
+
 - Open chat application - Port 4200 - Duplicate sessions can be opened on port to chat
 ```javascript
 http:\\localhost:4200
