@@ -34,7 +34,9 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true }, function(err, cl
   if (err) {
     return console.log(err)
   } else {
-    // load testdata
+    // Load one user
+    // loadOneUse(db);
+    // Load All Testdata  Comment out if all test data not required
     loadTestData(db);
 
     // Routes
@@ -48,6 +50,61 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true }, function(err, cl
     require('./listen.js')(http);
   }
 });
+
+// Function loads one user into the system
+function loadOneUser(db) {
+  // Set Up User Data
+  db.listCollections({name: 'user'}).next(function(err, collinfo) {
+    if (collinfo) {
+      db.collection('user').drop (function(err, result) {
+        if (err) throw err;
+        console.log('User Collection Dropped')
+      });
+    }
+    // Create Collection
+    db.createCollection('user', function(err, result) {
+      if (err) throw err;
+      console.log('User Collection Created');
+      let myData = {"id":1,"name":"super","password":"1234","email":"super@gmail.com","role":"super","userimage":"http://localhost:3000/images/default.png"};
+      // Insert User Records
+      db.collection('user').insertOne(myData, function(err, result) {
+        if (err) throw err;
+        console.log('User Records Created');
+      });
+    });
+  });
+
+  // Drop channels if exist
+  db.listCollections({name: 'channels'}).next(function(err, collinfo) {
+    if (collinfo) {
+      db.collection('channels').drop(function (err, result) {
+        if (err) throw err;
+        console.log('Channels Collection Dropped')
+      });
+    }
+  });
+
+  // Drop groups if exist
+  db.listCollections({name: 'groups'}).next(function(err, collinfo) {
+    if (collinfo) {
+      db.collection('groups').drop(function (err, result) {
+        if (err) throw err;
+        console.log('Groups Collection Dropped')
+      });
+    }
+  });
+
+  // Drop messages if exist
+  db.listCollections({name: 'messages'}).next(function(err, collinfo) {
+    if (collinfo) {
+      db.collection('messages').drop(function (err, result) {
+        if (err) throw err;
+        console.log('Messages Collection Dropped')
+      });
+    }
+  });
+
+}
 
 // Function loads initial test data
 function loadTestData(db) {

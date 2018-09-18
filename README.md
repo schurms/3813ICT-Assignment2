@@ -113,13 +113,10 @@ http:\\localhost:4200
 2. Ability to send images in chat message
 ___
 ### 6. Test Data Provided
-Test data is automatically loaded into the system on server start.  When the server starts it (i) drops all existing collections if they exist, (ii) creates new collections, and (iii) loads in the data.  This feature can be disabled by commenting out the LOADTESTDATA() function in the server.js file.  
+Test data is automatically loaded into the system on server start.  When the server starts it (i) drops all existing collections if they exist, (ii) creates new collections, and (iii) loads in the data.  This feature can be disabled by commenting out the LOADTESTDATA() function in the server.js file.  If this commented out then you must uncomment the LOADONEUSER() function to load a single "super" user.
 
-**Note** if this function is disabled then the user would have to create at a minimum the user table, according to the defined format and insert a username and password into the table using the following command.
 
-```
-db.user.insertOne({name: "super", password, "1234", email: "", role:"super", userimage: ""}) 
-```
+
 
 The following test data is provided within the system:
 
