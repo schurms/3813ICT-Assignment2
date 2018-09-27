@@ -57,7 +57,9 @@ ___
        - Add/Update/Delete Users
 
 **5. Profile Page**
+
 The profile page allows the logged in user to change their Profile Picture.  The user selects a picture for upload.  They then submit the picture to replace their profile image.
+
 ---
 ### 2. Application Start Commands
 **Step 1** - Start Mongodb 
@@ -104,8 +106,8 @@ http:\\localhost:4200
 	- super, jordan, fred, bill, sam, good
 2. Navigation Menu Display - Navigation menu options vary depending upon whether a user is logged in, logged out, and their role when logged in.  Options are;
 	- If not logged in - For all users display no navigation menu options.
-	- If logged in and user does not have the Super | Group role - Display 'Chatroom' / 'Profile' / 'Logout' menu options
-	- If logged in and user has the Super |Group role – Display 'Admin' / 'Chatroom' / 'Profile' / 'Logout' menu options.
+	- If logged in and user does not have the Super | Group role - Display 'Chatroom' | 'Profile' | 'Logout' menu options
+	- If logged in and user has the Super |Group role – Display 'Admin' | 'Chatroom' | 'Profile' | 'Logout' menu options.
 3. Data persistence – All data (User/Group/Channel/Messages) is persisted within Mongodb.  Data can be modified, and it is retained from session to session.
 4. If a user attempts to access an unknown page, a 404 page is displayed.  They can return to the home page by clicking a button which also logs them out.
 5. Implemented CORS (Cross-Origin Resource Sharing) to allow cross origin HTTP requests between the angular client running on port 4200 and the node server running on port 3000.  The advantage of this is that development can still occur.  Alternative is to action ng build and run all from port 3000 – however this approach does not allow for refreshing of changes on rebuilds.
