@@ -27,8 +27,8 @@ ___
 
 **2. Dashboard**
   - Upon logging in the user is presented with a dashboard.
-  - If the user has a SUPER or GROUP role they will see ADMIN | CHAT | LOGOUT options
-  - If the user does not have a SUPER or GROUP role they will see CHAT | LOGOUT options
+  - If the user has a SUPER or GROUP role they will see ADMIN | CHAT | PROFILE| LOGOUT options
+  - If the user does not have a SUPER or GROUP role they will see CHAT | PROFILE | LOGOUT options
 
 **3. Chat Page**
   - Options on the CHAT page are:
@@ -55,6 +55,9 @@ ___
        - Add/Update/Delete Channels
      - User - This functionality is used to:
        - Add/Update/Delete Users
+
+**5. Profile Page**
+The profile page allows the logged in user to change their Profile Picture.  The user selects a picture for upload.  They then submit the picture to replace their profile image.
 ---
 ### 2. Application Start Commands
 **Step 1** - Start Mongodb 
