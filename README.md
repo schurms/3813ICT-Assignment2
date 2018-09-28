@@ -73,10 +73,11 @@ The profile page allows the logged in user to change their Profile Picture.  The
 - Terminal Window 2
 - Type the following command:
 ```
-npm run server
+cd server
+nodemon run server
 ```
 **Step 3** - Start Angular client 
-- Opern Terminal Window 3
+- Open Terminal Window 3
 - Type the following command:
 ```
 ng serve
@@ -85,7 +86,7 @@ ng serve
 - Upon start initial users/channels/groups are created.
 - Initial data is created
 - Open multiple chat applications on Port 4200
-- Type the following command in different browser sessions
+- Type the following command in different browser session
 ```javascript
 http:\\localhost:4200
 ```
