@@ -1,12 +1,13 @@
 // Modules
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Location } from '@angular/common';
 // Models
 import { User } from '../../models/user.model';
 // Services
 import { ImguploadService } from '../../services/imgupload/imgupload.service';
 import { UserService } from '../../services/user/user.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -23,14 +24,23 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router,
     private imguploadService: ImguploadService,
     private userService: UserService,
     private location: Location) { }
 
   // On Page Opening
   ngOnInit() {
-    this.userId = +this.route.snapshot.paramMap.get('id');
-    this.getUsers();
+    if(!sessionStorage.getItem('user')) {
+      // No valid session is available
+      this.authService.deleteUser();
+      this.router.navigateByUrl('404');
+    } else {
+      this.userId = +this.route.snapshot.paramMap.get('id');
+      this.getUsers();
+    }
+
   }
 
   // On File Selection
