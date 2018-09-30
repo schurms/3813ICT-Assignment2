@@ -103,7 +103,7 @@ http:\\localhost:4200
 	- A User with the group role can not delete users
 ---
 ### 4. Additional Features Implemented
-1. User Authentication - The application tests for a valid user name before allowing access. Whilst an email address is required to be entered it is not authenticated.  New Users can only be created by users with the Super | Group Role.  Test users are:
+1. User Authentication - The application tests for a valid user name and password before allowing access.  New Users can only be created by users with the Super | Group Role.  Test users are:
 	- super, jordan, fred, bill, sam, good
 2. Navigation Menu Display - Navigation menu options vary depending upon whether a user is logged in, logged out, and their role when logged in.  Options are;
 	- If not logged in - For all users display no navigation menu options.
@@ -112,11 +112,11 @@ http:\\localhost:4200
 3. Data persistence – All data (User/Group/Channel/Messages) is persisted within Mongodb.  Data can be modified, and it is retained from session to session.
 4. If a user attempts to access an unknown page, a 404 page is displayed.  They can return to the home page by clicking a button which also logs them out.
 5. Implemented CORS (Cross-Origin Resource Sharing) to allow cross origin HTTP requests between the angular client running on port 4200 and the node server running on port 3000.  The advantage of this is that development can still occur.  Alternative is to action ng build and run all from port 3000 – however this approach does not allow for refreshing of changes on rebuilds.
-6. Display a cumulative history of messages over the entire session.  So when a user joins they see not only their chats but a full history of chats for the session.
+6. Display a cumulative history of messages over the entire session.  When a user joins they see not only their chats but a full history of chats for the session.
 ---
 ### 5. Assignment Features Not Implemented
 1. Broadcast a Message when a user leaves the channel
-2. Ability to send images in chat message
+2. Ability to send images in a chat message
 ___
 ### 6. Test Data Provided
 Test data is automatically loaded into the system on server start.  When the server starts it (i) drops all existing collections if they exist, (ii) creates new collections, and (iii) loads in the data.  This feature can be disabled by commenting out the LOADTESTDATA() function in the server.js file.  If this commented out then you must uncomment the LOADONEUSER() function to load a single "super" user.
