@@ -62,10 +62,6 @@ export class SocketService {
     this.socket.emit('room', channel);
   }
 
-  leaveChannel(channel) {
-    this.socket.emit('disconnect', channel);
-  }
-
   // Function to store a message
   writeMessage(message) {
     let body = JSON.stringify(message);

@@ -50,11 +50,6 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
           this.channelId = params['id'];
         }
       );
-    // this.user = this.authService.readUser();
-    // this.username = this.user.name;
-    // this.getAuthUser(this.username);
-    // this.getChannelMessages(this.channelId);
-    // this.leaveChannel();
 
     // Valid user found
     console.log('Session started for: ' + this.username);
@@ -89,7 +84,7 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
       return
     } else {
       // Append channel so we know what channel this message is being sent from
-      this.socketService.sendMessage(this.message + ' (' + this.username + ')' + '*' + this.channel.name);
+      this.socketService.sendMessage(this.message + ' (' + this.username + ')' + '*' + this.channel.name );
       // Send message to Message History
       this.getChannelMessages(this.channelId);
       let msgHistory = {
@@ -154,13 +149,6 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
     let userNameTitleCase = this.username.charAt(0).toUpperCase() + this.username.toLowerCase().slice(1);
     let joinMessage = userNameTitleCase + " has joined the " + this.chatroom + " Channel*" + this.chatroom;
     this.socketService.joinChannel(joinMessage);
-  }
-
-  // Leave Channel
-  leaveChannel() {
-    let userNameTitleCase = this.username.charAt(0).toUpperCase() + this.username.toLowerCase().slice(1);
-    let leaveMessage = userNameTitleCase + " has left the " + this.chatroom + " Channel*" + this.chatroom;
-    this.socketService.leaveChannel(leaveMessage);
   }
 
   // When leaving this component close down the subscription
