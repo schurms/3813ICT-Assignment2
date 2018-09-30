@@ -4,7 +4,7 @@ Student Name: Jordan Schurmann
 
 Student Number: s5073958
 
-Due: 28 September 2018
+Due: 02 October 2018
 ___
 ## TABLE OF CONTENTS
 1. Guide For How Application Works
