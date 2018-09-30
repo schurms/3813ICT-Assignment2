@@ -22,7 +22,7 @@ ___
 ---
 ### 1. Guide For How The Application Works
 **1. Login**
-  - The application authenticates valid users.  Valid users are listed in section 5.  The application only tests the username and the email is provided as a requirement.
+  - The application authenticates valid users.  Valid users are listed in section 5.  The application tests that a valid username and password is provided as a requirement.  Usernames and passwords are case sensitive. For example, "Super" is different to "super".
   - Additional users can be added via the administration function.  Once added, you are able to login using that username.
 
 **2. Dashboard**
@@ -144,14 +144,14 @@ The following test data is provided within the system:
 | | Photography | | 
 
 #### User Data
-| User Name | User Email | User Role |
-| ------ | ------ | ------ |
-| super | super@gmail.com | super |
-| jordan | jordan@gmail.com	| |
-| fred | fred@gmail.com	| |
-| bill | bill@gmail.com|group |
-| sam | sam@gmail.com | |
-| good | good@gmail.com | super |
+| User Name | password | User Email | User Role |
+| ------ | ------ |------ | ------ |
+| super | 1234 | super@gmail.com | super |
+| jordan | 1234 | jordan@gmail.com	| |
+| fred | 1234 | fred@gmail.com	| |
+| bill | 1234 | bill@gmail.com|group |
+| sam | 1234 | sam@gmail.com | |
+| good | 1234 | good@gmail.com | super |
 
 #### Channel Data
 | Channel Name | User Name |
