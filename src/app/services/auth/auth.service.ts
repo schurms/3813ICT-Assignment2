@@ -24,8 +24,8 @@ export class AuthService {
 
   // Function to validate if user is in the system
   getLoginUser(user) {
-  let body = JSON.stringify(user);
-  return this.httpClient.post(BACKEND_URL + '/api/login/', body, httpOptions);
+    let body = JSON.stringify(user);
+    return this.httpClient.post(BACKEND_URL + '/api/login/', body, httpOptions);
 }
 
 // Function to manage user creation

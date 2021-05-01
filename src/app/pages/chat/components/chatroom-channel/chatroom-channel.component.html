@@ -1,9 +1,10 @@
 <div class="h-100 d-flex flex-column">
   <h5>My Channels</h5>
   <ng-container *ngFor="let channel of myChannels">
-    <div>
-      <a routerLink="/chat/{{channel?.id}}" onclick="window.location.reload()">{{ channel?.name | uppercase }}</a>
-      <!--<a routerLink="/chat/{{channel?.id}}" >{{ channel?.name | uppercase }}</a>-->
+    <div class="btn-group">
+      <a routerLink="/chat/{{channel?.id}}" >{{ channel?.name | uppercase }}</a>
+ <!--     <a routerLink="/chat/{{channel?.id}}" onclick="window.location.reload()"><button class="btn btn-sm btn-warning">Switch</button></a>-->
     </div>
+    <a routerLink="/chat/{{channel?.id}}" onclick="window.location.reload()"><button class="btn btn-sm btn-warning">Switch</button></a>
   </ng-container>
 </div>
