@@ -62,6 +62,11 @@ export class SocketService {
     this.socket.emit('room', channel);
   }
 
+  // Function to Leave a channel
+  leaveChannel(channel) {
+    this.socket.emit('room', channel);
+  }
+
   // Function to store a message
   writeMessage(message) {
     let body = JSON.stringify(message);

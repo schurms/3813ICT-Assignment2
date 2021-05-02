@@ -56,4 +56,7 @@ export class ChatroomChannelComponent implements OnInit {
     });
   }
 
+  refresh(): void {
+    window.location.reload();
+  }
 }

@@ -151,9 +151,16 @@ export class ChatroomWindowComponent implements OnInit, OnDestroy {
     this.socketService.joinChannel(joinMessage);
   }
 
+  // Leave Channel
+  leaveChannel() {
+    let userNameTitleCase = this.username.charAt(0).toUpperCase() + this.username.toLowerCase().slice(1);
+    let leaveMessage = userNameTitleCase + " has left the " + this.chatroom + " Channel*" + this.chatroom;
+    this.socketService.leaveChannel(leaveMessage);
+  }
+
   // When leaving this component close down the subscription
   ngOnDestroy() {
-    // this.leaveChannel();
+    this.leaveChannel();
     if (this.connection) {
       this.connection.unsubscribe();
     }
